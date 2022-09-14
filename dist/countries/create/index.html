@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create country</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/countries">Countries</a> > Create country
+      <h1>Create country</h1>
+    </header>
+
+    <main>
+      <form autocomplete="off" name="create-country-form">
+        <div class="field-container">
+          <label for="countryname">Country name</label>
+          <input type="text" name="countryname" /> 
+          <div class="error hidden" name="countryname-required">* Campo requerido</div>         
+        </div>
+
+        <button id="create-country-button" type="button">Create</button>
+      </form>
+    </main>
+
+    <template id="country-create-template"></template>
+    <script src="/assets/scripts/createCountryBundle.js"></script>
+  </body>
+</html>

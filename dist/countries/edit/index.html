@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit country</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/countries">countries</a> > Edit country
+      <h1>Edit country</h1>
+    </header>
+
+    <main>
+      <p id="Activity-indication-message">
+        Espere por favor, cargando datos...
+      </p>
+      <form name="edit-country-form">
+        <div class="field-container">
+          <label for="countryname">Country name</label>
+          <input type="text" name="countryname" />
+          <div class="error hidden" name="countryname-required">* Campo requerido</div>
+        </div>
+        <template id="country-template"></template>
+
+        <button id="save-country-button" type="button">Save</button>
+      </form>
+    </main>
+
+    <script src="/assets/scripts/editCountryBundle.js"></script>
+  </body>
+</html>
