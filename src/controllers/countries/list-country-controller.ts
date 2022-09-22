@@ -9,8 +9,8 @@ class ListCountryController {
   constructor(countryService: CountryServices, stateService: StateService) {
     this.countryService = countryService;
     this.stateService = stateService;
-    const createButton = document.getElementById("create-button");
-    createButton?.addEventListener("click", this.onClickCreateButton);
+    const createButton = <HTMLButtonElement>document.getElementById("create-button");
+    createButton.addEventListener("click", this.onClickCreateButton);
   }
 
   onClickStatesButton(event: Event) {
@@ -106,7 +106,7 @@ class ListCountryController {
   }
 
   removeActivityIndicationMessage() {
-    const waitingIndicationMessage = document.getElementById(
+    const waitingIndicationMessage = <HTMLDivElement>document.getElementById(
       "waiting-message-row"
     );
     if (waitingIndicationMessage !== null) {
