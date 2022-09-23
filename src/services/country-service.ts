@@ -23,7 +23,7 @@ class CountryServices {
     return await response.json();
   }
 
-  async createCountry(country: string) {
+  async createCountry(country: ICountry) {
     const response = await fetch(`http://localhost:3000/api/country`, {
       method: "POST",
       headers: {
