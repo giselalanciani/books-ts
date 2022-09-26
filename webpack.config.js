@@ -10,6 +10,8 @@ module.exports = {
       "./src/controllers/authors/create-authors-controller.ts",
     editAuthorsBundle: "./src/controllers/authors/edit-authors-controller.ts",
     countriesBundle: "./src/controllers/countries/list-country-controller.ts",
+    createCountryBundle:"./src/controllers/countries/create-country-controller.ts",
+    editCountryBundle:"./src/controllers/countries/edit-country-controller.ts",
   },
   output: {
     filename: "[name].js",
