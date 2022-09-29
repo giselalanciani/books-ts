@@ -4,7 +4,7 @@ const CleanPlugin = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   entry: {
-    indexBundle: "./src/index.ts",
+    homeBundle: "./src/controllers/home-controller.ts",    
   },
   output: {
     filename: "[name].js",
