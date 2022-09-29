@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/authors">Authors</a> > Create author
+      <h1>Create author</h1>
+    </header>
+
+    <main>
+      <form autocomplete="off" name="create-author-form">
+        <div class="field-container">
+          <label for="authorname">Author name</label>
+          <input type="text" name="authorname" />
+          <div class="error hidden" name="authorname-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="Year">Year</label>
+          <select name="year" id="year">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="year-required">* Campo requerido</div>
+        </div>
+
+        <div class="field-container">
+          <label for="Month">Month</label>
+
+          <select name="month" id="month">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="month-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="Day">Day</label>
+
+          <select name="day" id="day">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="day-required">* Campo requerido</div>
+        </div>
+
+        <button id="create-author-button" type="button">Create</button>
+      </form>
+    </main>
+
+    <template id="day-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <template id="year-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <template id="month-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <script src="/assets/scripts/createAuthorsBundle.js"></script>
+  </body>
+</html>

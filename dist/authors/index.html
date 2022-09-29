@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authors</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > Authors
+      <h1>Authors</h1>
+    </header>
+    <main>
+      <button id="create-button" type="button">Create</button>
+
+      <table id="author-table">
+        <tr>
+          <th>Name</th>
+          <th>Birthdate</th>
+          <th>Actions</th>
+        </tr>
+
+        <tr class="hidden" id="no-authors-available">
+          <td colspan="3">No authors available</td>
+        </tr>
+        <tr id="waiting-message-row">
+          <td colspan="3">Espere por favor, cargando datos...</td>
+        </tr>
+      </table>
+    </main>
+
+    <template id="author-row-template">
+      <tr>
+        <td name="name"></td>
+        <td name="birthdate"></td>
+        <td>
+          <button name="edit-author-button" type="button">Edit</button>
+          <button name="delete-author-button" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+    <script src="/assets/scripts/authorsBundle.js"></script>
+  </body>
+</html>
