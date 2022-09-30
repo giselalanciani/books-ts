@@ -66,6 +66,7 @@ class ListAuthorsController {
       const editAuthorButton = copyRowTemplate.querySelector<HTMLButtonElement>(
         "[name='edit-author-button']"
       );
+
       editAuthorButton?.setAttribute("data-id", authorsList[i].id);
       editAuthorButton?.addEventListener("click", this.onClickEditButton);
 

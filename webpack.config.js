@@ -5,7 +5,8 @@ module.exports = {
   mode: "development",
   entry: {
     homeBundle: "./src/controllers/home-controller.ts",  
-    authorsBundle: "./src/controllers/authors/list-authors-controller.ts",  
+    authorsBundle: "./src/controllers/authors/list-authors-controller.ts", 
+    createAuthorsBundle: "./src/controllers/authors/create-authors-controller.ts", 
   },
   output: {
     filename: "[name].js",
