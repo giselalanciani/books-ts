@@ -32,7 +32,7 @@ class StateService {
     return await response.json();
   }
 
-  async createState(state: string) {
+  async createState(state: IState) {
     const response = await fetch("http://localhost:3000/api/state", {
       method: "POST",
       headers: {

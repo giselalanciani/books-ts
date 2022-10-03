@@ -13,6 +13,7 @@ module.exports = {
     createCountryBundle:"./src/controllers/countries/create-country-controller.ts",
     editCountryBundle:"./src/controllers/countries/edit-country-controller.ts",
     statesBundle:"./src/controllers/states/list-state-controller.ts",
+    createStatesBundle:"./src/controllers/states/create-state-controller.ts", 
   },
   output: {
     filename: "[name].js",
