@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>States</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/countries">Countries</a> > States
+      <h1>States</h1>
+    </header>
+
+    <main>
+      <button id="create-button" type="button">Create</button>
+
+      <form autocomplete="off" name="country-filter-form">
+        <div class="field-container">
+          <label for="country">Country</label>
+          <select name="country" id="country">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="country-required">
+            * Campo requerido
+          </div>
+        </div>
+      </form>
+
+      <table id="state-table">
+        <tr id="table-header">
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+
+        <tr class="hidden" id="no-states-available">
+          <td colspan="2">No states available</td>
+        </tr>
+        <tr class="hidden" id="waiting-message-row">
+          <td colspan="2">Espere por favor, cargando datos...</td>
+        </tr>
+      </table>
+    </main>
+    <template id="state-row-template">
+      <tr>
+        <td name="name"></td>
+        <td>
+          <button name="edit-state-button" type="button">Edit</button>
+          <button name="delete-state-button" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+    <script src="/assets/scripts/statesBundle.js"></script>
+    <template id="state-create-template">
+      <option value=""></option>
+    </template>
+  </body>
+</html>

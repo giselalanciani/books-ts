@@ -1,3 +1,4 @@
+import { ICountry } from "../models/country";
 import { IState } from "../models/state";
 
 class StateService {

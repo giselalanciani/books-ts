@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create state</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/states">States</a> > Create state
+      <h1>Create state</h1>
+    </header>
+
+    <main>
+      <form autocomplete="off" name="create-state-form">
+        <div class="field-container">
+          <label for="country">Country</label>
+          <select name="country" id="country">
+            <option value="">seleccione..</option>            
+          </select>
+          <div class="error hidden" name="country-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="statename">State name</label>
+          <input type="text" name="statename" />
+          <div class="error hidden" name="statename-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <button id="create-state-button" type="button">Create</button>
+      </form>
+    </main>
+
+    <script src="/assets/scripts/createStatesBundle.js"></script>
+
+    <template id="state-create-template">
+      <option value=""></option>            
+    </template>
+  </body>
+</html>

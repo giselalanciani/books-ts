@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/states">states</a> > Edit state
+      <h1>Edit state</h1>
+    </header>
+    <main>
+      <p id="Activity-indication-message">
+        Espere por favor, cargando datos...
+      </p>
+      <form name="edit-state-form">
+        <div class="field-container">
+          <label for="statename">State name</label>
+          <input type="text" name="statename" />
+          <div class="error hidden" name="statename-required">
+            * Campo requerido
+          </div>
+        </div>
+        <template id="state-template"></template>
+        <button id="save-state-button" type="button">Save</button>
+      </form>
+    </main>
+    <script src="/assets/scripts/editStatesBundle.js"></script>
+  </body>
+</html>
