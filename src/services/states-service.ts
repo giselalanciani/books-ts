@@ -7,7 +7,8 @@ class StateService {
       `http://localhost:3000/api/state/${countryId}`
     );
 
-    return await response.json();
+    const states: IState[] = await response.json();
+    return states;
   }
 
   async getState(countryId: string, stateId: string) {
@@ -15,7 +16,8 @@ class StateService {
       `http://localhost:3000/api/state/${countryId}/${stateId}`
     );
 
-    return await response.json();
+    const state: IState = await response.json();
+    return state;
   }
 
   async deleteState(countryId: string, stateId: string) {
@@ -29,7 +31,9 @@ class StateService {
         },
       }
     );
-    return await response.json();
+    const state: IState = await response.json();
+
+    return state;
   }
 
   async createState(state: IState) {
@@ -41,7 +45,8 @@ class StateService {
       },
       body: JSON.stringify(state),
     });
-    return response;
+    const stateResponse: IState = await response.json();
+    return stateResponse;
   }
 
   async updateState(countryId: string, state: IState) {
@@ -56,8 +61,9 @@ class StateService {
         body: JSON.stringify(state),
       }
     );
+    const stateResponse: IState = await response.json();
 
-    return await response.json();
+    return stateResponse;
   }
 }
 export { StateService };

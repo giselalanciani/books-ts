@@ -14,6 +14,7 @@ module.exports = {
     editCountryBundle:"./src/controllers/countries/edit-country-controller.ts",
     statesBundle:"./src/controllers/states/list-state-controller.ts",
     createStatesBundle:"./src/controllers/states/create-state-controller.ts", 
+    editStatesBundle:"./src/controllers/states/edit-state-controller.ts", 
   },
   output: {
     filename: "[name].js",

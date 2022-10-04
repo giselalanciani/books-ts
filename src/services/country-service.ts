@@ -4,14 +4,17 @@ class CountryServices {
   async getCountries() {
     const response = await fetch(`http://localhost:3000/api/country`);
 
-    return await response.json();
+    const countryResponse = await response.json();
+    return countryResponse;
   }
 
   async getCountry(id: string) {
     const response = await fetch(`http://localhost:3000/api/country/${id}`);
 
-    return await response.json();
+    const countryResponse = await response.json();
+    return countryResponse;
   }
+
   async deleteCountry(id: string) {
     const response = await fetch(`http://localhost:3000/api/country/${id}`, {
       method: "DELETE",
@@ -20,7 +23,8 @@ class CountryServices {
         "Content-Type": "application/json",
       },
     });
-    return await response.json();
+    const countryResponse = await response.json();
+    return countryResponse;
   }
 
   async createCountry(country: ICountry) {
@@ -32,7 +36,9 @@ class CountryServices {
       },
       body: JSON.stringify(country),
     });
-    return await response.json();
+
+    const countryResponse = await response.json();
+    return countryResponse;
   }
 
   async updateCountry(country: ICountry) {
@@ -47,7 +53,8 @@ class CountryServices {
         body: JSON.stringify(country),
       }
     );
-    return await response.json();
+    const countryResponse = await response.json();
+    return countryResponse;
   }
 }
 export { CountryServices };

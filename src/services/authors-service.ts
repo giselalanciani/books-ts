@@ -2,29 +2,29 @@ import { IAuthor } from "../models/author";
 
 class AuthorsService {
   async getAuthors() {
-    const bookAuthors = await fetch("http://localhost:3000/api/author", {
+    const response = await fetch("http://localhost:3000/api/author", {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-    const responseData = await bookAuthors.json();
+    const bookAuthors = await response.json();
 
-    return responseData;
+    return bookAuthors;
   }
 
   async getAuthor(id: string) {
-    const bookAuthor = await fetch(`http://localhost:3000/api/author/${id}`, {
+    const response = await fetch(`http://localhost:3000/api/author/${id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
     });
-    const responseData = await bookAuthor.json();
+    const authorResponse = await response.json();
 
-    return responseData;
+    return authorResponse;
   }
 
   async updateAuthor(id: string, author: IAuthor) {
@@ -37,13 +37,13 @@ class AuthorsService {
       body: JSON.stringify(author),
     });
 
-    const responseData = await response.json();
+    const authorResponse = await response.json();
 
-    return responseData;
+    return authorResponse;
   }
 
   async createAuthor(author: IAuthor) {
-    const authorResponse = await fetch(`http://localhost:3000/api/author`, {
+    const response = await fetch(`http://localhost:3000/api/author`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -51,8 +51,8 @@ class AuthorsService {
       },
       body: JSON.stringify(author),
     });
-
-    return await authorResponse.json();
+    const authorResponse = await response.json();
+    return authorResponse;
   }
 
   async deleteAuthor(id: string) {
@@ -63,8 +63,8 @@ class AuthorsService {
         "Content-Type": "application/json",
       },
     });
-
-    return await response.json();
+    const authorResponse = await response.json();
+    return authorResponse;
   }
 }
 
