@@ -76,11 +76,6 @@ class ListEditorialController {
     const editButton = <HTMLButtonElement>event.target;
     const dataId = editButton.getAttribute("data-id");
 
-    // console.log(
-    //   "La editorial es: ",
-    //   event.target.getAttribute("data-id"),
-    //   event.type
-    // );
     window.location.href = `http://localhost:8080/editorials/edit/?id=${dataId}`;
   };
 

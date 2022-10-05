@@ -13,17 +13,21 @@ const configureValidator = (
     switch (validatorName) {
       case "required":
         inputElement.addEventListener("change", (event: Event) => {
-          const name = (<HTMLInputElement>event.target).getAttribute("name");
-          if (name !== null) {
-            validateFieldRequired(name);
+          const fieldInputElement = <HTMLInputElement>event.target;
+          const nameElement = fieldInputElement.getAttribute("name");
+
+          if (nameElement !== null) {
+            validateFieldRequired(nameElement);
           }
         });
         break;
       case "numeric":
         inputElement.addEventListener("change", (event: Event) => {
-          const name = (<HTMLInputElement>event.target).getAttribute("name");
+          const fieldInputElement = <HTMLInputElement>event.target;
+          const name = fieldInputElement.getAttribute("name");
+
           if (name !== null) {
-            validateFieldNumeric("name");
+            validateFieldNumeric(name);
           }
         });
         break;

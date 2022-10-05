@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a>
+      <h1>Books</h1>
+    </header>
+
+    <main>
+      <button id="create-button" type="button">Create</button>
+
+      <table id="books-table">
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Authors</th>
+          <th>Editorial</th>
+          <th>Stock</th>
+          <th>Price</th>
+          <th>Actions</th>
+        </tr>
+        <tr class="hidden" id="no-books-available">
+          <td colspan="7">No books available</td>
+        </tr>
+        <tr id="waiting-message-row">
+          <td colspan="7">Espere por favor, cargando datos...</td>
+        </tr>
+      </table>
+    </main>
+
+    <template id="book-row-template">
+      <tr>
+        <td name="name"></td>
+        <td name="year"></td>
+        <td name="author"></td>
+        <td name="editorial"></td>
+        <td name="stock"></td>
+        <td name="price"></td>
+
+        <td name="actions">
+          <button name="edit-book-button" type="button">Edit</button>
+          <button name="delete-book-button" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+
+    <script src="/assets/scripts/booksBundle.js"></script>
+  </body>
+</html>

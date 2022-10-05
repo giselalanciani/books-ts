@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit book</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/books">Books</a> > Edit book
+      <h1>Edit book</h1>
+    </header>
+    <main>
+      <p id="Activity-indication-message">
+        Espere por favor, cargando datos...
+      </p>
+      <form autocomplete="off" class="hidden" name="edit-book-form">
+        <div class="field-container">
+          <label for="bookname">Book name</label>
+          <input type="text" name="bookname" />
+          <div class="error hidden" name="bookname-required">* Campo requerido</div>
+
+          <label for="year">Year</label>
+          <input type="number" name="year" />
+          <div class="error hidden" name="year-required">* Campo requerido</div>
+          <div class="error hidden" name="year-numeric">* El campo debe ser numérico</div>
+        </div>
+
+        <div class="field-container">
+          <label for="editorial">editorial</label>
+          <select name="editorial" id="editorial">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="editorial-required">* Campo requerido</div>
+        </div>
+
+        <div class="field-container">
+          <label for="authors">authors</label>
+
+          <select name="authors" id="authors">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="authors-required">* Campo requerido</div>
+        </div>
+
+        <div class="field-container">
+          <label for="stock">Stock</label>
+          <input type="number" name="stock" />
+          <div class="error hidden" name="stock-required">* Campo requerido</div>
+          <div class="error hidden" name="stock-numeric">* El campo debe ser numérico</div>
+        </div>
+
+        <div class="field-container">
+          <label for="price">Price</label>
+          <input type="number" name="price" />
+          <div class="error hidden" name="price-required">* Campo requerido</div>
+          <div class="error hidden" name="price-numeric">* El campo debe ser numérico</div>
+        </div>
+
+        <button id="save-book-button" type="button">Save</button>
+      </form>
+    </main>
+
+    <template id="editorial-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <template id="author-option-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <script src="/assets/scripts/editBookBundle.js"></script>
+  </body>
+</html>

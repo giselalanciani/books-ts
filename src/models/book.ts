@@ -1,9 +1,10 @@
 interface Ibook {
   id: string;
   name: string;
-  year: number;
+  year: string;
+  editorial: string;
   author: string;
-  stock: number;
-  price: number;
+  stock: string;
+  price: string;
 }
 export { Ibook };
