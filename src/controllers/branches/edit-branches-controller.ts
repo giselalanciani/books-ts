@@ -118,7 +118,7 @@ class EditBranchController {
     }
   }
 
-  renderCountries(countryDataList: ICountry[]) {
+  private renderCountries(countryDataList: ICountry[]) {
     const countrySelect = <HTMLSelectElement>document.getElementById("country");
 
     const countryTemplate = <HTMLTemplateElement>(
@@ -164,7 +164,7 @@ class EditBranchController {
     }
   }
 
-  getQueryParams() {
+  private getQueryParams() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;

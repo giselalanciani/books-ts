@@ -38,7 +38,7 @@ class createStateController {
     return isFormValid;
   }
 
-  sendData = async () => {
+  private sendData = async () => {
     try {
       const stateNameInput = <HTMLInputElement>(
         document.querySelector("[name='statename']")
@@ -68,7 +68,7 @@ class createStateController {
     } catch (error) {
       errorHandler("error al sincronizar datos", error);
     }
-  }  
+  }
 
   private renderCountries(countryDataList: ICountry[]) {
     const countrySelect = <HTMLSelectElement>document.getElementById("country");
