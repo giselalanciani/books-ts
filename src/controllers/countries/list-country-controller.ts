@@ -1,30 +1,27 @@
 import { ICountry } from "../../models/country";
 import { CountryServices } from "../../services/country-service";
-import { StateService } from "../../services/states-service";
 import { errorHandler } from "../../utils/error-handler";
 
 class ListCountryController {
-  countryService;
-  stateService;
-  constructor(countryService: CountryServices, stateService: StateService) {
-    this.countryService = countryService;
-    this.stateService = stateService;
-    const createButton = <HTMLButtonElement>document.getElementById("create-button");
+  constructor(private countryService: CountryServices) {
+    const createButton = <HTMLButtonElement>(
+      document.getElementById("create-button")
+    );
     createButton.addEventListener("click", this.onClickCreateButton);
   }
 
-  onClickStatesButton(event: Event) {
+  private onClickStatesButton(event: Event) {
     const countryId = (<HTMLButtonElement>event.target).getAttribute(
       "data-country-id"
     );
     window.location.href = `/states/?countryId=${countryId}`;
   }
 
-  onClickCreateButton() {
+  private onClickCreateButton() {
     window.location.href = "/countries/create";
   }
 
-  renderCountries(countriesList: ICountry[]) {
+  private renderCountries(countriesList: ICountry[]) {
     const countryTable = <HTMLTableElement>(
       document.getElementById("country-table")
     );
@@ -67,12 +64,12 @@ class ListCountryController {
     }
   }
 
-  onClickEditButton = (event: Event) => {
+  private onClickEditButton = (event: Event) => {
     const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
     window.location.href = `http://localhost:8080/countries/edit/?id=${id}`;
   };
 
-  onClickDeleteButton = async (event: Event) => {
+  private onClickDeleteButton = async (event: Event) => {
     const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
     try {
       if (id !== null) {
@@ -85,7 +82,7 @@ class ListCountryController {
     }
   };
 
-  async init() {
+  public async init() {
     try {
       const countriesDataList = await this.countryService.getCountries();
       if (countriesDataList.length === 0) {
@@ -105,9 +102,9 @@ class ListCountryController {
     }
   }
 
-  removeActivityIndicationMessage() {
-    const waitingIndicationMessage = <HTMLDivElement>document.getElementById(
-      "waiting-message-row"
+  private removeActivityIndicationMessage() {
+    const waitingIndicationMessage = <HTMLDivElement>(
+      document.getElementById("waiting-message-row")
     );
     if (waitingIndicationMessage !== null) {
       waitingIndicationMessage.remove();
@@ -115,8 +112,5 @@ class ListCountryController {
   }
 }
 
-const listCountryCtrl = new ListCountryController(
-  new CountryServices(),
-  new StateService()
-);
+const listCountryCtrl = new ListCountryController(new CountryServices());
 listCountryCtrl.init();

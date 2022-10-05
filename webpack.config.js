@@ -15,6 +15,12 @@ module.exports = {
     statesBundle:"./src/controllers/states/list-state-controller.ts",
     createStatesBundle:"./src/controllers/states/create-state-controller.ts", 
     editStatesBundle:"./src/controllers/states/edit-state-controller.ts", 
+    editorialsBundle: "./src/controllers/editorials/list-editorial-controller.ts",
+    createEditorialsBundle: "./src/controllers/editorials/create-editorial-controller.ts",
+    editEditorialsBundle: "./src/controllers/editorials/edit-editorial-controller.ts",
+    branchesBundle:"./src/controllers/branches/list-branches-controller.ts",   
+    createBranchesBundle:"./src/controllers/branches/create-branches-controller.ts",
+    editBranchesBundle:"./src/controllers/branches/edit-branches-controller.ts", 
   },
   output: {
     filename: "[name].js",

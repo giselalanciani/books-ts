@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Branches</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a>
+      <h1>Branches</h1>
+    </header>
+    <main>
+      <button id="create-button" type="button">Create</button>
+
+      <table id="branches-table">
+        <tr>
+          <th>Name</th>
+
+          <th>City</th>
+          <th>Street</th>
+        </tr>
+        <tr class="hidden" id="no-branches-available">
+          <td colspan="3">No branches available</td>
+        </tr>
+        <tr id="waiting-message-row">
+          <td colspan="3">Espere por favor, cargando datos...</td>
+        </tr>
+      </table>
+    </main>
+    <template id="branches-row-template">
+      <tr>
+        <td name="name"></td>
+
+        <td name="city"></td>
+        <td name="street"></td>
+
+        <td name="actions">
+          <button name="edit-branches-button" type="button">Edit</button>
+          <button name="delete-branches-button" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+    <script src="/assets/scripts/branchesBundle.js"></script>
+  </body>
+</html>

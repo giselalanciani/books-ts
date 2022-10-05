@@ -5,9 +5,7 @@ import { errorHandler } from "../../utils/error-handler";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class EditStateController {
-  stateService;
-  constructor(stateService: StateService) {
-    this.stateService = stateService;
+  constructor(private stateService: StateService) {
     const saveButton = <HTMLButtonElement>(
       document.getElementById("save-state-button")
     );
@@ -16,12 +14,12 @@ class EditStateController {
     configureValidator("statename");
   }
 
-  getQueryParams() {
+  private getQueryParams() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;
   }
-  onClickSaveButton = async (event: Event) => {
+  private onClickSaveButton = async (event: Event) => {
     if (this.validateEditStateForm()) {
       try {
         const stateNameInput = <HTMLInputElement>(
@@ -37,7 +35,7 @@ class EditStateController {
           countryId: countryId,
         };
 
-        await this.stateService.updateState(id, state);
+        await this.stateService.updateState(countryId, state);
         alert("Los datos fueron guardados");
         window.location.href = "/states";
       } catch (error) {
@@ -48,7 +46,7 @@ class EditStateController {
       }
     }
   };
-  validateEditStateForm() {
+  private validateEditStateForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("statename") === false) {
@@ -58,7 +56,7 @@ class EditStateController {
     return isFormValid;
   }
 
-  async init() {
+  public async init() {
     const params = this.getQueryParams();
 
     try {
@@ -69,8 +67,8 @@ class EditStateController {
       const indicatorMessage = <HTMLParagraphElement>(
         document.querySelector("[id='Activity-indication-message']")
       );
-      indicatorMessage.classList.add('hidden');
-      
+      indicatorMessage.classList.add("hidden");
+
       const stateInput = <HTMLInputElement>(
         document.querySelector("[name='statename']")
       );

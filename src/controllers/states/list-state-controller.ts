@@ -7,11 +7,10 @@ import { getQueryParams } from "../../utils/getQueryParams";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class ListStatesController {
-  stateService;
-  countryService;
-  constructor(stateService: StateService, countryService: CountryServices) {
-    this.countryService = countryService;
-    this.stateService = stateService;
+  constructor(
+    private stateService: StateService,
+    private countryService: CountryServices
+  ) {
     const createButton = <HTMLButtonElement>(
       document.getElementById("create-button")
     );
@@ -21,11 +20,11 @@ class ListStatesController {
     countrySelect.addEventListener("change", this.onChangeCountrySelect);
   }
 
-  onClickCreateButton() {
+  private onClickCreateButton() {
     window.location.href = "/states/create";
   }
 
-  onClickEditButton = async (event: Event) => {
+  private onClickEditButton = async (event: Event) => {
     const editButton = <HTMLButtonElement>event.target;
     const id = editButton.getAttribute("data-id");
     const countryId = editButton.getAttribute("data-country-id");
@@ -33,7 +32,7 @@ class ListStatesController {
     window.location.href = `http://localhost:8080/states/edit/?id=${id}&countryId=${countryId}`;
   };
 
-  onClickDeleteButton = async (event: Event) => {
+  private onClickDeleteButton = async (event: Event) => {
     if (confirm(`Desea eliminar el estado?`) == true)
       try {
         const stateId = (<HTMLButtonElement>event.target).getAttribute(
@@ -52,7 +51,7 @@ class ListStatesController {
       }
   };
 
-  validateListStateForm() {
+  private validateListStateForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("statename") === false) {
@@ -64,7 +63,7 @@ class ListStatesController {
 
     return isFormValid;
   }
-  onChangeCountrySelect = async (event: Event) => {
+  private onChangeCountrySelect = async (event: Event) => {
     const stateTable = <HTMLTableElement>document.getElementById("state-table");
     stateTable.classList.remove("hidden");
 
@@ -101,7 +100,7 @@ class ListStatesController {
       }
   };
 
-  deleteTableRows() {
+  private deleteTableRows() {
     const stateTable = <HTMLTableElement>document.getElementById("state-table");
     const tableTrs = stateTable.querySelectorAll("tr");
     tableTrs.forEach((tr) => {
@@ -117,7 +116,7 @@ class ListStatesController {
     });
   }
 
-  renderStates(statesList: IState[]) {
+  private renderStates(statesList: IState[]) {
     const stateTable = <HTMLTableElement>document.getElementById("state-table");
     const stateRowTemplate = <HTMLTemplateElement>(
       document.getElementById("state-row-template")
@@ -155,7 +154,7 @@ class ListStatesController {
       stateTable.append(copyRowTemplate);
     }
   }
-  renderCountries(countryDataList: ICountry[]) {
+  private renderCountries(countryDataList: ICountry[]) {
     const countrySelect = <HTMLSelectElement>document.getElementById("country");
 
     const countryTemplate = <HTMLTemplateElement>(
@@ -182,7 +181,7 @@ class ListStatesController {
     countrySelect.dispatchEvent(new Event("change"));
   }
 
-  async init() {
+  public async init() {
     try {
       const countryDataList = await this.countryService.getCountries();
       this.renderCountries(countryDataList);

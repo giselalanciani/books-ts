@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>Edit branch</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/branches">Branches</a> > Edit branch
+      <h1>Edit branch</h1>
+    </header>
+    <main>
+      <p id="Activity-indication-message">
+        Espere por favor, cargando datos...
+      </p>
+
+      <form autocomplete="off" class="hidden" name="edit-branch-form">
+        <div class="field-container">
+          <label for="branchname">Branch name</label>
+          <input type="text" name="branchname" />
+          <div class="error hidden" name="branchname-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="country">Country</label>
+          <select name="country" id="country">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="country-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="state">State</label>
+          <select name="state" id="state">
+            <option id="select-state" value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="state-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="city">City</label>
+          <input type="text" name="city" />
+          <div class="error hidden" name="city-required">* Campo requerido</div>
+        </div>
+
+        <div class="field-container">
+          <label for="street">Street</label>
+          <input type="text" name="street" />
+          <div class="error hidden" name="street-required">
+            * Campo requerido
+          </div>
+        </div>
+        <template id="branch-template"></template>
+        <button id="save-branch-button" type="button">Save</button>
+      </form>
+    </main>
+    <template id="country-create-template">
+      <option></option>
+    </template>
+    <template id="states-option-template">
+      <option></option>
+    </template>    
+    <script src="/assets/scripts/editBranchesBundle.js"></script>
+  </body>
+</html>

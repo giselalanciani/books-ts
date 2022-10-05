@@ -7,11 +7,10 @@ import { errorHandler } from "../../utils/error-handler";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class createStateController {
-  stateService;
-  countryServices;
-  constructor(stateService: StateService, countryServices: CountryServices) {
-    this.stateService = stateService;
-    this.countryServices = countryServices;
+  constructor(
+    private stateService: StateService,
+    private countryServices: CountryServices
+  ) {
     const createStateButton = <HTMLButtonElement>(
       document.getElementById("create-state-button")
     );
@@ -21,12 +20,12 @@ class createStateController {
     configureValidator("country");
   }
 
-  onClickCreateStateButton = () => {
+  private onClickCreateStateButton = () => {
     if (this.validateCreateStateForm() === true) {
       this.sendData();
     }
   };
-  validateCreateStateForm() {
+  private validateCreateStateForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("statename") === false) {
@@ -62,31 +61,16 @@ class createStateController {
     }
   };
 
-  async init() {
+  public async init() {
     try {
       const countryData = await this.countryServices.getCountries();
       this.renderCountries(countryData);
     } catch (error) {
       errorHandler("error al sincronizar datos", error);
     }
-  }
+  }  
 
-  renderStates(statesDataList: IState[]) {
-    const statesSelect = <HTMLSelectElement>document.getElementById("states");
-
-    const statesOptionTemplate = <HTMLTemplateElement>(
-      document.getElementById("states-option-template")
-    );
-
-    for (let i = 0; i < statesDataList.length; i++) {
-      const copyStatesOptionTemplate = document.importNode(
-        statesOptionTemplate.content,
-        true
-      );
-    }
-  }
-
-  renderCountries(countryDataList: ICountry[]) {
+  private renderCountries(countryDataList: ICountry[]) {
     const countrySelect = <HTMLSelectElement>document.getElementById("country");
 
     const countryTemplate = <HTMLTemplateElement>(

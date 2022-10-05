@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create editorial</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/editorials">Editorials</a> > Create
+      editorial
+      <h1>Create editorial</h1>
+    </header>
+
+    <main>
+      <form autocomplete="off" name="create-editorial-form">
+        <div class="field-container">
+          <label for="editorialname">Editorial name</label>
+          <input type="text" name="editorialname" />
+          <div class="error hidden" name="editorialname-required">* Campo requerido</div>
+        </div>
+
+        <button id="create-editorial-button" type="button">Create</button>
+      </form>
+    </main>
+
+    <script src="/assets/scripts/createEditorialsBundle.js"></script>
+
+    <template id="editorial-create-template"></template>
+  </body>
+</html>

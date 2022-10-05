@@ -3,19 +3,19 @@ import { CountryServices } from "../../services/country-service";
 import { errorHandler } from "../../utils/error-handler";
 
 class EditCountryController {
-  countryServices;
-  constructor(countryServices: CountryServices) {
-    this.countryServices = countryServices;
-    const saveButton = <HTMLButtonElement>document.getElementById("save-country-button");
+  constructor(private countryServices: CountryServices) {
+    const saveButton = <HTMLButtonElement>(
+      document.getElementById("save-country-button")
+    );
     saveButton?.addEventListener("click", this.onClickSaveButton);
   }
 
-  getQueryParams() {
+  private getQueryParams() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;
   }
-  validateEditForm() {
+  private validateEditForm() {
     const editNameInput = <HTMLInputElement>(
       document.querySelector("[name='countryname']")
     );
@@ -29,7 +29,7 @@ class EditCountryController {
     nameRequiredError.classList.add("hidden");
     return true;
   }
-  onClickSaveButton = async (event: Event) => {
+  private onClickSaveButton = async (event: Event) => {
     if (this.validateEditForm()) {
       try {
         const countryNameInput = <HTMLInputElement>(
@@ -54,7 +54,7 @@ class EditCountryController {
     }
   };
 
-  renderCountry(countryDataList: ICountry[]) {
+  private renderCountry(countryDataList: ICountry[]) {
     const countryTemplate = <HTMLTemplateElement>(
       document.getElementById("country-template")
     );
@@ -66,7 +66,7 @@ class EditCountryController {
       );
     }
   }
-  async init() {
+  public async init() {
     const params = this.getQueryParams();
     const id = params.id;
     try {
@@ -83,9 +83,9 @@ class EditCountryController {
       this.removeActivityIndicationMessage();
     }
   }
-  removeActivityIndicationMessage() {
-    const waitingIndicationMessage = <HTMLDivElement>document.getElementById(
-      "Activity-indication-message"
+  private removeActivityIndicationMessage() {
+    const waitingIndicationMessage = <HTMLDivElement>(
+      document.getElementById("Activity-indication-message")
     );
     if (waitingIndicationMessage !== null) {
       waitingIndicationMessage.remove();

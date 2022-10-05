@@ -3,9 +3,7 @@ import { CountryServices } from "../../services/country-service";
 import { errorHandler } from "../../utils/error-handler";
 
 class CreateCountryController {
-  countryServices;
-  constructor(countryServices: CountryServices) {
-    this.countryServices = countryServices;
+  constructor(private countryServices: CountryServices) {
     const createCountryButton = document.getElementById(
       "create-country-button"
     );
@@ -15,7 +13,7 @@ class CreateCountryController {
     );
   }
 
-  validateCreateForm() {
+  private validateCreateForm() {
     const countryNameInput = <HTMLInputElement>(
       document.querySelector("[name='countryname']")
     );
@@ -30,13 +28,13 @@ class CreateCountryController {
     return true;
   }
 
-  onClickCreateCountryButton = () => {
+  private onClickCreateCountryButton = () => {
     if (this.validateCreateForm() === true) {
       this.sendCountryData();
     }
   };
 
-  sendCountryData = async () => {
+  private sendCountryData = async () => {
     const countryNameInput = <HTMLInputElement>(
       document.querySelector("[name='countryname']")
     );
@@ -59,7 +57,7 @@ class CreateCountryController {
     }
   };
 
-  removeActivityIndicationMessage() {
+  private removeActivityIndicationMessage() {
     const waitingIndicationMessage = document.getElementById(
       "Activity-indication-message"
     );

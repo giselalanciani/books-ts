@@ -6,12 +6,10 @@ import { errorHandler } from "../../utils/error-handler";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class EditAuthorsController {
-  authorService;
-  dateService;
-  constructor(authorService: AuthorsService, dateService: DateService) {
-    this.authorService = authorService;
-    this.dateService = dateService;
-
+  constructor(
+    private authorService: AuthorsService,
+    private dateService: DateService
+  ) {
     const saveButton = <HTMLButtonElement>(
       document.getElementById("save-author-button")
     );
@@ -23,13 +21,13 @@ class EditAuthorsController {
     configureValidator("day");
   }
 
-  getQueryParams() {
+  private getQueryParams() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;
   }
 
-  onClickSaveButton = async (event: Event) => {
+  private onClickSaveButton = async (event: Event) => {
     if (this.validateEditAuthorsForm() === true) {
       const authorInput = <HTMLInputElement>(
         document.querySelector("[name='authorname']")
@@ -47,11 +45,11 @@ class EditAuthorsController {
       const author: IAuthor = {
         id: "",
         name: authorInput.value,
-        birthdate: (new Date(
+        birthdate: new Date(
           parseInt(yearSelect.value),
           parseInt(monthSelect.value),
           parseInt(daySelect.value)
-        )).toISOString(),
+        ).toISOString(),
       };
 
       const id = this.getQueryParams().id;
@@ -69,7 +67,7 @@ class EditAuthorsController {
     }
   };
 
-  async init() {
+  public async init() {
     const params = this.getQueryParams();
     const id = params.id;
 
@@ -96,15 +94,15 @@ class EditAuthorsController {
       const yearSelect = <HTMLSelectElement>(
         document.querySelector("[name='year']")
       );
-      yearSelect.value = birthdate.getFullYear().toString();      
+      yearSelect.value = birthdate.getFullYear().toString();
 
       const monthSelect = <HTMLSelectElement>(
         document.querySelector("[name='month']")
-      );      
+      );
       monthSelect.value = birthdate.getMonth().toString();
       const daySelect = <HTMLSelectElement>(
         document.querySelector("[name='day']")
-      );      
+      );
       daySelect.value = birthdate.getDate().toString();
     } catch (error) {
       errorHandler(
@@ -114,7 +112,7 @@ class EditAuthorsController {
     }
   }
 
-  validateEditAuthorsForm() {
+  private validateEditAuthorsForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("authorname") === false) {
@@ -133,7 +131,7 @@ class EditAuthorsController {
     return isFormValid;
   }
 
-  renderDays = (daysDataList: number[]) => {
+  private renderDays = (daysDataList: number[]) => {
     const authorDaySelect = <HTMLSelectElement>document.getElementById("day");
     const dayTemplate = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
@@ -153,7 +151,7 @@ class EditAuthorsController {
     }
   };
 
-  renderYears = (yearsDataList: number[]) => {
+  private renderYears = (yearsDataList: number[]) => {
     const authorYearSelect = <HTMLSelectElement>document.getElementById("year");
     const yearTemplate = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
@@ -173,7 +171,7 @@ class EditAuthorsController {
     }
   };
 
-  renderMonths = (monthsDataList: number[]) => {
+  private renderMonths = (monthsDataList: number[]) => {
     const authorMonthSelect = <HTMLSelectElement>(
       document.getElementById("month")
     );

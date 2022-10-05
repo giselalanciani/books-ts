@@ -3,15 +3,12 @@ import { AuthorsService } from "../../services/authors-service";
 import { errorHandler } from "../../utils/error-handler";
 
 class ListAuthorsController {
-  authorsService;
-  constructor(authorsService: AuthorsService) {
-    this.authorsService = authorsService;
-
+  constructor(private authorsService: AuthorsService) {
     const createButton = document.getElementById("create-button");
     createButton?.addEventListener("click", this.onClickCreateButton);
   }
 
-  async init() {
+  public async init() {
     try {
       const authorsDataList = await this.authorsService.getAuthors();
       this.removeWaitingMessageRow();
@@ -31,12 +28,12 @@ class ListAuthorsController {
       );
     }
   }
-  removeWaitingMessageRow() {
+  private removeWaitingMessageRow() {
     const waitingMessageRow = document.getElementById("waiting-message-row");
     waitingMessageRow?.remove();
   }
 
-  renderAuthors(authorsList: IAuthor[]) {
+  private renderAuthors(authorsList: IAuthor[]) {
     const authorTable = document.getElementById("author-table");
     const authorRowTemplate = <HTMLTemplateElement>(
       document.getElementById("author-row-template")
@@ -81,16 +78,16 @@ class ListAuthorsController {
     }
   }
 
-  onClickCreateButton() {
+  private onClickCreateButton() {
     window.location.href = "/authors/create";
   }
 
-  onClickEditButton = (event: Event) => {
+  private onClickEditButton = (event: Event) => {
     const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
     window.location.href = `http://localhost:8080/authors/edit/?id=${id}`;
   };
 
-  onClickDeleteButton = async (event: Event) => {
+  private onClickDeleteButton = async (event: Event) => {
     const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
     try {
       if (id !== null) {

@@ -4,19 +4,17 @@ import { DateService } from "../../services/date-service";
 import { errorHandler } from "../../utils/error-handler";
 
 class CreateAuthorsController {
-  authorsService;
-  dateService;
-  constructor(authorsService: AuthorsService, dateService: DateService) {
-    this.authorsService = authorsService;
-    this.dateService = dateService;
-
+  constructor(
+    private authorsService: AuthorsService,
+    private dateService: DateService
+  ) {
     const createAuthorButton = document.getElementById("create-author-button");
     createAuthorButton?.addEventListener(
       "click",
       this.onClickCreateAuthorButton
     );
   }
-  renderDays = (daysDataList: number[]) => {
+  private renderDays = (daysDataList: number[]) => {
     const authorDaySelect = document.getElementById("day");
     const dayTemplate = <HTMLTemplateElement>(
       document.getElementById("day-template")
@@ -34,7 +32,7 @@ class CreateAuthorsController {
     }
   };
 
-  renderYears = (yearsDataList: number[]) => {
+  private renderYears = (yearsDataList: number[]) => {
     const authorYearSelect = document.getElementById("year");
     const yearTemplate = <HTMLTemplateElement>(
       document.getElementById("year-template")
@@ -53,7 +51,7 @@ class CreateAuthorsController {
     }
   };
 
-  renderMonths = (monthsDataList: number[]) => {
+  private renderMonths = (monthsDataList: number[]) => {
     const authorMonthSelect = document.getElementById("month");
     const monthTemplate = <HTMLTemplateElement>(
       document.getElementById("month-template")
@@ -75,7 +73,7 @@ class CreateAuthorsController {
     }
   };
 
-  validateFieldRequired(fieldName: string) {
+  private validateFieldRequired(fieldName: string) {
     const authorNameInput = <HTMLInputElement>(
       document.querySelector(`[name='${fieldName}']`)
     );
@@ -90,7 +88,7 @@ class CreateAuthorsController {
     return true;
   }
 
-  validateCreateForm() {
+  private validateCreateForm() {
     let isFormValid = true;
 
     if (this.validateFieldRequired("authorname") === false) {
@@ -107,31 +105,15 @@ class CreateAuthorsController {
     }
 
     return isFormValid;
-
-    // this.validateFieldRequired("authorname");
-
-    // this.validateFieldRequired("year");
-
-    // const yearNameInput = document.querySelector("[name='yearname']");
-    // const nameRequiredError = document.querySelector(
-    //   "[name='yearname-required']"
-    // );
-    // if (yearNameInput.value == "") {
-    //   nameRequiredError.classList.remove("hidden");
-    //   return false;
-    // }
-
-    // nameRequiredError.classList.add("hidden");
-    // return true;
   }
 
-  onClickCreateAuthorButton = () => {
+  private onClickCreateAuthorButton = () => {
     if (this.validateCreateForm() === true) {
       this.sendAuthorsData();
     }
   };
 
-  sendAuthorsData = async () => {
+  private sendAuthorsData = async () => {
     const authorNameInput = <HTMLInputElement>(
       document.querySelector("[name='authorname']")
     );
@@ -168,7 +150,7 @@ class CreateAuthorsController {
     }
   };
 
-  async init() {
+  public async init() {
     const daysData = await this.dateService.getDays();
     const yearsData = await this.dateService.getYears();
     const monthsData = await this.dateService.getMonths();
