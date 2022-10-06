@@ -28,36 +28,25 @@ class EditBooksController {
     configureValidator("price", ["required", "numeric"]);
   }
 
-  private getQueryParams() {
+private getQueryParams() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;
   }
 
-  private onClickSaveButton = async (event: Event) => {
+private onClickSaveButton = async (event:Event) => {
     if (this.validateEditBookForm()) {
       try {
-        const bookNameInput = <HTMLInputElement>(
-          document.querySelector("[name='bookname']")
-        );
-        const bookYearInput = <HTMLInputElement>(
-          document.querySelector("[name='year']")
-        );
-        const stockInput = <HTMLInputElement>(
-          document.querySelector("[name='stock']")
-        );
-        const priceInput = <HTMLInputElement>(
-          document.querySelector("[name='price']")
-        );
-        const authorsSelectorInput = <HTMLSelectElement>(
-          document.querySelector("[name='authors']")
-        );
-        const editorialSelectorInput = <HTMLSelectElement>(
-          document.querySelector("[name='editorial']")
-        );
+        const bookNameInput = <HTMLInputElement>document.querySelector("[name='bookname']");
+        const bookYearInput = <HTMLInputElement>document.querySelector("[name='year']");
+        const stockInput = <HTMLInputElement>document.querySelector("[name='stock']");
+        const priceInput = <HTMLInputElement>document.querySelector("[name='price']");
+        const authorsSelectorInput = <HTMLSelectElement>document.querySelector("[name='authors']");
+        const editorialSelectorInput = <HTMLSelectElement>
+          document.querySelector("[name='editorial']");
 
-        const book: Ibook = {
-          id: "",
+        const book:Ibook = {
+          id:"",
           name: bookNameInput.value,
           year: bookYearInput.value,
           author: authorsSelectorInput.value,
@@ -80,7 +69,7 @@ class EditBooksController {
     }
   };
 
-  private validateEditBookForm() {
+private validateEditBookForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("bookname") === false) {
@@ -118,11 +107,11 @@ class EditBooksController {
     return isFormValid;
   }
 
-  private renderAuthors(authorsDataList: IAuthor[]) {
+private renderAuthors(authorsDataList:IAuthor[]) {
     const authorsSelect = <HTMLSelectElement>document.getElementById("authors");
 
-    const authorOptionTemplate = <HTMLTemplateElement>(
-      document.getElementById("author-option-template")
+    const authorOptionTemplate = <HTMLTemplateElement>document.getElementById(
+      "author-option-template"
     );
 
     for (let i = 0; i < authorsDataList.length; i++) {
@@ -131,9 +120,7 @@ class EditBooksController {
         true
       );
 
-      const newAuthorOption = <HTMLOptionElement>(
-        copyAuthorOptionTemplate.querySelector("option")
-      );
+      const newAuthorOption = <HTMLOptionElement>copyAuthorOptionTemplate.querySelector("option");
 
       newAuthorOption.textContent = `${authorsDataList[i].name}`;
       newAuthorOption.setAttribute("value", `${authorsDataList[i].name}`);
@@ -142,14 +129,10 @@ class EditBooksController {
     }
   }
 
-  private renderEditorials(editorialDataList: IEditorial[]) {
-    const editorialSelect = <HTMLSelectElement>(
-      document.getElementById("editorial")
-    );
+private renderEditorials(editorialDataList:IEditorial[]) {
+    const editorialSelect = <HTMLSelectElement>document.getElementById("editorial");
 
-    const editorialTemplate = <HTMLTemplateElement>(
-      document.getElementById("editorial-template")
-    );
+    const editorialTemplate = <HTMLTemplateElement>document.getElementById("editorial-template");
 
     for (let i = 0; i < editorialDataList.length; i++) {
       const copyEditorialTemplate = document.importNode(
@@ -157,9 +140,7 @@ class EditBooksController {
         true
       );
 
-      const newEditorialOption = <HTMLOptionElement>(
-        copyEditorialTemplate.querySelector("option")
-      );
+      const newEditorialOption = <HTMLOptionElement>copyEditorialTemplate.querySelector("option");
 
       newEditorialOption.textContent = `${editorialDataList[i].name}`;
       newEditorialOption.setAttribute("value", `${editorialDataList[i].id}`);
@@ -168,7 +149,7 @@ class EditBooksController {
     }
   }
 
-  public async init() {
+public async init() {
     const params = this.getQueryParams();
 
     try {
@@ -179,25 +160,15 @@ class EditBooksController {
       this.renderAuthors(authorsData);
       this.renderEditorials(editoriasData);
 
-      const bookInput = <HTMLInputElement>(
-        document.querySelector("[name='bookname']")
-      );
+      const bookInput = <HTMLInputElement>document.querySelector("[name='bookname']");
       bookInput.value = bookData.name;
-      const yearInput = <HTMLInputElement>(
-        document.querySelector("[name='year']")
-      );
+      const yearInput = <HTMLInputElement>document.querySelector("[name='year']");
       yearInput.value = bookData.year;
-      const stockInput = <HTMLInputElement>(
-        document.querySelector("[name='stock']")
-      );
+      const stockInput = <HTMLInputElement>document.querySelector("[name='stock']");
       stockInput.value = bookData.stock;
-      const authorsSelect = <HTMLSelectElement>(
-        document.querySelector("[name='authors']")
-      );
+      const authorsSelect = <HTMLSelectElement>document.querySelector("[name='authors']");
       authorsSelect.value = bookData.author;
-      const editorialSelect = <HTMLSelectElement>(
-        document.querySelector("[name='editorial']")
-      );
+      const editorialSelect = <HTMLSelectElement>document.querySelector("[name='editorial']");
       editorialSelect.value = bookData.editorial;
     } catch (error) {
       errorHandler("error al encontrar la data", error);
@@ -206,17 +177,16 @@ class EditBooksController {
     }
   }
 
-  private removeActivityIndicationMessage() {
+private removeActivityIndicationMessage() {
     const waitingIndicationMessage = document.getElementById(
       "Activity-indication-message"
     );
-    if (waitingIndicationMessage !== null) {
+    if(waitingIndicationMessage !== null){
       waitingIndicationMessage.remove();
     }
+    
 
-    const editBookForm = <HTMLFormElement>(
-      document.querySelector("[name='edit-book-form']")
-    );
+    const editBookForm = <HTMLFormElement>document.querySelector("[name='edit-book-form']");
     editBookForm.setAttribute("class", "");
   }
 }

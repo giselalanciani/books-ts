@@ -53,25 +53,12 @@ class EditCountryController {
       }
     }
   };
-
-  private renderCountry(countryDataList: ICountry[]) {
-    const countryTemplate = <HTMLTemplateElement>(
-      document.getElementById("country-template")
-    );
-
-    for (let i = 0; i < countryDataList.length; i++) {
-      const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
-        true
-      );
-    }
-  }
+  
   public async init() {
     const params = this.getQueryParams();
     const id = params.id;
     try {
-      const countryData = await this.countryServices.getCountry(params.id);
-      this.renderCountry(countryData);
+      const countryData = await this.countryServices.getCountry(params.id);      
 
       const countryInput = <HTMLInputElement>(
         document.querySelector("[name='countryname']")

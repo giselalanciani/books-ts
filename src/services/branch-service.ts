@@ -4,7 +4,7 @@ class BranchService {
   async getBranches() {
     const response = await fetch(`http://localhost:3000/api/branch`);
 
-    const branchResponse = await response.json();
+    const branchResponse: IBranch[] = await response.json();
 
     return branchResponse;
   }
@@ -12,7 +12,7 @@ class BranchService {
   async getBranch(id: string) {
     const response = await fetch(`http://localhost:3000/api/branch/${id}`);
 
-    const branchResponse = await response.json();
+    const branchResponse: IBranch = await response.json();
 
     return branchResponse;
   }
@@ -24,15 +24,10 @@ class BranchService {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: branch.name,
-        country: branch.countryId,
-        state: branch.stateId,
-        city: branch.city,
-        street: branch.street,
-      }),
+      body: JSON.stringify(branch),
     });
-    return response;
+    const branchResponse: IBranch = await response.json();
+    return branchResponse;
   }
 
   async updateBranch(id: string, branch: IBranch) {
@@ -42,15 +37,10 @@ class BranchService {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: branch.name,
-        country: branch.countryId,
-        state: branch.stateId,
-        city: branch.city,
-        street: branch.street,
-      }),
+      body: JSON.stringify(branch),
     });
-    return response;
+    const branchResponse: IBranch = await response.json();
+    return branchResponse;
   }
 
   async deleteBranch(id: string) {
@@ -61,7 +51,7 @@ class BranchService {
         "Content-Type": "application/json",
       },
     });
-    const branchResponse = await response.json();
+    const branchResponse: IBranch = await response.json();
     return branchResponse;
   }
 }

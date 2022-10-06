@@ -9,7 +9,7 @@ class EditorialService {
         "Content-Type": "application/json",
       },
     });
-    const editorialResponse = await response.json();
+    const editorialResponse: IEditorial[] = await response.json();
 
     return editorialResponse;
   }
@@ -22,7 +22,7 @@ class EditorialService {
         "Content-Type": "application/json",
       },
     });
-    const editorialResponse = await response.json();
+    const editorialResponse: IEditorial = await response.json();
 
     return editorialResponse;
   }
@@ -38,7 +38,7 @@ class EditorialService {
         name: editorial.name,
       }),
     });
-    const editorialResponse = await response.json();
+    const editorialResponse: IEditorial = await response.json();
     return editorialResponse;
   }
 
@@ -52,7 +52,7 @@ class EditorialService {
       body: JSON.stringify(editorial),
     });
 
-    const editorialResponse = await response.json();
+    const editorialResponse: IEditorial = await response.json();
 
     return editorialResponse;
   }
@@ -65,7 +65,7 @@ class EditorialService {
         "Content-Type": "application/json",
       },
     });
-    const editorialResponse = await response.json();
+    const editorialResponse: IEditorial = await response.json();
     return editorialResponse;
   }
 }

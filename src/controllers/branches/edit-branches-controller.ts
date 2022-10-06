@@ -82,19 +82,7 @@ class EditBranchController {
         option.remove();
       }
     });
-  }
-  private renderBranch(branchDataList: IBranch[]) {
-    const branchTemplate = <HTMLTemplateElement>(
-      document.getElementById("branch-template")
-    );
-
-    for (let i = 0; i < branchDataList.length; i++) {
-      const copyBranchTemplate = document.importNode(
-        branchTemplate.content,
-        true
-      );
-    }
-  }
+  }  
 
   private renderStates(statesDataList: IState[]) {
     const statesSelect = <HTMLSelectElement>document.getElementById("state");
@@ -199,10 +187,11 @@ class EditBranchController {
 
     try {
       const branchData = await this.branchService.getBranch(branchId);
-      const countryData = await this.countryService.getCountries();
+      const countriesData = await this.countryService.getCountries();
+      const statesData = await this.stateService.getStates(branchData.countryId);
 
-      this.renderCountries(countryData);
-      this.renderBranch(branchData);
+      this.renderCountries(countriesData);      
+      this.renderStates(statesData);
 
       const branchInput = <HTMLInputElement>(
         document.querySelector("[name='branchname']")
@@ -212,6 +201,11 @@ class EditBranchController {
         document.querySelector("[name='country']")
       );
       countryInput.value = branchData.countryId;
+
+      const stateSelectElement = <HTMLSelectElement>(
+        document.querySelector("[name='state']")
+      );
+      stateSelectElement.value = branchData.stateId;
 
       // this.setState(branchData.countryId, branchData.stateId);
 

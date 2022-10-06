@@ -4,14 +4,14 @@ class CountryServices {
   async getCountries() {
     const response = await fetch(`http://localhost:3000/api/country`);
 
-    const countryResponse = await response.json();
+    const countryResponse: ICountry[] = await response.json();
     return countryResponse;
   }
 
   async getCountry(id: string) {
     const response = await fetch(`http://localhost:3000/api/country/${id}`);
 
-    const countryResponse = await response.json();
+    const countryResponse: ICountry = await response.json();
     return countryResponse;
   }
 
@@ -23,7 +23,7 @@ class CountryServices {
         "Content-Type": "application/json",
       },
     });
-    const countryResponse = await response.json();
+    const countryResponse: ICountry = await response.json();
     return countryResponse;
   }
 
@@ -37,7 +37,7 @@ class CountryServices {
       body: JSON.stringify(country),
     });
 
-    const countryResponse = await response.json();
+    const countryResponse: ICountry = await response.json();
     return countryResponse;
   }
 
@@ -53,7 +53,7 @@ class CountryServices {
         body: JSON.stringify(country),
       }
     );
-    const countryResponse = await response.json();
+    const countryResponse: ICountry = await response.json();
     return countryResponse;
   }
 }

@@ -18,22 +18,24 @@
       <table id="branches-table">
         <tr>
           <th>Name</th>
-
+          <th>Country</th>
+          <th>State</th>
           <th>City</th>
           <th>Street</th>
         </tr>
         <tr class="hidden" id="no-branches-available">
-          <td colspan="3">No branches available</td>
+          <td colspan="5">No branches available</td>
         </tr>
         <tr id="waiting-message-row">
-          <td colspan="3">Espere por favor, cargando datos...</td>
+          <td colspan="5">Espere por favor, cargando datos...</td>
         </tr>
       </table>
     </main>
     <template id="branches-row-template">
       <tr>
         <td name="name"></td>
-
+        <td name="country"></td>
+        <td name="state"></td>
         <td name="city"></td>
         <td name="street"></td>
 

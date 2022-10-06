@@ -1,15 +1,29 @@
 import { IBranch } from "../../models/branch";
+import { ICountry } from "../../models/country";
+import { IState } from "../../models/state";
 import { BranchService } from "../../services/branch-service";
+import { CountryServices } from "../../services/country-service";
+import { StateService } from "../../services/states-service";
 import { errorHandler } from "../../utils/error-handler";
+import { getQueryParams } from "../../utils/getQueryParams";
 
 class ListBranchesController {
-  constructor(private branchService: BranchService) {
+  constructor(
+    private branchService: BranchService,
+    private countryService: CountryServices,
+    private stateService: StateService
+  ) {
     const createButton = <HTMLButtonElement>(
       document.getElementById("create-button")
     );
     createButton.addEventListener("click", this.onClickCreateButton);
   }
 
+  private getQueryParams() {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    return params;
+  }
   private onClickCreateButton = () => {
     window.location.href = "/branches/create";
   };
@@ -38,7 +52,7 @@ class ListBranchesController {
       }
   };
 
-  private renderBranch(branchData: IBranch[]) {
+  private async renderBranch (branchData: IBranch[]) {
     const branchTable = <HTMLTableElement>(
       document.getElementById("branches-table")
     );
@@ -55,6 +69,18 @@ class ListBranchesController {
         copyRowTemplate.querySelector("[name='name']")
       );
       nameInput.textContent = branchData[i].name;
+
+      const countryInput = <HTMLInputElement>(
+        copyRowTemplate.querySelector("[name='country']")
+      );
+      const country = await this.countryService.getCountry(branchData[i].countryId);
+      countryInput.textContent = country.name;
+
+      const stateInput = <HTMLInputElement>(
+        copyRowTemplate.querySelector("[name='state']")
+      );
+      const state = await this.stateService.getState(branchData[i].countryId, branchData[i].stateId);
+      stateInput.textContent = state.name;
 
       const cityInput = <HTMLInputElement>(
         copyRowTemplate.querySelector("[name='city']")
@@ -81,9 +107,9 @@ class ListBranchesController {
 
       branchTable.append(copyRowTemplate);
     }
-  }
+  }  
 
-  public async init() {
+  public async init() {    
     try {
       const branchDataList = await this.branchService.getBranches();
 
@@ -94,9 +120,9 @@ class ListBranchesController {
         if (elementNoBranchesAvailableMessage !== null) {
           elementNoBranchesAvailableMessage.setAttribute("class", "");
         }
-      }
+      }      
 
-      this.renderBranch(branchDataList);
+      await this.renderBranch(branchDataList);      
 
       this.removeWaitingMessageRow();
     } catch (error) {
@@ -112,5 +138,9 @@ class ListBranchesController {
   }
 }
 
-const listBranchesController = new ListBranchesController(new BranchService());
+const listBranchesController = new ListBranchesController(
+  new BranchService(),
+  new CountryServices(),
+  new StateService()
+);
 listBranchesController.init();

@@ -9,7 +9,7 @@ class AuthorsService {
         "Content-Type": "application/json",
       },
     });
-    const bookAuthors = await response.json();
+    const bookAuthors: IAuthor[] = await response.json();
 
     return bookAuthors;
   }
@@ -22,7 +22,7 @@ class AuthorsService {
         "Content-Type": "application/json",
       },
     });
-    const authorResponse = await response.json();
+    const authorResponse: IAuthor = await response.json();
 
     return authorResponse;
   }
@@ -37,7 +37,7 @@ class AuthorsService {
       body: JSON.stringify(author),
     });
 
-    const authorResponse = await response.json();
+    const authorResponse: IAuthor = await response.json();
 
     return authorResponse;
   }
@@ -51,7 +51,7 @@ class AuthorsService {
       },
       body: JSON.stringify(author),
     });
-    const authorResponse = await response.json();
+    const authorResponse: IAuthor = await response.json();
     return authorResponse;
   }
 
@@ -63,7 +63,7 @@ class AuthorsService {
         "Content-Type": "application/json",
       },
     });
-    const authorResponse = await response.json();
+    const authorResponse: IAuthor = await response.json();
     return authorResponse;
   }
 }

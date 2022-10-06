@@ -4,7 +4,7 @@ class BookService {
   async getBooks() {
     const response = await fetch(`http://localhost:3000/api/book`);
 
-    const bookResponse = await response.json();
+    const bookResponse: Ibook[] = await response.json();
     return bookResponse;
   }
 
@@ -16,14 +16,14 @@ class BookService {
         "Content-Type": "application/json",
       },
     });
-    const bookResponse = await response.json();
+    const bookResponse: Ibook = await response.json();
     return bookResponse;
   }
 
   async getBook(id: string) {
     const response = await fetch(`http://localhost:3000/api/book/${id}`);
 
-    const bookResponse = await response.json();
+    const bookResponse: Ibook = await response.json();
     return bookResponse;
   }
 
@@ -44,7 +44,7 @@ class BookService {
       }),
     });
 
-    const bookResponse = await response.json();
+    const bookResponse: Ibook = await response.json();
     return bookResponse;
   }
 
@@ -64,7 +64,7 @@ class BookService {
         price: book.price,
       }),
     });
-    const bookResponse = await response.json();
+    const bookResponse: Ibook = await response.json();
     return bookResponse;
   }
 }

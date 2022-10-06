@@ -54,28 +54,10 @@ class EditEditorialController {
     return isFormValid;
   }
 
-  private renderEditorial(editorialDataList: IEditorial[]) {
-    const editorialSelect = <HTMLSelectElement>(
-      document.getElementById("editorialname")
-    );
-
-    const editorialTemplate = <HTMLTemplateElement>(
-      document.getElementById("editorial-template")
-    );
-
-    for (let i = 0; i < editorialDataList.length; i++) {
-      const copyEditorialTemplate = document.importNode(
-        editorialTemplate.content,
-        true
-      );
-    }
-  }
-
   public async init() {
     const params = this.getQueryParams();
     try {
-      const editorialData = await this.editorialService.getEditorial(params.id);
-      this.renderEditorial(editorialData);
+      const editorialData = await this.editorialService.getEditorial(params.id);      
 
       const editorialInput = <HTMLInputElement>(
         document.querySelector("[name='editorialname']")
