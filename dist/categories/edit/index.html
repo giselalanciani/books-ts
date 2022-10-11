@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Categories</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/categories">categories</a> > Edit
+      categories
+      <h1>Edit categories</h1>
+    </header>
+    <main>
+      <p id="Activity-indication-message">
+        Espere por favor, cargando datos...
+      </p>
+      <form name="edit-categories-form">
+        <div class="field-container">
+          <label for="category-name">Categories name</label>
+          <input type="text" name="category-name" />
+          <div class="error hidden" name="category-name-required">
+            * Campo requerido
+          </div>
+        </div>
+        <template id="categories-template"></template>
+
+        <button id="save-category-button" type="button">Save</button>
+      </form>
+    </main>
+
+    <script src="/assets/scripts/editCategoriesBundle.js"></script>
+  </body>
+</html>

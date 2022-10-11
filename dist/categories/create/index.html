@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Category</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/categories">Categories</a> > Create
+      categories
+      <h1>Create categories</h1>
+    </header>
+    <main>
+      <form autocomplete="off" name="create-user-form">
+        <div class="field-container">
+          <label for="category-name">Category name</label>
+          <input type="text" name="category-name" />
+          <div class="error hidden" name="category-name-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <button id="create-category-button" type="button">Create</button>
+      </form>
+    </main>
+    <script src="/assets/scripts/createCategoriesBundle.js"></script>
+  </body>
+</html>
