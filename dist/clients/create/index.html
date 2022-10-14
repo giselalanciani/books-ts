@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create client</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/clients">Clients</a> > Create client
+      <h1>Create client</h1>
+    </header>
+    <main>
+      <form autocomplete="off" name="create-user-form">
+        <div class="field-container">
+          <label for="client-name">Client name</label>
+          <input type="text" name="client-name" />
+          <div class="error hidden" name="client-name-required">
+            * Campo requerido
+          </div>
+        </div>
+        <div class="field-container">
+          <label for="email">Email</label>
+          <input type="email" name="email" />
+          <div class="error hidden" name="email-required">
+            * Campo requerido
+          </div>
+        </div>
+        <div class="field-container">
+          <label for="country">Country</label>
+          <select name="country" id="country">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="country-required">
+            * Campo requerido
+          </div>
+        </div>
+        <div class="field-container">
+          <label for="state">State</label>
+          <select name="state" id="state">
+            <option value="">seleccione..</option>
+          </select>
+          <div class="error hidden" name="state-required">
+            * Campo requerido
+          </div>
+        </div>
+        <div class="field-container">
+          <label for="city">City</label>
+          <input type="text" name="city" />
+          <div class="error hidden" name="city-required">* Campo requerido</div>
+        </div>
+        <div class="field-container">
+          <label for="street">Street</label>
+          <input type="text" name="street" />
+          <div class="error hidden" name="street-required">
+            * Campo requerido
+          </div>
+        </div>
+        <div class="field-container">
+          <label for="liked-categories">Liked categories</label>
+          <select
+            multiple
+            name="liked-categories"
+            id="liked-categories"
+            class="multiple"
+          >            
+          </select>
+          <div class="error hidden" name="liked-categories-required">
+            * Campo requerido
+          </div>
+        </div>
+        <button id="create-client-button" type="button">Create</button>
+      </form>
+    </main>
+
+    <script src="/assets/scripts/createClientsBundle.js"></script>
+    <template id="country-create-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+    <template id="states-option-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <template id="category-option-template">
+      <option value=""></option>
+    </template>
+  </body>
+</html>

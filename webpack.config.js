@@ -36,6 +36,9 @@ module.exports = {
       "./src/controllers/categories/create-categories-controller.ts",
     editCategoriesBundle:
       "./src/controllers/categories/edit-categories-controller.ts",
+    clientsBundle: "./src/controllers/clients/list-clients-controller.ts",
+    createClientsBundle:
+      "./src/controllers/clients/create-clients-controller.ts",
   },
   output: {
     filename: "[name].js",

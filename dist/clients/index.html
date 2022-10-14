@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clients</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > Clients
+      <h1>Clients</h1>
+    </header>
+    <main>
+      <button id="create-button" type="button">Create</button>
+
+      <table id="clients-table">
+        <tr>
+          <th>Client Name</th>
+          <th>Email</th>
+          <th>Country</th>
+          <th>State</th>
+          <th>City</th>
+          <th>Street</th>
+          <th>Liked categories</th>
+          <th>Actions</th>
+        </tr>
+        <tr class="hidden" id="no-books-available">
+          <td colspan="8">No books available</td>
+        </tr>
+        <tr id="waiting-message-row">
+          <td colspan="8">Espere por favor, cargando datos...</td>
+        </tr>
+      </table>
+    </main>
+    <template id="client-row-template">
+      <tr>
+        <td name="client-name"></td>
+        <td name="email"></td>
+        <td name="country"></td>
+        <td name="state"></td>
+        <td name="city"></td>
+        <td name="street"></td>
+        <td name="liked-categories"></td>
+
+        <td name="actions">
+          <button name="edit-client-button" type="button">Edit</button>
+          <button name="delete-client-button" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+
+    <script src="/assets/scripts/clientsBundle.js"></script>
+  </body>
+</html>
