@@ -39,6 +39,7 @@ module.exports = {
     clientsBundle: "./src/controllers/clients/list-clients-controller.ts",
     createClientsBundle:
       "./src/controllers/clients/create-clients-controller.ts",
+    editClientsBundle: "./src/controllers/clients/edit-clients-controller.ts",
   },
   output: {
     filename: "[name].js",
