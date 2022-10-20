@@ -13,7 +13,7 @@ class CreateCategoryController {
       "click",
       this.onClickCreateCategoryButton
     );
-    configureValidator('category-name', ["required"]);
+    configureValidator("category-name", [{ type: "required" }]);
   }
   private onClickCreateCategoryButton = async () => {
     if (this.validateCreateCategoryForm() === true) {

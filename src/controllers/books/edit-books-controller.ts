@@ -1,11 +1,17 @@
 import { IAuthor } from "../../models/author";
 import { Ibook } from "../../models/book";
+import { ICategory } from "../../models/category";
 import { IEditorial } from "../../models/editorial";
 import { AuthorsService } from "../../services/authors-service";
 import { BookService } from "../../services/book-service";
+import { CategoriesServices } from "../../services/categories-service";
 import { EditorialService } from "../../services/editorial-service";
 import { configureValidator } from "../../utils/configureValidator";
 import { errorHandler } from "../../utils/error-handler";
+import {
+  getSelectValues,
+  setSelectValues,
+} from "../../utils/getSelectedOptions";
 import { validateFieldNumeric } from "../../utils/validateFieldNumeric";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
@@ -13,7 +19,8 @@ class EditBooksController {
   constructor(
     private editorialService: EditorialService,
     private authorsService: AuthorsService,
-    private bookService: BookService
+    private bookService: BookService,
+    private categorieService: CategoriesServices
   ) {
     const saveButton = <HTMLButtonElement>(
       document.getElementById("save-book-button")
@@ -21,38 +28,57 @@ class EditBooksController {
     saveButton.addEventListener("click", this.onClickSaveButton);
 
     configureValidator("bookname");
-    configureValidator("year", ["required", "numeric"]);
+    configureValidator("year", [{ type: "required" }, { type: "numeric" }]);
     configureValidator("editorial");
     configureValidator("authors");
-    configureValidator("stock", ["required", "numeric"]);
-    configureValidator("price", ["required", "numeric"]);
+    configureValidator("stock", [{ type: "required" }, { type: "numeric" }]);
+    configureValidator("price", [{ type: "required" }, { type: "numeric" }]);
+    configureValidator("categories");
   }
 
-private getQueryParams() {
+  private getQueryParams() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;
   }
 
-private onClickSaveButton = async (event:Event) => {
+  private onClickSaveButton = async (event: Event) => {
     if (this.validateEditBookForm()) {
       try {
-        const bookNameInput = <HTMLInputElement>document.querySelector("[name='bookname']");
-        const bookYearInput = <HTMLInputElement>document.querySelector("[name='year']");
-        const stockInput = <HTMLInputElement>document.querySelector("[name='stock']");
-        const priceInput = <HTMLInputElement>document.querySelector("[name='price']");
-        const authorsSelectorInput = <HTMLSelectElement>document.querySelector("[name='authors']");
-        const editorialSelectorInput = <HTMLSelectElement>
-          document.querySelector("[name='editorial']");
+        const bookNameInputElement = <HTMLInputElement>(
+          document.querySelector("[name='bookname']")
+        );
+        const bookYearInputElement = <HTMLInputElement>(
+          document.querySelector("[name='year']")
+        );
+        const stockInputElement = <HTMLInputElement>(
+          document.querySelector("[name='stock']")
+        );
+        const priceInputElement = <HTMLInputElement>(
+          document.querySelector("[name='price']")
+        );
+        const authorsSelectorElement = <HTMLSelectElement>(
+          document.querySelector("[name='authors']")
+        );
+        const editorialSelectorElement = <HTMLSelectElement>(
+          document.querySelector("[name='editorial']")
+        );
+        const categoriesSelectorElement = <HTMLSelectElement>(
+          document.querySelector("[name='categories']")
+        );
+        const selectedCategoriesList = getSelectValues(
+          categoriesSelectorElement
+        );
 
-        const book:Ibook = {
-          id:"",
-          name: bookNameInput.value,
-          year: bookYearInput.value,
-          author: authorsSelectorInput.value,
-          editorial: editorialSelectorInput.value,
-          stock: stockInput.value,
-          price: priceInput.value,
+        const book: Ibook = {
+          id: "",
+          name: bookNameInputElement.value,
+          year: bookYearInputElement.value,
+          stock: stockInputElement.value,
+          price: priceInputElement.value,
+          author: authorsSelectorElement.value,
+          editorial: editorialSelectorElement.value,
+          categories: selectedCategoriesList,
         };
 
         const id = this.getQueryParams().id;
@@ -69,7 +95,7 @@ private onClickSaveButton = async (event:Event) => {
     }
   };
 
-private validateEditBookForm() {
+  private validateEditBookForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("bookname") === false) {
@@ -107,11 +133,11 @@ private validateEditBookForm() {
     return isFormValid;
   }
 
-private renderAuthors(authorsDataList:IAuthor[]) {
+  private renderAuthors(authorsDataList: IAuthor[]) {
     const authorsSelect = <HTMLSelectElement>document.getElementById("authors");
 
-    const authorOptionTemplate = <HTMLTemplateElement>document.getElementById(
-      "author-option-template"
+    const authorOptionTemplate = <HTMLTemplateElement>(
+      document.getElementById("author-option-template")
     );
 
     for (let i = 0; i < authorsDataList.length; i++) {
@@ -120,7 +146,9 @@ private renderAuthors(authorsDataList:IAuthor[]) {
         true
       );
 
-      const newAuthorOption = <HTMLOptionElement>copyAuthorOptionTemplate.querySelector("option");
+      const newAuthorOption = <HTMLOptionElement>(
+        copyAuthorOptionTemplate.querySelector("option")
+      );
 
       newAuthorOption.textContent = `${authorsDataList[i].name}`;
       newAuthorOption.setAttribute("value", `${authorsDataList[i].name}`);
@@ -129,10 +157,14 @@ private renderAuthors(authorsDataList:IAuthor[]) {
     }
   }
 
-private renderEditorials(editorialDataList:IEditorial[]) {
-    const editorialSelect = <HTMLSelectElement>document.getElementById("editorial");
+  private renderEditorials(editorialDataList: IEditorial[]) {
+    const editorialSelect = <HTMLSelectElement>(
+      document.getElementById("editorial")
+    );
 
-    const editorialTemplate = <HTMLTemplateElement>document.getElementById("editorial-template");
+    const editorialTemplate = <HTMLTemplateElement>(
+      document.getElementById("editorial-template")
+    );
 
     for (let i = 0; i < editorialDataList.length; i++) {
       const copyEditorialTemplate = document.importNode(
@@ -140,7 +172,9 @@ private renderEditorials(editorialDataList:IEditorial[]) {
         true
       );
 
-      const newEditorialOption = <HTMLOptionElement>copyEditorialTemplate.querySelector("option");
+      const newEditorialOption = <HTMLOptionElement>(
+        copyEditorialTemplate.querySelector("option")
+      );
 
       newEditorialOption.textContent = `${editorialDataList[i].name}`;
       newEditorialOption.setAttribute("value", `${editorialDataList[i].id}`);
@@ -149,27 +183,82 @@ private renderEditorials(editorialDataList:IEditorial[]) {
     }
   }
 
-public async init() {
+  private renderCategories(catergoriesDataList: ICategory[]) {
+    const categorySelect = <HTMLSelectElement>(
+      document.getElementById("categories")
+    );
+
+    const categoryOptionTemplate = <HTMLTemplateElement>(
+      document.getElementById("categories-option-template")
+    );
+
+    for (let i = 0; i < catergoriesDataList.length; i++) {
+      const copyCategoryTemplate = document.importNode(
+        categoryOptionTemplate.content,
+        true
+      );
+
+      const newCategoryOption = <HTMLOptionElement>(
+        copyCategoryTemplate.querySelector("option")
+      );
+
+      newCategoryOption.textContent = `${catergoriesDataList[i].name}`;
+      newCategoryOption.setAttribute("value", `${catergoriesDataList[i].id}`);
+      categorySelect.append(newCategoryOption);
+    }
+  }
+
+  public async init() {
     const params = this.getQueryParams();
 
     try {
       const bookData = await this.bookService.getBook(params.id);
       const authorsData = await this.authorsService.getAuthors();
       const editoriasData = await this.editorialService.getEditorials();
+      const categoriesData = await this.categorieService.getCategories();
 
       this.renderAuthors(authorsData);
       this.renderEditorials(editoriasData);
+      this.renderCategories(categoriesData);
 
-      const bookInput = <HTMLInputElement>document.querySelector("[name='bookname']");
-      bookInput.value = bookData.name;
-      const yearInput = <HTMLInputElement>document.querySelector("[name='year']");
-      yearInput.value = bookData.year;
-      const stockInput = <HTMLInputElement>document.querySelector("[name='stock']");
-      stockInput.value = bookData.stock;
-      const authorsSelect = <HTMLSelectElement>document.querySelector("[name='authors']");
-      authorsSelect.value = bookData.author;
-      const editorialSelect = <HTMLSelectElement>document.querySelector("[name='editorial']");
-      editorialSelect.value = bookData.editorial;
+      const bookInputElement = <HTMLInputElement>(
+        document.querySelector("[name='bookname']")
+      );
+      bookInputElement.value = bookData.name;
+
+      const yearInputElement = <HTMLInputElement>(
+        document.querySelector("[name='year']")
+      );
+      yearInputElement.value = bookData.year;
+
+      const stockInputElemet = <HTMLInputElement>(
+        document.querySelector("[name='stock']")
+      );
+      stockInputElemet.value = bookData.stock;
+
+      const priceInputElement = <HTMLInputElement>(
+        document.querySelector("[name='price']")
+      );
+      priceInputElement.value = bookData.price;
+
+      const authorsSelectorElement = <HTMLSelectElement>(
+        document.querySelector("[name='authors']")
+      );
+      authorsSelectorElement.value = bookData.author;
+
+      const editorialSelectorElement = <HTMLSelectElement>(
+        document.querySelector("[name='editorial']")
+      );
+      editorialSelectorElement.value = bookData.editorial;
+
+      const categoriesList = await this.categorieService.getCategories();
+      this.renderCategories(categoriesList);
+
+      const categoriesSelectorElement = <HTMLSelectElement>(
+        document.querySelector("[name='categories']")
+      );
+
+      setSelectValues(categoriesSelectorElement, bookData.categories);
     } catch (error) {
       errorHandler("error al encontrar la data", error);
     } finally {
@@ -177,16 +266,17 @@ public async init() {
     }
   }
 
-private removeActivityIndicationMessage() {
+  private removeActivityIndicationMessage() {
     const waitingIndicationMessage = document.getElementById(
       "Activity-indication-message"
     );
-    if(waitingIndicationMessage !== null){
+    if (waitingIndicationMessage !== null) {
       waitingIndicationMessage.remove();
     }
-    
 
-    const editBookForm = <HTMLFormElement>document.querySelector("[name='edit-book-form']");
+    const editBookForm = <HTMLFormElement>(
+      document.querySelector("[name='edit-book-form']")
+    );
     editBookForm.setAttribute("class", "");
   }
 }
@@ -194,6 +284,7 @@ private removeActivityIndicationMessage() {
 const editCtrl = new EditBooksController(
   new EditorialService(),
   new AuthorsService(),
-  new BookService()
+  new BookService(),
+  new CategoriesServices()
 );
 editCtrl.init();

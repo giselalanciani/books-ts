@@ -6,5 +6,6 @@ interface Ibook {
   author: string;
   stock: string;
   price: string;
+  categories: string[];
 }
 export { Ibook };

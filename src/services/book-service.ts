@@ -34,14 +34,7 @@ class BookService {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: book.name,
-        year: book.year,
-        author: book.author,
-        editorial: book.editorial,
-        stock: book.stock,
-        price: book.price,
-      }),
+      body: JSON.stringify(book),
     });
 
     const bookResponse: Ibook = await response.json();
@@ -55,14 +48,7 @@ class BookService {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name: book.name,
-        year: book.year,
-        author: book.author,
-        editorial: book.editorial,
-        stock: book.stock,
-        price: book.price,
-      }),
+      body: JSON.stringify(book),
     });
     const bookResponse: Ibook = await response.json();
     return bookResponse;

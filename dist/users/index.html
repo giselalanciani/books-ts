@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a>
+      <h1>Users</h1>
+    </header>
+    <main>
+      <button id="create-button" type="button">Create</button>
+
+      <table id="users-table">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+        </tr>
+        <tr class="hidden" id="no-users-available">
+          <td colspan="3">No users available</td>
+        </tr>
+        <tr id="waiting-message-row">
+          <td colspan="3">Espere por favor, cargando datos...</td>
+        </tr>
+      </table>
+    </main>
+    <template id="users-row-template">
+      <tr>
+        <td name="user-name"></td>
+        <td name="email"></td>
+        <td name="role"></td>
+
+        <td name="actions">
+          <button name="edit-users-button" type="button">Edit</button>
+          <button name="delete-users-button" type="button">Delete</button>
+        </td>
+      </tr>
+    </template>
+    <script src="/assets/scripts/usersBundle.js"></script>
+  </body>
+</html>

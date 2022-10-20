@@ -1,11 +1,14 @@
 import { IAuthor } from "../../models/author";
 import { Ibook } from "../../models/book";
+import { ICategory } from "../../models/category";
 import { IEditorial } from "../../models/editorial";
 import { AuthorsService } from "../../services/authors-service";
 import { BookService } from "../../services/book-service";
+import { CategoriesServices } from "../../services/categories-service";
 import { EditorialService } from "../../services/editorial-service";
 import { configureValidator } from "../../utils/configureValidator";
 import { errorHandler } from "../../utils/error-handler";
+import { getSelectValues } from "../../utils/getSelectedOptions";
 import { validateFieldNumeric } from "../../utils/validateFieldNumeric";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
@@ -34,7 +37,8 @@ class CreateBooksController {
   constructor(
     private editorialsService: EditorialService,
     private authorsService: AuthorsService,
-    private bookService: BookService
+    private bookService: BookService,
+    private categorieService: CategoriesServices
   ) {
     const createBookButton = <HTMLButtonElement>(
       document.getElementById("create-book-button")
@@ -42,11 +46,12 @@ class CreateBooksController {
     createBookButton.addEventListener("click", this.onClickCreateBookButton);
 
     configureValidator("bookname");
-    configureValidator("year", ["required", "numeric"]);
+    configureValidator("year", [{ type: "required" }, { type: "numeric" }]);
     configureValidator("editorial");
     configureValidator("authors");
-    configureValidator("stock", ["required", "numeric"]);
-    configureValidator("price", ["required", "numeric"]);
+    configureValidator("stock", [{ type: "required" }, { type: "numeric" }]);
+    configureValidator("price", [{ type: "required" }, { type: "numeric" }]);
+    configureValidator("categories");
   }
 
   private onClickCreateBookButton = () => {
@@ -57,33 +62,38 @@ class CreateBooksController {
 
   private sendData = async () => {
     try {
-      const bookNameInput = <HTMLInputElement>(
+      const bookNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='bookname']")
       );
-      const bookYearInput = <HTMLInputElement>(
+      const bookYearInputElement = <HTMLInputElement>(
         document.querySelector("[name='year']")
       );
-      const authorSelector = <HTMLSelectElement>(
+      const authorSelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='authors']")
       );
-      const editorialSelector = <HTMLSelectElement>(
+      const editorialSelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='editorial']")
       );
-      const stockInput = <HTMLInputElement>(
+      const stockInputElement = <HTMLInputElement>(
         document.querySelector("[name='stock']")
       );
-      const priceInput = <HTMLInputElement>(
+      const priceInputElement = <HTMLInputElement>(
         document.querySelector("[name='price']")
       );
+      const categorieSelectorElement = <HTMLSelectElement>(
+        document.querySelector("[name='categories']")
+      );
+      const selectedCategoriesList = getSelectValues(categorieSelectorElement);
 
       const book: Ibook = {
         id: "",
-        name: bookNameInput.value,
-        year: bookYearInput.value,
-        author: authorSelector.value,
-        editorial: editorialSelector.value,
-        stock: stockInput.value,
-        price: priceInput.value,
+        name: bookNameInputElement.value,
+        year: bookYearInputElement.value,
+        author: authorSelectorElement.value,
+        editorial: editorialSelectorElement.value,
+        stock: stockInputElement.value,
+        price: priceInputElement.value,
+        categories: selectedCategoriesList,
       };
 
       await this.bookService.createBook(book);
@@ -94,7 +104,7 @@ class CreateBooksController {
     }
   };
 
- private validateCreateBookForm() {
+  private validateCreateBookForm() {
     let isFormValid = true;
 
     if (validateFieldRequired("bookname") === false) {
@@ -131,12 +141,14 @@ class CreateBooksController {
     return isFormValid;
   }
 
- public async init() {
+  public async init() {
     try {
       const editorialsData = await this.editorialsService.getEditorials();
       const authorsData = await this.authorsService.getAuthors();
+      const categoriesData = await this.categorieService.getCategories();
       this.renderEditorials(editorialsData);
       this.renderAuthors(authorsData);
+      this.renderCategories(categoriesData);
     } catch (error) {
       errorHandler("error al sincronizar datos", error);
     }
@@ -190,11 +202,37 @@ class CreateBooksController {
       }
     }
   }
+
+  private renderCategories(catergoriesDataList: ICategory[]) {
+    const categorySelect = <HTMLSelectElement>(
+      document.getElementById("categories")
+    );
+
+    const categoryOptionTemplate = <HTMLTemplateElement>(
+      document.getElementById("categories-option-template")
+    );
+
+    for (let i = 0; i < catergoriesDataList.length; i++) {
+      const copyCategoryTemplate = document.importNode(
+        categoryOptionTemplate.content,
+        true
+      );
+
+      const newCategoryOption = <HTMLOptionElement>(
+        copyCategoryTemplate.querySelector("option")
+      );
+
+      newCategoryOption.textContent = `${catergoriesDataList[i].name}`;
+      newCategoryOption.setAttribute("value", `${catergoriesDataList[i].id}`);
+      categorySelect.append(newCategoryOption);
+    }
+  }
 }
 
 const createCtrl = new CreateBooksController(
   new EditorialService(),
   new AuthorsService(),
-  new BookService()
+  new BookService(),
+  new CategoriesServices()
 );
 createCtrl.init();

@@ -59,6 +59,20 @@
           <div class="error hidden" name="price-numeric">* El campo debe ser numérico</div>
         </div>
 
+        <div class="field-container">
+          <label for="categories">Categories</label>
+          <select
+            multiple
+            name="categories"
+            id="categories"
+            class="multiple"
+          >            
+          </select>
+          <div class="error hidden" name="categories-required">
+            * Campo requerido
+          </div>
+        </div>
+
         <button id="save-book-button" type="button">Save</button>
       </form>
     </main>
@@ -68,6 +82,10 @@
     </template>
 
     <template id="author-option-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <template id="categories-option-template">
       <option value="seleccione">seleccione..</option>
     </template>
 

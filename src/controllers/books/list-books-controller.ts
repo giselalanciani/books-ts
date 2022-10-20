@@ -3,6 +3,9 @@ import { BookService } from "../../services/book-service";
 import { errorHandler } from "../../utils/error-handler";
 import { Ibook } from "../../models/book";
 import { IEditorial } from "../../models/editorial";
+import { CategoriesServices } from "../../services/categories-service";
+import { ICategory } from "../../models/category";
+import { setSelectValues } from "../../utils/getSelectedOptions";
 
 /**
  * Que debe hacer:
@@ -30,7 +33,8 @@ import { IEditorial } from "../../models/editorial";
 class ListBooksController {
   constructor(
     private editorialService: EditorialService,
-    private bookService: BookService
+    private bookService: BookService,
+    private categorieService: CategoriesServices
   ) {
     const createButton = <HTMLButtonElement>(
       document.getElementById("create-button")
@@ -94,7 +98,7 @@ class ListBooksController {
     }
   }
 
-  private renderBooks(booksData: Ibook[], editorialsData: IEditorial[]) {
+  private async renderBooks(booksData: Ibook[], editorialsData: IEditorial[]) {
     const bookTable = <HTMLTableElement>document.getElementById("books-table");
     const bookRowTemplate = <HTMLTemplateElement>(
       document.getElementById("book-row-template")
@@ -105,32 +109,32 @@ class ListBooksController {
         bookRowTemplate.content,
         true
       );
-      const nameInput = <HTMLInputElement>(
+      const nameTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='name']")
       );
-      nameInput.textContent = booksData[i].name;
+      nameTdElement.textContent = booksData[i].name;
 
-      const yearInput = <HTMLInputElement>(
+      const yearTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='year']")
       );
-      yearInput.textContent = booksData[i].year;
+      yearTdElement.textContent = booksData[i].year;
 
-      const authorInput = <HTMLInputElement>(
+      const authorTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='author']")
       );
-      authorInput.textContent = booksData[i].author;
+      authorTdElement.textContent = booksData[i].author;
 
-      const stockInput = <HTMLInputElement>(
+      const stockTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='stock']")
       );
-      stockInput.textContent = booksData[i].stock;
+      stockTdElement.textContent = booksData[i].stock;
 
-      const priceInput = <HTMLInputElement>(
+      const priceTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='price']")
       );
-      priceInput.textContent = booksData[i].price;
+      priceTdElement.textContent = booksData[i].price;
 
-      const editorialInput = <HTMLInputElement>(
+      const editorialTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='editorial']")
       );
 
@@ -138,7 +142,14 @@ class ListBooksController {
         booksData[i].editorial,
         editorialsData
       );
-      editorialInput.textContent = editorialName;
+      editorialTdElement.textContent = editorialName;
+
+      const categoryTdElement = <HTMLTableColElement>(
+        copyRowTemplate.querySelector("[name='categories']")
+      );
+
+      // categoryTdElement.textContent = booksData[i].categories.join(', ');
+      categoryTdElement.textContent = await this.getRenderCategories(booksData[i].categories);
 
       const editBookButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-book-button']")
@@ -157,6 +168,22 @@ class ListBooksController {
     }
   }
 
+  private async getRenderCategories(categories: string[]): Promise<string> {
+    let likedCategories = "";
+    for (let j = 0; j < categories.length; j++) {
+      const categoryModel = await this.categorieService.getCategory(
+        categories[j]
+      );
+      if (j === 0) {
+        likedCategories = likedCategories + categoryModel.name;
+      } else {
+        likedCategories = likedCategories + ", " + categoryModel.name;
+      }
+    }
+
+    return likedCategories;
+  }
+
   private findEditorialNameById(id: string, editorialsList: IEditorial[]) {
     let editorialNameFound = "Editorial no encontrada";
 
@@ -172,6 +199,7 @@ class ListBooksController {
 }
 const booksCtrl = new ListBooksController(
   new EditorialService(),
-  new BookService()
+  new BookService(),
+  new CategoriesServices()
 );
 booksCtrl.init();

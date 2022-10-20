@@ -40,6 +40,9 @@ module.exports = {
     createClientsBundle:
       "./src/controllers/clients/create-clients-controller.ts",
     editClientsBundle: "./src/controllers/clients/edit-clients-controller.ts",
+    usersBundle: "./src/controllers/users/list-user-controller.ts",
+    createUsersBundle: "./src/controllers/users/create-user-controller.ts",
+    
   },
   output: {
     filename: "[name].js",

@@ -26,13 +26,13 @@ class CreateClientController {
       this.onClickCreateClientButton
     );
 
-    configureValidator("client-name", ["required"]);
-    configureValidator("email", ["required"]);
-    configureValidator("country", ["required"]);
-    configureValidator("state", ["required"]);
-    configureValidator("city", ["required"]);
-    configureValidator("street", ["required"]);
-    configureValidator("liked-categories", ["required"]);
+    configureValidator("client-name", [{type: "required"}]);
+    configureValidator("email", [{type: "required"}]);
+    configureValidator("country", [{type: "required"}]);
+    configureValidator("state", [{type: "required"}]);
+    configureValidator("city", [{type: "required"}]);
+    configureValidator("street", [{type: "required"}]);
+    configureValidator("liked-categories", [{type: "required"}]);
   }
 
   private onClickCreateClientButton = () => {

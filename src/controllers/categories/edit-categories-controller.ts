@@ -10,7 +10,7 @@ class EditCategoriesController {
     );
     saveButton.addEventListener("click", this.onClickSaveButton);
 
-    configureValidator("category-name", ["required"]);
+    configureValidator("category-name", [{type: "required"}]);
   }
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditForm()) {
