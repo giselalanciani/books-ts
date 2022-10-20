@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Create book</title>
     <link rel="stylesheet" href="/main.css" />
   </head>
@@ -17,14 +17,18 @@
         <div class="field-container">
           <label for="bookname">Book name</label>
           <input type="text" name="bookname" />
-          <div class="error hidden" name="bookname-required">* Campo requerido</div>
+          <div class="error hidden" name="bookname-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
           <label for="year">Year</label>
           <input type="number" name="year" />
           <div class="error hidden" name="year-required">* Campo requerido</div>
-          <div class="error hidden" name="year-numeric">* El campo debe ser numérico</div>
+          <div class="error hidden" name="year-numeric">
+            * El campo debe ser numérico
+          </div>
         </div>
 
         <div class="field-container">
@@ -32,7 +36,9 @@
           <select name="editorial" id="editorial">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="editorial-required">* Campo requerido</div>
+          <div class="error hidden" name="editorial-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
@@ -40,21 +46,45 @@
           <select name="authors" id="authors">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="authors-required">* Campo requerido</div>
+          <div class="error hidden" name="authors-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
           <label for="stock">Stock</label>
           <input type="number" name="stock" />
-          <div class="error hidden" name="stock-required">* Campo requerido</div>
-          <div class="error hidden" name="stock-numeric">* El campo debe ser numérico</div>
+          <div class="error hidden" name="stock-required">
+            * Campo requerido
+          </div>
+          <div class="error hidden" name="stock-numeric">
+            * El campo debe ser numérico
+          </div>
         </div>
 
         <div class="field-container">
           <label for="price">Price</label>
           <input type="number" name="price" />
-          <div class="error hidden" name="price-required">* Campo requerido</div>
-          <div class="error hidden" name="price-numeric">* El campo debe ser numérico</div>
+          <div class="error hidden" name="price-required">
+            * Campo requerido
+          </div>
+          <div class="error hidden" name="price-numeric">
+            * El campo debe ser numérico
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="categories">Categories</label>
+          <select
+            multiple
+            name="categories"
+            id="categories"
+            class="multiple"
+          >            
+          </select>
+          <div class="error hidden" name="categories-required">
+            * Campo requerido
+          </div>
         </div>
 
         <button id="create-book-button" type="button">Create</button>
@@ -67,6 +97,10 @@
     </template>
 
     <template id="author-option-template">
+      <option value="seleccione">seleccione..</option>
+    </template>
+
+    <template id="categories-option-template">
       <option value="seleccione">seleccione..</option>
     </template>
   </body>
