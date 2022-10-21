@@ -1,4 +1,5 @@
 import { validateFieldDependentEqual } from "./validateFieldDependentEqual";
+import { validateFieldEmail } from "./validateFieldEmail";
 import { validateFieldNumeric } from "./validateFieldNumeric";
 import { validateFieldRequired } from "./validateFieldRequired";
 
@@ -47,6 +48,17 @@ const configureValidator: (
               name,
               validatorConfig.config.dependentFieldName
             );
+          }
+        });
+        break;
+
+      case "email":
+        inputElement.addEventListener("change", (event: Event) => {
+          const fieldInputElement = <HTMLInputElement>event.target;
+          const name = fieldInputElement.getAttribute("name");
+
+          if (name !== null) {
+            validateFieldEmail(name);
           }
         });
         break;

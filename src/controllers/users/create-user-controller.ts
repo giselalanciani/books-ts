@@ -3,6 +3,7 @@ import { UserService } from "../../services/users-service";
 import { configureValidator } from "../../utils/configureValidator";
 import { errorHandler } from "../../utils/error-handler";
 import { validateFieldDependentEqual } from "../../utils/validateFieldDependentEqual";
+import { validateFieldEmail } from "../../utils/validateFieldEmail";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class CreateUserController {
@@ -13,7 +14,7 @@ class CreateUserController {
     createUserButton.addEventListener("click", this.onClickCreateUserButton);
 
     configureValidator("user-name", [{ type: "required" }]);
-    configureValidator("email", [{ type: "required" }]);
+    configureValidator("email", [{ type: "required" }, { type: "email" }]);
     configureValidator("password", [{ type: "required" }]);
     configureValidator("password-verification", [
       { type: "required" },
@@ -22,7 +23,8 @@ class CreateUserController {
     configureValidator("role", [{ type: "required" }]);
   }
 
-  private onClickCreateUserButton = async () => {
+  private onClickCreateUserButton = async (event: Event) => {
+    // event.preventDefault();
     if (this.validateCreateUserForm() === true) {
       await this.sendData();
     }
@@ -75,20 +77,20 @@ class CreateUserController {
     if (validateFieldRequired("email") === false) {
       isFormValid = false;
     }
-
+    if (validateFieldEmail("email") === false) {
+      isFormValid = false;
+    }
     if (validateFieldRequired("password") === false) {
       isFormValid = false;
     }
     if (validateFieldRequired("password-verification") === false) {
       isFormValid = false;
     }
-
     if (
       validateFieldDependentEqual("password-verification", "password") === false
     ) {
       isFormValid = false;
     }
-
     if (validateFieldRequired("role") === false) {
       isFormValid = false;
     }

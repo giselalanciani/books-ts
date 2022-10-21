@@ -28,19 +28,24 @@
           <div class="error hidden" name="email-required">
             * Campo requerido
           </div>
+          <div class="error hidden" name="email-email">
+            * Email no valido
+          </div>
         </div>
 
         <div class="field-container">
           <label for="password">Password</label>
           <input type="password" name="password" />
-          <div class="error hidden" name="password-required">* Contraseña</div>
+          <div class="error hidden" name="password-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
           <label for="password-verification">Confirme Password</label>
           <input type="password" name="password-verification" />
           <div class="error hidden" name="password-verification-required">
-            * Reingrese contraseña
+            * Campo requerido
           </div>
           <div
             class="error hidden"
@@ -52,7 +57,10 @@
 
         <div class="field-container">
           <label for="role">Role</label>
-          <input type="text" name="role" />
+          <select name="role" id="role">
+            <option value="admin">Administrator</option>
+            <option value="client">Client</option>
+          </select>
           <div class="error hidden" name="role-required">* Campo requerido</div>
         </div>
         <button id="create-user-button" type="button">Create</button>
