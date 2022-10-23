@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit user</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > <a href="/users">User</a> > Edit user
+      <h1>Edit user</h1>
+    </header>
+
+    <main>
+      <form autocomplete="off" name="create-user-form">
+        <div class="field-container">
+          <label for="user-name">User name</label>
+          <input type="text" name="user-name" />
+          <div class="error hidden" name="user-name-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="email">Email</label>
+          <input type="email" name="email" />
+          <div class="error hidden" name="email-required">
+            * Campo requerido
+          </div>
+          <div class="error hidden" name="email-email">* Email no valido</div>
+        </div>
+
+        <div class="field-container">
+          <label for="role">Role</label>
+          <select name="role" id="role">
+            <option value="admin">Administrator</option>
+            <option value="client">Client</option>
+          </select>
+          <div class="error hidden" name="role-required">* Campo requerido</div>
+        </div>
+        <button id="save-user-button" type="button">Save</button>
+      </form>
+    </main>
+    <script src="/assets/scripts/editUsersBundle.js"></script>
+  </body>
+</html>

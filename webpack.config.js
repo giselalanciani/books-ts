@@ -42,6 +42,7 @@ module.exports = {
     editClientsBundle: "./src/controllers/clients/edit-clients-controller.ts",
     usersBundle: "./src/controllers/users/list-user-controller.ts",
     createUsersBundle: "./src/controllers/users/create-user-controller.ts",
+    editUsersBundle: "./src/controllers/users/edit-user-controller.ts",
     
   },
   output: {
