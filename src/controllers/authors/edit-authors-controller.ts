@@ -29,26 +29,26 @@ class EditAuthorsController {
 
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditAuthorsForm() === true) {
-      const authorInput = <HTMLInputElement>(
+      const authorInputElement = <HTMLInputElement>(
         document.querySelector("[name='authorname']")
       );
-      const yearSelect = <HTMLSelectElement>(
+      const yearSelectElement = <HTMLSelectElement>(
         document.querySelector("[name='year']")
       );
-      const monthSelect = <HTMLSelectElement>(
+      const monthSelectElement = <HTMLSelectElement>(
         document.querySelector("[name='month']")
       );
-      const daySelect = <HTMLSelectElement>(
+      const daySelectElement = <HTMLSelectElement>(
         document.querySelector("[name='day']")
       );
 
       const author: IAuthor = {
         id: "",
-        name: authorInput.value,
+        name: authorInputElement.value,
         birthdate: new Date(
-          parseInt(yearSelect.value),
-          parseInt(monthSelect.value),
-          parseInt(daySelect.value)
+          parseInt(yearSelectElement.value),
+          parseInt(monthSelectElement.value),
+          parseInt(daySelectElement.value)
         ).toISOString(),
       };
 
@@ -132,13 +132,13 @@ class EditAuthorsController {
   }
 
   private renderDays = (daysDataList: number[]) => {
-    const authorDaySelect = <HTMLSelectElement>document.getElementById("day");
-    const dayTemplate = <HTMLTemplateElement>(
+    const authorDaySelectElement = <HTMLSelectElement>document.getElementById("day");
+    const dayTemplateElement = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
     );
 
     for (let i = 0; i < daysDataList.length; i++) {
-      const copyDayTemplate = document.importNode(dayTemplate.content, true);
+      const copyDayTemplate = document.importNode(dayTemplateElement.content, true);
 
       const daysOption = <HTMLOptionElement>(
         copyDayTemplate.querySelector("option")
@@ -147,18 +147,18 @@ class EditAuthorsController {
       daysOption.textContent = `${daysDataList[i]}`;
       daysOption.setAttribute("value", `${daysDataList[i]}`);
 
-      authorDaySelect.append(daysOption);
+      authorDaySelectElement.append(daysOption);
     }
   };
 
   private renderYears = (yearsDataList: number[]) => {
-    const authorYearSelect = <HTMLSelectElement>document.getElementById("year");
-    const yearTemplate = <HTMLTemplateElement>(
+    const authorYearSelectElement = <HTMLSelectElement>document.getElementById("year");
+    const yearTemplateElement = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
     );
 
     for (let i = 0; i < yearsDataList.length; i++) {
-      const copyYearTemplate = document.importNode(yearTemplate.content, true);
+      const copyYearTemplate = document.importNode(yearTemplateElement.content, true);
 
       const yearsOption = <HTMLOptionElement>(
         copyYearTemplate.querySelector("option")
@@ -167,21 +167,21 @@ class EditAuthorsController {
       yearsOption.textContent = `${yearsDataList[i]}`;
       yearsOption.setAttribute("value", `${yearsDataList[i]}`);
 
-      authorYearSelect.append(yearsOption);
+      authorYearSelectElement.append(yearsOption);
     }
   };
 
   private renderMonths = (monthsDataList: number[]) => {
-    const authorMonthSelect = <HTMLSelectElement>(
+    const authorMonthSelectElement = <HTMLSelectElement>(
       document.getElementById("month")
     );
-    const monthTemplate = <HTMLTemplateElement>(
+    const monthTemplateElement = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
     );
 
     for (let i = 0; i < monthsDataList.length; i++) {
       const copyMonthTemplate = document.importNode(
-        monthTemplate.content,
+        monthTemplateElement.content,
         true
       );
 
@@ -192,7 +192,7 @@ class EditAuthorsController {
       monthOption.textContent = `${monthsDataList[i]}`;
       monthOption.setAttribute("value", `${monthsDataList[i] - 1}`);
 
-      authorMonthSelect.append(monthOption);
+      authorMonthSelectElement.append(monthOption);
     }
   };
 }

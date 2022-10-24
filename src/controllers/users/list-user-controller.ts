@@ -53,13 +53,13 @@ class ListUserController {
   }
 
   private async renderUsers(userData: IUser[]) {
-    const usersTable = <HTMLTableElement>document.getElementById("users-table");
-    const usersRowTemplate = <HTMLTemplateElement>(
+    const usersTableElement = <HTMLTableElement>document.getElementById("users-table");
+    const usersRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("users-row-template")
     );
     for (let i = 0; i < userData.length; i++) {
       const copyRowTemplate = document.importNode(
-        usersRowTemplate.content,
+        usersRowTemplateElement.content,
         true
       );
 
@@ -96,7 +96,7 @@ class ListUserController {
 
       deleteUserButton.addEventListener("click", this.onClickDeleteButton);
 
-      usersTable.append(copyRowTemplate);
+      usersTableElement.append(copyRowTemplate);
     }
   }
   private removeWaitingMessageRow() {

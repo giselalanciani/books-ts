@@ -42,14 +42,14 @@ class CreateClientController {
   };
   private onChangeCountrySelect = async (event: Event) => {
     this.deleteStateSelectOptions();
-    const countrySelectElement = <HTMLSelectElement>event.target;
-    const countryId = countrySelectElement.value;
+    const countrySelectElementElement = <HTMLSelectElement>event.target;
+    const countryId = countrySelectElementElement.value;
     const statesList = await this.stateService.getStates(countryId);
     this.renderStates(statesList);
   };
   private deleteStateSelectOptions() {
-    const stateSelect = <HTMLSelectElement>document.getElementById("state");
-    const selectOptions = stateSelect.querySelectorAll("option");
+    const stateSelectElement = <HTMLSelectElement>document.getElementById("state");
+    const selectOptions = stateSelectElement.querySelectorAll("option");
     selectOptions.forEach((option) => {
       if (option.id === "select-state") {
         console.log("no elimina", option.id);
@@ -79,38 +79,38 @@ class CreateClientController {
 
   private sendClientData = async () => {
     try {
-      const clientNameInput = <HTMLInputElement>(
+      const clientNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='client-name']")
       );
-      const emailInput = <HTMLInputElement>(
+      const emailInputElement = <HTMLInputElement>(
         document.querySelector("[name='email']")
       );
-      const countrySelector = <HTMLSelectElement>(
+      const countrySelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='country']")
       );
-      const stateSelector = <HTMLSelectElement>(
+      const stateSelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='state']")
       );
-      const cityInput = <HTMLInputElement>(
+      const cityInputElement = <HTMLInputElement>(
         document.querySelector("[name='city']")
       );
-      const streetInput = <HTMLInputElement>(
+      const streetInputElement = <HTMLInputElement>(
         document.querySelector("[name='street']")
       );
-      const likedCategoriesSelector = <HTMLSelectElement>(
+      const likedCategoriesSelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='liked-categories']")
       );
 
-      const likedCategoriesList = getSelectValues(likedCategoriesSelector);      
+      const likedCategoriesList = getSelectValues(likedCategoriesSelectorElement);      
 
       const client: IClient = {
         id: "",
-        name: clientNameInput.value,
-        email: emailInput.value,
-        countryId: countrySelector.value,
-        stateId: stateSelector.value,
-        cityName: cityInput.value,
-        street: streetInput.value,
+        name: clientNameInputElement.value,
+        email: emailInputElement.value,
+        countryId: countrySelectorElement.value,
+        stateId: stateSelectorElement.value,
+        cityName: cityInputElement.value,
+        street: streetInputElement.value,
         likedCategories: likedCategoriesList,
       };
 
@@ -123,37 +123,37 @@ class CreateClientController {
   };
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelect = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
 
-    const countryTemplate = <HTMLTemplateElement>(
+    const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-create-template")
     );
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
+        countryTemplateElement.content,
         true
       );
 
-      const newCountryOption = <HTMLOptionElement>(
+      const newCountryOptionElement = <HTMLOptionElement>(
         copyCountryTemplate.querySelector("option")
       );
 
-      newCountryOption.textContent = `${countryDataList[i].name}`;
-      newCountryOption.setAttribute("value", `${countryDataList[i].id}`);
-      countrySelect.append(newCountryOption);
+      newCountryOptionElement.textContent = `${countryDataList[i].name}`;
+      newCountryOptionElement.setAttribute("value", `${countryDataList[i].id}`);
+      countrySelectElement.append(newCountryOptionElement);
     }
   }
   private renderStates(statesDataList: IState[]) {
-    const statesSelect = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
 
-    const statesOptionTemplate = <HTMLTemplateElement>(
+    const statesOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("states-option-template")
     );
 
     for (let i = 0; i < statesDataList.length; i++) {
       const copyStatesOptionTemplate = document.importNode(
-        statesOptionTemplate.content,
+        statesOptionTemplateElement.content,
         true
       );
       const newStateOption = <HTMLOptionElement>(
@@ -162,31 +162,31 @@ class CreateClientController {
 
       newStateOption.textContent = `${statesDataList[i].name}`;
       newStateOption.setAttribute("value", `${statesDataList[i].id}`);
-      statesSelect.append(newStateOption);
+      statesSelectElement.append(newStateOption);
     }
   }
   private renderCategories(catergoriesDataList: ICategory[]) {
-    const categorySelect = <HTMLSelectElement>(
+    const categorySelectElement = <HTMLSelectElement>(
       document.getElementById("liked-categories")
     );
 
-    const categoryOptionTemplate = <HTMLTemplateElement>(
+    const categoryOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("category-option-template")
     );
 
     for (let i = 0; i < catergoriesDataList.length; i++) {
       const copyCategoryTemplate = document.importNode(
-        categoryOptionTemplate.content,
+        categoryOptionTemplateElement.content,
         true
       );
 
-      const newCategoryOption = <HTMLOptionElement>(
+      const newCategoryOptionElement = <HTMLOptionElement>(
         copyCategoryTemplate.querySelector("option")
       );
 
-      newCategoryOption.textContent = `${catergoriesDataList[i].name}`;
-      newCategoryOption.setAttribute("value", `${catergoriesDataList[i].id}`);
-      categorySelect.append(newCategoryOption);
+      newCategoryOptionElement.textContent = `${catergoriesDataList[i].name}`;
+      newCategoryOptionElement.setAttribute("value", `${catergoriesDataList[i].id}`);
+      categorySelectElement.append(newCategoryOptionElement);
     }
   }
   private validateCreateClientsForm() {

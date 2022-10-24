@@ -35,12 +35,12 @@ class CreateCountryController {
   };
 
   private sendCountryData = async () => {
-    const countryNameInput = <HTMLInputElement>(
+    const countryNameInputElement = <HTMLInputElement>(
       document.querySelector("[name='countryname']")
     );
     const country: ICountry = {
       id: "",
-      name: countryNameInput.value,
+      name: countryNameInputElement.value,
     };
 
     try {

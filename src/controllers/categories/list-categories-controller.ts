@@ -41,21 +41,21 @@ class ListCategoriesController {
   };
 
   private renderCategories(categoriesData: ICategory[]) {
-    const categoriesTable = <HTMLTableElement>(
+    const categoriesTableElement = <HTMLTableElement>(
       document.getElementById("categories-table")
     );
-    const categoriesRowTemplate = <HTMLTemplateElement>(
+    const categoriesRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("categories-row-template")
     );
     for (let i = 0; i < categoriesData.length; i++) {
       const copyRowTemplate = document.importNode(
-        categoriesRowTemplate.content,
+        categoriesRowTemplateElement.content,
         true
       );
-      const nameInput = <HTMLInputElement>(
+      const nameTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='name']")
       );
-      nameInput.textContent = categoriesData[i].name;
+      nameTdElement.textContent = categoriesData[i].name;
 
       const editCategoriesButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-categories-button']")
@@ -75,7 +75,7 @@ class ListCategoriesController {
         this.onClickDeleteButton
       );
 
-      categoriesTable.append(copyRowTemplate);
+      categoriesTableElement.append(copyRowTemplate);
     }
   }
 

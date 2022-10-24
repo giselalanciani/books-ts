@@ -155,15 +155,15 @@ class CreateBooksController {
   }
 
   private renderAuthors(authorsDataList: IAuthor[]) {
-    const authorsSelect = <HTMLSelectElement>document.getElementById("authors");
+    const authorsSelectElement = <HTMLSelectElement>document.getElementById("authors");
 
-    const authorOptionTemplate = <HTMLTemplateElement>(
+    const authorOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("author-option-template")
     );
 
     for (let i = 0; i < authorsDataList.length; i++) {
       const copyAuthorOptionTemplate = document.importNode(
-        authorOptionTemplate.content,
+        authorOptionTemplateElement.content,
         true
       );
 
@@ -174,7 +174,7 @@ class CreateBooksController {
       newAuthorOption.textContent = `${authorsDataList[i].name}`;
       newAuthorOption.setAttribute("value", `${authorsDataList[i].name}`);
 
-      authorsSelect.append(newAuthorOption);
+      authorsSelectElement.append(newAuthorOption);
     }
   }
 
@@ -204,27 +204,27 @@ class CreateBooksController {
   }
 
   private renderCategories(catergoriesDataList: ICategory[]) {
-    const categorySelect = <HTMLSelectElement>(
+    const categorySelectElement = <HTMLSelectElement>(
       document.getElementById("categories")
     );
 
-    const categoryOptionTemplate = <HTMLTemplateElement>(
+    const categoryOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("categories-option-template")
     );
 
     for (let i = 0; i < catergoriesDataList.length; i++) {
       const copyCategoryTemplate = document.importNode(
-        categoryOptionTemplate.content,
+        categoryOptionTemplateElement.content,
         true
       );
 
-      const newCategoryOption = <HTMLOptionElement>(
+      const newCategoryOptionElement = <HTMLOptionElement>(
         copyCategoryTemplate.querySelector("option")
       );
 
-      newCategoryOption.textContent = `${catergoriesDataList[i].name}`;
-      newCategoryOption.setAttribute("value", `${catergoriesDataList[i].id}`);
-      categorySelect.append(newCategoryOption);
+      newCategoryOptionElement.textContent = `${catergoriesDataList[i].name}`;
+      newCategoryOptionElement.setAttribute("value", `${catergoriesDataList[i].id}`);
+      categorySelectElement.append(newCategoryOptionElement);
     }
   }
 }

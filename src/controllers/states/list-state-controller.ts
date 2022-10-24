@@ -117,21 +117,21 @@ class ListStatesController {
   }
 
   private renderStates(statesList: IState[]) {
-    const stateTable = <HTMLTableElement>document.getElementById("state-table");
-    const stateRowTemplate = <HTMLTemplateElement>(
+    const stateTableElement = <HTMLTableElement>document.getElementById("state-table");
+    const stateRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("state-row-template")
     );
 
     for (let i = 0; i < statesList.length; i++) {
       const copyRowTemplate = document.importNode(
-        stateRowTemplate.content,
+        stateRowTemplateElement.content,
         true
       );
 
-      const nameTd = <HTMLTableColElement>(
+      const nameTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='name']")
       );
-      nameTd.textContent = statesList[i].name;
+      nameTdElement.textContent = statesList[i].name;
 
       const editStateButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-state-button']")
@@ -151,19 +151,19 @@ class ListStatesController {
       );
       deleteStateButton.addEventListener("click", this.onClickDeleteButton);
 
-      stateTable.append(copyRowTemplate);
+      stateTableElement.append(copyRowTemplate);
     }
   }
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelect = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
 
-    const countryTemplate = <HTMLTemplateElement>(
+    const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("state-create-template")
     );
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
+        countryTemplateElement.content,
         true
       );
 
@@ -171,14 +171,14 @@ class ListStatesController {
       if (newStateOption !== null) {
         newStateOption.textContent = `${countryDataList[i].name}`;
         newStateOption.setAttribute("value", `${countryDataList[i].id}`);
-        countrySelect.append(newStateOption);
+        countrySelectElement.append(newStateOption);
       }
     }
 
     const params = getQueryParams();
     const countryId = params.countryId;
-    countrySelect.value = countryId;
-    countrySelect.dispatchEvent(new Event("change"));
+    countrySelectElement.value = countryId;
+    countrySelectElement.dispatchEvent(new Event("change"));
   }
 
   public async init() {

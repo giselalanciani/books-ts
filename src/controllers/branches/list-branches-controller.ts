@@ -45,49 +45,49 @@ class ListBranchesController {
   };
 
   private async renderBranch(branchData: IBranch[]) {
-    const branchTable = <HTMLTableElement>(
+    const branchTableElement = <HTMLTableElement>(
       document.getElementById("branches-table")
     );
-    const branchRowTemplate = <HTMLTemplateElement>(
+    const branchRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("branches-row-template")
     );
 
     for (let i = 0; i < branchData.length; i++) {
       const copyRowTemplate = document.importNode(
-        branchRowTemplate.content,
+        branchRowTemplateElement.content,
         true
       );
-      const nameInput = <HTMLInputElement>(
+      const nameTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='name']")
       );
-      nameInput.textContent = branchData[i].name;
+      nameTdElement.textContent = branchData[i].name;
 
-      const countryInput = <HTMLInputElement>(
+      const countryTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='country']")
       );
       const country = await this.countryService.getCountry(
         branchData[i].countryId
       );
-      countryInput.textContent = country.name;
+      countryTdElement.textContent = country.name;
 
-      const stateInput = <HTMLInputElement>(
+      const stateTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='state']")
       );
       const state = await this.stateService.getState(
         branchData[i].countryId,
         branchData[i].stateId
       );
-      stateInput.textContent = state.name;
+      stateTdElement.textContent = state.name;
 
-      const cityInput = <HTMLInputElement>(
+      const cityTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='city']")
       );
-      cityInput.textContent = branchData[i].city;
+      cityTdElement.textContent = branchData[i].city;
 
-      const streetInput = <HTMLInputElement>(
+      const streetTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='street']")
       );
-      streetInput.textContent = branchData[i].street;
+      streetTdElement.textContent = branchData[i].street;
 
       const editBranchButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-branches-button']")
@@ -102,7 +102,7 @@ class ListBranchesController {
       deleteBranchButton.setAttribute("data-name", branchData[i].name);
       deleteBranchButton.addEventListener("click", this.onClickDeleteButton);
 
-      branchTable.append(copyRowTemplate);
+      branchTableElement.append(copyRowTemplate);
     }
   }
 

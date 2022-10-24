@@ -33,13 +33,13 @@ class CreateEditorialController {
   }
 
   private sendEditorialData = async () => {
-    const editorialNameInput = <HTMLInputElement>(
+    const editorialNameInputElement = <HTMLInputElement>(
       document.querySelector("[name='editorialname']")
     );
 
     const editorial: IEditorial = {
       id: "",
-      name: editorialNameInput.value,
+      name: editorialNameInputElement.value,
     };
 
     try {

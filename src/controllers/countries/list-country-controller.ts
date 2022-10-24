@@ -22,24 +22,24 @@ class ListCountryController {
   }
 
   private renderCountries(countriesList: ICountry[]) {
-    const countryTable = <HTMLTableElement>(
+    const countryTableElement = <HTMLTableElement>(
       document.getElementById("country-table")
     );
-    const countryRowTemplate = <HTMLTemplateElement>(
+    const countryRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-row-template")
     );
 
     for (let i = 0; i < countriesList.length; i++) {
       const copyRowTemplate = document.importNode(
-        countryRowTemplate?.content,
+        countryRowTemplateElement?.content,
         true
       );
 
-      const nameTd = <HTMLTableColElement>(
+      const nameTdElement = <HTMLTableColElement>(
         copyRowTemplate.querySelector("[name='name']")
       );
 
-      nameTd.textContent = countriesList[i].name;
+      nameTdElement.textContent = countriesList[i].name;
 
       const editCountryButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-country-button']")
@@ -60,7 +60,7 @@ class ListCountryController {
 
       statesButton.setAttribute("data-country-id", countriesList[i].id);
       statesButton.addEventListener("click", this.onClickStatesButton);
-      countryTable.append(copyRowTemplate);
+      countryTableElement.append(copyRowTemplate);
     }
   }
 

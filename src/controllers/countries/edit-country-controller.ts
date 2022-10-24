@@ -32,14 +32,14 @@ class EditCountryController {
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditForm()) {
       try {
-        const countryNameInput = <HTMLInputElement>(
+        const countryNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='countryname']")
         );
 
         const id = this.getQueryParams().id;
         const country = {
           id: id,
-          name: countryNameInput.value,
+          name: countryNameInputElement.value,
         };
 
         await this.countryServices.updateCountry(country);
@@ -60,10 +60,10 @@ class EditCountryController {
     try {
       const countryData = await this.countryServices.getCountry(params.id);      
 
-      const countryInput = <HTMLInputElement>(
+      const countryInputElement = <HTMLInputElement>(
         document.querySelector("[name='countryname']")
       );
-      countryInput.value = countryData.name;
+      countryInputElement.value = countryData.name;
     } catch (error) {
       errorHandler("Error en la busqueda,vualva a intentarlo luego", error);
     } finally {

@@ -159,17 +159,17 @@ class EditClientController {
   }
 
   private renderCategories(catergoriesDataList: ICategory[]) {
-    const categorySelect = <HTMLSelectElement>(
+    const categorySelectElement = <HTMLSelectElement>(
       document.getElementById("liked-categories")
     );
 
-    const categoryOptionTemplate = <HTMLTemplateElement>(
+    const categoryOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("category-option-template")
     );
 
     for (let i = 0; i < catergoriesDataList.length; i++) {
       const copyCategoryTemplate = document.importNode(
-        categoryOptionTemplate.content,
+        categoryOptionTemplateElement.content,
         true
       );
 
@@ -179,42 +179,42 @@ class EditClientController {
 
       newCategoryOption.textContent = `${catergoriesDataList[i].name}`;
       newCategoryOption.setAttribute("value", `${catergoriesDataList[i].id}`);
-      categorySelect.append(newCategoryOption);
+      categorySelectElement.append(newCategoryOption);
     }
   }
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelect = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
 
-    const countryTemplate = <HTMLTemplateElement>(
+    const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-create-template")
     );
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
+        countryTemplateElement.content,
         true
       );
 
-      const newCountryOption = <HTMLOptionElement>(
+      const newCountryOptionElement = <HTMLOptionElement>(
         copyCountryTemplate.querySelector("option")
       );
 
-      newCountryOption.textContent = `${countryDataList[i].name}`;
-      newCountryOption.setAttribute("value", `${countryDataList[i].id}`);
-      countrySelect.append(newCountryOption);
+      newCountryOptionElement.textContent = `${countryDataList[i].name}`;
+      newCountryOptionElement.setAttribute("value", `${countryDataList[i].id}`);
+      countrySelectElement.append(newCountryOptionElement);
     }
   }
   private renderStates(statesDataList: IState[]) {
-    const statesSelect = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
 
-    const statesOptionTemplate = <HTMLTemplateElement>(
+    const statesOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("states-option-template")
     );
 
     for (let i = 0; i < statesDataList.length; i++) {
       const copyStatesOptionTemplate = document.importNode(
-        statesOptionTemplate.content,
+        statesOptionTemplateElement.content,
         true
       );
       const newStateOption = <HTMLOptionElement>(
@@ -223,7 +223,7 @@ class EditClientController {
 
       newStateOption.textContent = `${statesDataList[i].name}`;
       newStateOption.setAttribute("value", `${statesDataList[i].id}`);
-      statesSelect.append(newStateOption);
+      statesSelectElement.append(newStateOption);
     }
   }
   private validateEditClientsForm() {

@@ -22,7 +22,7 @@ class EditStateController {
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditStateForm()) {
       try {
-        const stateNameInput = <HTMLInputElement>(
+        const stateNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='statename']")
         );
 
@@ -31,7 +31,7 @@ class EditStateController {
 
         const state: IState = {
           id: id,
-          name: stateNameInput.value,
+          name: stateNameInputElement.value,
           countryId: countryId,
         };
 

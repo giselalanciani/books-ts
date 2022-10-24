@@ -134,15 +134,15 @@ class EditBooksController {
   }
 
   private renderAuthors(authorsDataList: IAuthor[]) {
-    const authorsSelect = <HTMLSelectElement>document.getElementById("authors");
+    const authorsSelectElement = <HTMLSelectElement>document.getElementById("authors");
 
-    const authorOptionTemplate = <HTMLTemplateElement>(
+    const authorOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("author-option-template")
     );
 
     for (let i = 0; i < authorsDataList.length; i++) {
       const copyAuthorOptionTemplate = document.importNode(
-        authorOptionTemplate.content,
+        authorOptionTemplateElement.content,
         true
       );
 
@@ -153,22 +153,22 @@ class EditBooksController {
       newAuthorOption.textContent = `${authorsDataList[i].name}`;
       newAuthorOption.setAttribute("value", `${authorsDataList[i].name}`);
 
-      authorsSelect.append(newAuthorOption);
+      authorsSelectElement.append(newAuthorOption);
     }
   }
 
   private renderEditorials(editorialDataList: IEditorial[]) {
-    const editorialSelect = <HTMLSelectElement>(
+    const editorialSelectElement = <HTMLSelectElement>(
       document.getElementById("editorial")
     );
 
-    const editorialTemplate = <HTMLTemplateElement>(
+    const editorialTemplateElement = <HTMLTemplateElement>(
       document.getElementById("editorial-template")
     );
 
     for (let i = 0; i < editorialDataList.length; i++) {
       const copyEditorialTemplate = document.importNode(
-        editorialTemplate.content,
+        editorialTemplateElement.content,
         true
       );
 
@@ -179,32 +179,32 @@ class EditBooksController {
       newEditorialOption.textContent = `${editorialDataList[i].name}`;
       newEditorialOption.setAttribute("value", `${editorialDataList[i].id}`);
 
-      editorialSelect.append(newEditorialOption);
+      editorialSelectElement.append(newEditorialOption);
     }
   }
 
   private renderCategories(catergoriesDataList: ICategory[]) {
-    const categorySelect = <HTMLSelectElement>(
+    const categorySelectElement = <HTMLSelectElement>(
       document.getElementById("categories")
     );
 
-    const categoryOptionTemplate = <HTMLTemplateElement>(
+    const categoryOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("categories-option-template")
     );
 
     for (let i = 0; i < catergoriesDataList.length; i++) {
       const copyCategoryTemplate = document.importNode(
-        categoryOptionTemplate.content,
+        categoryOptionTemplateElement.content,
         true
       );
 
-      const newCategoryOption = <HTMLOptionElement>(
+      const newCategoryOptionElement = <HTMLOptionElement>(
         copyCategoryTemplate.querySelector("option")
       );
 
-      newCategoryOption.textContent = `${catergoriesDataList[i].name}`;
-      newCategoryOption.setAttribute("value", `${catergoriesDataList[i].id}`);
-      categorySelect.append(newCategoryOption);
+      newCategoryOptionElement.textContent = `${catergoriesDataList[i].name}`;
+      newCategoryOptionElement.setAttribute("value", `${catergoriesDataList[i].id}`);
+      categorySelectElement.append(newCategoryOptionElement);
     }
   }
 

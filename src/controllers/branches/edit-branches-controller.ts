@@ -34,29 +34,29 @@ class EditBranchController {
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditBranchForm()) {
       try {
-        const branchNameInput = <HTMLInputElement>(
+        const branchNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='branchname']")
         );
-        const countryInputSelect = <HTMLSelectElement>(
+        const countrySelectElement = <HTMLSelectElement>(
           document.querySelector("[name='country']")
         );
-        const stateInputSelect = <HTMLSelectElement>(
+        const stateSelecteLElement = <HTMLSelectElement>(
           document.querySelector("[name='state']")
         );
-        const cityInput = <HTMLInputElement>(
+        const cityInputElement = <HTMLInputElement>(
           document.querySelector("[name='city']")
         );
-        const streetInput = <HTMLInputElement>(
+        const streetInputElement = <HTMLInputElement>(
           document.querySelector("[name='street']")
         );
 
         const branch: IBranch = {
           id: "",
-          name: branchNameInput.value,
-          countryId: countryInputSelect.value,
-          stateId: stateInputSelect.value,
-          city: cityInput.value,
-          street: streetInput.value,
+          name: branchNameInputElement.value,
+          countryId: countrySelectElement.value,
+          stateId: stateSelecteLElement.value,
+          city: cityInputElement.value,
+          street: streetInputElement.value,
         };
 
         const id = this.getQueryParams().id;
@@ -85,15 +85,15 @@ class EditBranchController {
   }  
 
   private renderStates(statesDataList: IState[]) {
-    const statesSelect = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
 
-    const statesOptionTemplate = <HTMLTemplateElement>(
+    const statesOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("states-option-template")
     );
 
     for (let i = 0; i < statesDataList.length; i++) {
       const copyStatesOptionTemplate = document.importNode(
-        statesOptionTemplate.content,
+        statesOptionTemplateElement.content,
         true
       );
       const newStateOption = <HTMLOptionElement>(
@@ -102,36 +102,36 @@ class EditBranchController {
 
       newStateOption.textContent = `${statesDataList[i].name}`;
       newStateOption.setAttribute("value", `${statesDataList[i].id}`);
-      statesSelect.append(newStateOption);
+      statesSelectElement.append(newStateOption);
     }
   }
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelect = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
 
-    const countryTemplate = <HTMLTemplateElement>(
+    const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-create-template")
     );
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
+        countryTemplateElement.content,
         true
       );
 
-      const newCountryOption = <HTMLOptionElement>(
+      const newCountryOptionElement = <HTMLOptionElement>(
         copyCountryTemplate.querySelector("option")
       );
 
-      newCountryOption.textContent = `${countryDataList[i].name}`;
-      newCountryOption.setAttribute("value", `${countryDataList[i].id}`);
-      countrySelect.append(newCountryOption);
+      newCountryOptionElement.textContent = `${countryDataList[i].name}`;
+      newCountryOptionElement.setAttribute("value", `${countryDataList[i].id}`);
+      countrySelectElement.append(newCountryOptionElement);
     }
   }
 
   private onChangeCountrySelect = async (event: Event) => {
-    const changeCountrySelect = <HTMLSelectElement>event.target;
-    const countryId = changeCountrySelect.value;
+    const changeCountrySelectElement = <HTMLSelectElement>event.target;
+    const countryId = changeCountrySelectElement.value;
 
     this.deleteStateSelectOptions();
     if (countryId !== "") {
@@ -193,14 +193,14 @@ class EditBranchController {
       this.renderCountries(countriesData);      
       this.renderStates(statesData);
 
-      const branchInput = <HTMLInputElement>(
+      const branchInputElement = <HTMLInputElement>(
         document.querySelector("[name='branchname']")
       );
-      branchInput.value = branchData.name;
-      const countryInput = <HTMLInputElement>(
+      branchInputElement.value = branchData.name;
+      const countrySelectElement = <HTMLSelectElement>(
         document.querySelector("[name='country']")
       );
-      countryInput.value = branchData.countryId;
+      countrySelectElement.value = branchData.countryId;
 
       const stateSelectElement = <HTMLSelectElement>(
         document.querySelector("[name='state']")
@@ -209,14 +209,14 @@ class EditBranchController {
 
       // this.setState(branchData.countryId, branchData.stateId);
 
-      const cityInput = <HTMLInputElement>(
+      const cityInputElement = <HTMLInputElement>(
         document.querySelector("[name='city']")
       );
-      cityInput.value = branchData.city;
-      const streetInput = <HTMLInputElement>(
+      cityInputElement.value = branchData.city;
+      const streetInputElement = <HTMLInputElement>(
         document.querySelector("[name='street']")
       );
-      streetInput.value = branchData.street;
+      streetInputElement.value = branchData.street;
     } catch (error) {
       errorHandler("error al encontrar la data", error);
     } finally {

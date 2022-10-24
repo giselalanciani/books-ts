@@ -31,13 +31,13 @@ class CreateCategoryController {
   }
 
   private sendCategotyData = async () => {
-    const categoryNameInput = <HTMLInputElement>(
+    const categoryNameInputElement = <HTMLInputElement>(
       document.querySelector("[name='category-name']")
     );
 
     const category: ICategory = {
       id: "",
-      name: categoryNameInput.value,
+      name: categoryNameInputElement.value,
     };
 
     try {

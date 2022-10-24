@@ -114,29 +114,29 @@ class CreateAuthorsController {
   };
 
   private sendAuthorsData = async () => {
-    const authorNameInput = <HTMLInputElement>(
+    const authorNameInputElement = <HTMLInputElement>(
       document.querySelector("[name='authorname']")
     );
 
-    const birthdateYearSelect = <HTMLSelectElement>(
+    const birthdateYearSelectElement = <HTMLSelectElement>(
       document.querySelector("[name='year']")
     );
-    const birthdateMonthSelect = <HTMLSelectElement>(
+    const birthdateMonthSelectElement = <HTMLSelectElement>(
       document.querySelector("[name='month']")
     );
-    const birthdateDaySelect = <HTMLSelectElement>(
+    const birthdateDaySelectElement = <HTMLSelectElement>(
       document.querySelector("[name='day']")
     );
 
-    const year = birthdateYearSelect.value;
-    const month = birthdateMonthSelect.value;
-    const day = birthdateDaySelect.value;
+    const year = birthdateYearSelectElement.value;
+    const month = birthdateMonthSelectElement.value;
+    const day = birthdateDaySelectElement.value;
 
     const birthdate = new Date(parseInt(year), parseInt(month), parseInt(day));
 
     const author: IAuthor = {
       id: "",
-      name: authorNameInput.value,
+      name: authorNameInputElement.value,
       birthdate: birthdate.toISOString(),
     };
 

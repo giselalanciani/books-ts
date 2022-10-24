@@ -40,17 +40,17 @@ class createStateController {
 
   private sendData = async () => {
     try {
-      const stateNameInput = <HTMLInputElement>(
+      const stateNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='statename']")
       );
-      const countryInput = <HTMLInputElement>(
+      const countryInputElement = <HTMLInputElement>(
         document.querySelector("[name='country']")
       );
 
       const state: IState = {
         id: "",
-        name: stateNameInput.value,
-        countryId: countryInput.value,
+        name: stateNameInputElement.value,
+        countryId: countryInputElement.value,
       };
 
       await this.stateService.createState(state);
@@ -71,15 +71,15 @@ class createStateController {
   }
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelect = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement= <HTMLSelectElement>document.getElementById("country");
 
-    const countryTemplate = <HTMLTemplateElement>(
+    const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("state-create-template")
     );
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
+        countryTemplateElement.content,
         true
       );
 
@@ -87,7 +87,7 @@ class createStateController {
       if (newStateOption !== null) {
         newStateOption.textContent = `${countryDataList[i].name}`;
         newStateOption.setAttribute("value", `${countryDataList[i].id}`);
-        countrySelect.append(newStateOption);
+        countrySelectElement.append(newStateOption);
       }
     }
   }

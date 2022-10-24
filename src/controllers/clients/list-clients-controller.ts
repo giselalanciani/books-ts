@@ -46,15 +46,15 @@ class clientListController {
   };
 
   private async renderClients(clientsData: IClient[]) {
-    const clientsTable = <HTMLTableElement>(
+    const clientsTableElement = <HTMLTableElement>(
       document.getElementById("clients-table")
     );
-    const clientsRowTemplate = <HTMLTemplateElement>(
+    const clientsRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("client-row-template")
     );
     for (let i = 0; i < clientsData.length; i++) {
       const copyRowTemplate = document.importNode(
-        clientsRowTemplate.content,
+        clientsRowTemplateElement.content,
         true
       );
 
@@ -132,7 +132,7 @@ class clientListController {
 
       deleteClientButton.addEventListener("click", this.onClickDeleteButton);
 
-      clientsTable.append(copyRowTemplate);
+      clientsTableElement.append(copyRowTemplate);
     }
   }
 

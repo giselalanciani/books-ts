@@ -15,14 +15,14 @@ class EditCategoriesController {
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditForm()) {
       try {
-        const categoriesNameInput = <HTMLInputElement>(
+        const categoriesNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='category-name']")
         );
 
         const id = this.getQueryParams().id;
         const categoryId: ICategory = {
           id: id,
-          name: categoriesNameInput.value,
+          name: categoriesNameInputElement.value,
         };
 
         await this.categorieService.updateCategory(id, categoryId);
@@ -61,10 +61,10 @@ class EditCategoriesController {
     try {
       const categoriesData = await this.categorieService.getCategory(id);
 
-      const categoryInput = <HTMLInputElement>(
+      const categoryInputElement = <HTMLInputElement>(
         document.querySelector("[name='category-name']")
       );
-      categoryInput.value = categoriesData.name;
+      categoryInputElement.value = categoriesData.name;
     } catch (error) {
       errorHandler("Error en la busqueda,vualva a intentarlo luego", error);
     } finally {

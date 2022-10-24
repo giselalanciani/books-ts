@@ -64,29 +64,29 @@ class CreateBrunchesController {
 
   private sendBranchData = async () => {
     try {
-      const branchNameInput = <HTMLInputElement>(
+      const branchNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='branchname']")
       );
-      const countrySelector = <HTMLSelectElement>(
+      const countrySelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='country']")
       );
-      const stateSelector = <HTMLSelectElement>(
+      const stateSelectorElement = <HTMLSelectElement>(
         document.querySelector("[name='state']")
       );
-      const cityInput = <HTMLInputElement>(
+      const cityInputElement = <HTMLInputElement>(
         document.querySelector("[name='city']")
       );
-      const streetInput = <HTMLInputElement>(
+      const streetInputElement = <HTMLInputElement>(
         document.querySelector("[name='street']")
       );
 
       const branch: IBranch = {
         id: "",
-        name: branchNameInput.value,
-        countryId: countrySelector.value,
-        stateId: stateSelector.value,
-        city: cityInput.value,
-        street: streetInput.value,
+        name: branchNameInputElement.value,
+        countryId: countrySelectorElement.value,
+        stateId: stateSelectorElement.value,
+        city: cityInputElement.value,
+        street: streetInputElement.value,
       };
 
       await this.branchService.createBranch(branch);
@@ -131,41 +131,41 @@ public  async init() {
   }
 
 private  renderCountries(countryDataList:ICountry[]) {
-    const countrySelect = <HTMLSelectElement> document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement> document.getElementById("country");
 
-    const countryTemplate = <HTMLTemplateElement>document.getElementById("country-create-template");
+    const countryTemplateElement = <HTMLTemplateElement>document.getElementById("country-create-template");
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
-        countryTemplate.content,
+        countryTemplateElement.content,
         true
       );
 
-      const newCountryOption = <HTMLOptionElement>copyCountryTemplate.querySelector("option");
+      const newCountryOptionElement = <HTMLOptionElement>copyCountryTemplate.querySelector("option");
 
-      newCountryOption.textContent = `${countryDataList[i].name}`;
-      newCountryOption.setAttribute("value", `${countryDataList[i].id}`);
-      countrySelect.append(newCountryOption);
+      newCountryOptionElement.textContent = `${countryDataList[i].name}`;
+      newCountryOptionElement.setAttribute("value", `${countryDataList[i].id}`);
+      countrySelectElement.append(newCountryOptionElement);
     }
   }
 
 private  renderStates(statesDataList: IState[]) {
-    const statesSelect = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
 
-    const statesOptionTemplate = <HTMLTemplateElement>document.getElementById(
+    const statesOptionTemplateElement = <HTMLTemplateElement>document.getElementById(
       "states-option-template"
     );
 
     for (let i = 0; i < statesDataList.length; i++) {
       const copyStatesOptionTemplate = document.importNode(
-        statesOptionTemplate.content,
+        statesOptionTemplateElement.content,
         true
       );
-      const newStateOption = <HTMLOptionElement> copyStatesOptionTemplate.querySelector("option");
+      const newStateOptionElement = <HTMLOptionElement> copyStatesOptionTemplate.querySelector("option");
 
-      newStateOption.textContent = `${statesDataList[i].name}`;
-      newStateOption.setAttribute("value", `${statesDataList[i].id}`);
-      statesSelect.append(newStateOption);
+      newStateOptionElement.textContent = `${statesDataList[i].name}`;
+      newStateOptionElement.setAttribute("value", `${statesDataList[i].id}`);
+      statesSelectElement.append(newStateOptionElement);
     }
   }
 }

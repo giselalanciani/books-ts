@@ -22,13 +22,13 @@ class EditEditorialController {
 
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditEditorialForm() === true) {
-      const editorialInput = <HTMLInputElement>(
+      const editorialInputElement = <HTMLInputElement>(
         document.querySelector("[name='editorialname']")
       );
 
       const editorial: IEditorial = {
         id: "",
-        name: editorialInput.value,
+        name: editorialInputElement.value,
       };
 
       const id = this.getQueryParams().id;
@@ -59,10 +59,10 @@ class EditEditorialController {
     try {
       const editorialData = await this.editorialService.getEditorial(params.id);      
 
-      const editorialInput = <HTMLInputElement>(
+      const editorialInputElement = <HTMLInputElement>(
         document.querySelector("[name='editorialname']")
       );
-      editorialInput.value = editorialData.name;
+      editorialInputElement.value = editorialData.name;
     } catch (error) {
       errorHandler("Error en la busqueda,vualva a intentarlo luego", error);
     }
