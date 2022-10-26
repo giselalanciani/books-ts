@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> > Login
+      <h1>Login</h1>
+    </header>
+    <main>
+      <form autocomplete="off" name="log-in-form">
+        <div class="field-container">
+          <label for="email">Email</label>
+          <input type="email" name="email" />
+          <div class="error hidden" name="email-required">
+            * Campo requerido
+          </div>
+        </div>
+
+        <div class="field-container">
+          <label for="password">Password</label>
+          <input type="password" name="password" />
+          <div class="error hidden" name="password-required">
+            * Campo requerido
+          </div>
+        </div>
+        <button id="sign-In-button" type="button">SignIn</button>
+      </form>
+    </main>
+    <script src="/assets/scripts/logInBundle.js"></script>
+  </body>
+</html>

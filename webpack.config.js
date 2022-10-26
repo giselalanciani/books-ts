@@ -43,7 +43,7 @@ module.exports = {
     usersBundle: "./src/controllers/users/list-user-controller.ts",
     createUsersBundle: "./src/controllers/users/create-user-controller.ts",
     editUsersBundle: "./src/controllers/users/edit-user-controller.ts",
-   
+    logInBundle: "./src/controllers/login/log-in-controller.ts",
     
   },
   output: {
