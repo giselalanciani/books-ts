@@ -1,39 +1,43 @@
+// Import all of Bootstrap's CSS
+@import "~bootstrap/scss/bootstrap";
+
+
 /*******
   Header
 ********/
-header {
-  font-size: 20px;
-}
+// header {
+//   font-size: 20px;
+// }
 
-header a {
-  font-style: italic;
-}
+// header a {
+//   font-style: italic;
+// }
 /********
   General
 *********/
-html {
-  font-size: 16px;
-}
+// html {
+//   font-size: 16px;
+// }
 .hidden {
   display: none;
 }
-button {
-  border-radius: 8px;
-  background-color: ghostwhite;
-  min-width: 150px;
-  min-height: 40px;
-  font-size: 16px;
-}
+// button {
+//   border-radius: 8px;
+//   background-color: ghostwhite;
+//   min-width: 150px;
+//   min-height: 40px;
+//   font-size: 16px;
+// }
 
-a:link,
-a:visited {
-  color: dodgerblue;
-}
+// a:link,
+// a:visited {
+//   color: dodgerblue;
+// }
 
-a:hover,
-a:active {
-  color: darkblue;
-}
+// a:hover,
+// a:active {
+//   color: darkblue;
+// }
 
 /*******
   Form
@@ -73,12 +77,12 @@ form button {
 /*******
   Table
 ********/
-table button {
-  min-width: 50px;
-}
-table,
-th,
-td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
+// table button {
+//   min-width: 50px;
+// }
+// table,
+// th,
+// td {
+//   border: 1px solid black;
+//   border-collapse: collapse;
+// }

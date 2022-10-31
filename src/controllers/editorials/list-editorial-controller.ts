@@ -32,10 +32,11 @@ class ListEditorialController {
     );
     waitingMessageRow.remove();
   }
-  private renderEditorials(editorialsList: IEditorial[]) {
-    const editorialTableElement = <HTMLTableElement>(
-      document.getElementById("editorial-table")
+  private renderEditorials(editorialsList: IEditorial[]) {  
+    const editorialTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#editorial-table tbody")
     );
+
     const editorialRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("editorial-row-template")
     );
@@ -56,6 +57,8 @@ class ListEditorialController {
       );
       editEditorialButton.setAttribute("data-id", editorialsList[i].id);
       editEditorialButton.addEventListener("click", this.onClickEditButton);
+      editEditorialButton.classList.add('btn');
+      editEditorialButton.classList.add('btn-secondary');
 
       const deleteEditorialButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-editorial-button']")
@@ -63,8 +66,10 @@ class ListEditorialController {
 
       deleteEditorialButton.setAttribute("data-id", editorialsList[i].id);
       deleteEditorialButton.addEventListener("click", this.onClickDeleteButton);
+      deleteEditorialButton.classList.add('btn');
+      deleteEditorialButton.classList.add('btn-secondary');
 
-      editorialTableElement.append(copyRowTemplate);
+      editorialTableBodyElement.append(copyRowTemplate);
     }
   }
 

@@ -1,5 +1,11 @@
+const miniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 const CleanPlugin = require("clean-webpack-plugin");
+
+console.log(
+  "the resolve is: ",
+  path.resolve(__dirname, "dist", "assets", "scripts")
+);
 
 module.exports = {
   mode: "development",
@@ -44,28 +50,63 @@ module.exports = {
     createUsersBundle: "./src/controllers/users/create-user-controller.ts",
     editUsersBundle: "./src/controllers/users/edit-user-controller.ts",
     logInBundle: "./src/controllers/login/log-in-controller.ts",
-    
   },
+  devtool: "inline-source-map",
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, "dist", "assets", "scripts"),
-    publicPath: "assets/scripts/",
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
   devtool: "inline-source-map",
   devServer: {
-    contentBase: "./dist",
+    static: path.resolve(__dirname, "dist"),
+    port: 8080,
+    hot: true,
   },
   module: {
     rules: [
+      {
+        mimetype: "image/svg+xml",
+        scheme: "data",
+        type: "asset/resource",
+        generator: {
+          filename: "icons/[hash].svg",
+        },
+      },
       {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.(scss)$/,
+        use: [
+          {
+            // Extracts CSS for each JS file that includes CSS
+            loader: miniCssExtractPlugin.loader,
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: () => [require("autoprefixer")],
+              },
+            },
+          },
+          {
+            loader: "sass-loader",
+          },
+        ],
+      },
     ],
   },
-  plugins: [new CleanPlugin.CleanWebpackPlugin()],
+  plugins: [
+    new CleanPlugin.CleanWebpackPlugin(),
+    new miniCssExtractPlugin({ filename: "main.css" }),
+  ],
 };

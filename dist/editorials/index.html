@@ -14,19 +14,25 @@
     </header>
 
     <main>
-      <button id="create-button" type="button">Create</button>
+      <button id="create-button" type="button" class="btn btn-primary">
+        Create
+      </button>
 
-      <table id="editorial-table">
-        <tr>
-          <th>Name</th>
-          <th>Actions</th>
-        </tr>
-        <tr class="hidden" id="no-editorials-available">
-          <td colspan="2">No books available</td>
-        </tr>
-        <tr id="waiting-message-row">
-          <td colspan="2">Espere por favor, cargando datos...</td>
-        </tr>
+      <table id="editorial-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hidden" id="no-editorials-available">
+            <td colspan="2">No books available</td>
+          </tr>
+          <tr id="waiting-message-row">
+            <td colspan="2">Espere por favor, cargando datos...</td>
+          </tr>
+        </tbody>
       </table>
     </main>
     <template id="editorial-row-template">
@@ -39,6 +45,6 @@
       </tr>
     </template>
 
-    <script src="/assets/scripts/editorialsBundle.js"></script>
+    <script src="/editorialsBundle.js"></script>
   </body>
 </html>

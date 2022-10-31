@@ -5,7 +5,7 @@
   "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dev": "webpack-dev-server"
+    "build:dev": "webpack serve --mode development --open"
   },
   "repository": {
     "type": "git",
@@ -18,18 +18,26 @@
   },
   "homepage": "https://github.com/giselalanciani/books#readme",
   "devDependencies": {
+    "@types/bootstrap": "^5.2.5",
     "@types/jwt-decode": "^3.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.38.1",
-    "@typescript-eslint/parser": "^5.38.1",
-    "clean-webpack-plugin": "^3.0.0",
-    "core-js": "^3.2.1",
-    "eslint": "^8.24.0",
-    "regenerator-runtime": "^0.13.3",
-    "ts-loader": "^8.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
+    "autoprefixer": "^10.4.13",
+    "clean-webpack-plugin": "^4.0.0",
+    "core-js": "^3.26.0",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.26.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^7.0.1",
+    "regenerator-runtime": "^0.13.10",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.4.1",
     "typescript": "^4.8.4",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.1"
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.6",
