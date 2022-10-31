@@ -13,20 +13,26 @@
       <h1>Users</h1>
     </header>
     <main>
-      <button id="create-button" type="button">Create</button>
+      <button id="create-button" type="button" class="btn btn-primary">
+        Create
+      </button>
 
-      <table id="users-table">
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-        <tr class="hidden" id="no-users-available">
-          <td colspan="3">No users available</td>
-        </tr>
-        <tr id="waiting-message-row">
-          <td colspan="3">Espere por favor, cargando datos...</td>
-        </tr>
+      <table id="users-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hidden" id="no-users-available">
+            <td colspan="3">No users available</td>
+          </tr>
+          <tr id="waiting-message-row">
+            <td colspan="3">Espere por favor, cargando datos...</td>
+          </tr>
+        </tbody>
       </table>
     </main>
     <template id="users-row-template">

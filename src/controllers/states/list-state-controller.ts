@@ -117,7 +117,9 @@ class ListStatesController {
   }
 
   private renderStates(statesList: IState[]) {
-    const stateTableElement = <HTMLTableElement>document.getElementById("state-table");
+    const stateTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#state-table tbody")
+    );
     const stateRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("state-row-template")
     );
@@ -139,6 +141,8 @@ class ListStatesController {
       editStateButton.setAttribute("data-id", statesList[i].id);
       editStateButton.setAttribute("data-country-id", statesList[i].countryId);
       editStateButton.addEventListener("click", this.onClickEditButton);
+      editStateButton.classList.add('btn');
+      editStateButton.classList.add('btn-secondary');
 
       const deleteStateButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-state-button']")
@@ -150,8 +154,10 @@ class ListStatesController {
         statesList[i].countryId
       );
       deleteStateButton.addEventListener("click", this.onClickDeleteButton);
+      deleteStateButton.classList.add('btn');
+      deleteStateButton.classList.add('btn-secondary');
 
-      stateTableElement.append(copyRowTemplate);
+      stateTableBodyElement.append(copyRowTemplate);
     }
   }
   private renderCountries(countryDataList: ICountry[]) {

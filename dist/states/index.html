@@ -14,7 +14,9 @@
     </header>
 
     <main>
-      <button id="create-button" type="button">Create</button>
+      <button id="create-button" type="button" class="btn btn-primary">
+        Create
+      </button>
 
       <form autocomplete="off" name="country-filter-form">
         <div class="field-container">
@@ -28,18 +30,21 @@
         </div>
       </form>
 
-      <table id="state-table">
-        <tr id="table-header">
-          <th>Name</th>
-          <th>Actions</th>
-        </tr>
-
-        <tr class="hidden" id="no-states-available">
-          <td colspan="2">No states available</td>
-        </tr>
-        <tr class="hidden" id="waiting-message-row">
-          <td colspan="2">Espere por favor, cargando datos...</td>
-        </tr>
+      <table id="state-table" class="table table-hover">
+        <thead>
+          <tr id="table-header">
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hidden" id="no-states-available">
+            <td colspan="2">No states available</td>
+          </tr>
+          <tr class="hidden" id="waiting-message-row">
+            <td colspan="2">Espere por favor, cargando datos...</td>
+          </tr>
+        </tbody>
       </table>
     </main>
     <template id="state-row-template">

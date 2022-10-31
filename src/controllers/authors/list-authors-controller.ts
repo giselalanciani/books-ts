@@ -34,7 +34,9 @@ class ListAuthorsController {
   }
 
   private renderAuthors(authorsList: IAuthor[]) {
-    const authorTable = document.getElementById("author-table");
+    const authorTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#author-table tbody")
+    );
     const authorRowTemplate = <HTMLTemplateElement>(
       document.getElementById("author-row-template")
     );
@@ -60,21 +62,26 @@ class ListAuthorsController {
         authorBirthateTd.textContent = birthdate.toLocaleString();
       }
 
-      const editAuthorButton = copyRowTemplate.querySelector<HTMLButtonElement>(
+      const editAuthorButton = <HTMLButtonElement>copyRowTemplate.querySelector(
         "[name='edit-author-button']"
       );
 
-      editAuthorButton?.setAttribute("data-id", authorsList[i].id);
-      editAuthorButton?.addEventListener("click", this.onClickEditButton);
+      editAuthorButton.setAttribute("data-id", authorsList[i].id);
+      editAuthorButton.addEventListener("click", this.onClickEditButton);
+      editAuthorButton.classList.add('btn');
+      editAuthorButton.classList.add('btn-secondary');
 
-      const deleteAuthorButton =
-        copyRowTemplate.querySelector<HTMLButtonElement>(
+      const deleteAuthorButton =<HTMLButtonElement>
+        copyRowTemplate.querySelector(
           "[name='delete-author-button']"
         );
-      deleteAuthorButton?.setAttribute("data-id", authorsList[i].id);
-      deleteAuthorButton?.addEventListener("click", this.onClickDeleteButton);
+      deleteAuthorButton.setAttribute("data-id", authorsList[i].id);
+      deleteAuthorButton.addEventListener("click", this.onClickDeleteButton);
+      deleteAuthorButton.classList.add('btn');
+      deleteAuthorButton.classList.add('btn-secondary');
 
-      authorTable?.append(copyRowTemplate);
+
+      authorTableBodyElement.append(copyRowTemplate);
     }
   }
 

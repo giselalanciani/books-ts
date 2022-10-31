@@ -99,7 +99,9 @@ class ListBooksController {
   }
 
   private async renderBooks(booksData: Ibook[], editorialsData: IEditorial[]) {
-    const bookTable = <HTMLTableElement>document.getElementById("books-table");
+    const bookTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#books-table tbody")
+    );
     const bookRowTemplate = <HTMLTemplateElement>(
       document.getElementById("book-row-template")
     );
@@ -156,6 +158,8 @@ class ListBooksController {
       );
       editBookButton.setAttribute("data-id", booksData[i].id);
       editBookButton.addEventListener("click", this.onClickEditButton);
+      editBookButton.classList.add('btn');
+      editBookButton.classList.add('btn-secondary');
 
       const deleteBookButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-book-button']")
@@ -163,8 +167,10 @@ class ListBooksController {
       deleteBookButton.setAttribute("data-id", booksData[i].id);
       deleteBookButton.setAttribute("data-name", booksData[i].name);
       deleteBookButton.addEventListener("click", this.onClickDeleteButton);
+      deleteBookButton.classList.add('btn');
+      deleteBookButton.classList.add('btn-secondary');
 
-      bookTable.append(copyRowTemplate);
+      bookTableBodyElement.append(copyRowTemplate);
     }
   }
 

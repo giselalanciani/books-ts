@@ -53,7 +53,9 @@ class ListUserController {
   }
 
   private async renderUsers(userData: IUser[]) {
-    const usersTableElement = <HTMLTableElement>document.getElementById("users-table");
+    const usersTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#users-table tbody")
+    );
     const usersRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("users-row-template")
     );
@@ -88,6 +90,8 @@ class ListUserController {
      
       editUserButton.setAttribute("data-id", userData[i].id);
       editUserButton.addEventListener("click", this.onClickEditButton);
+      editUserButton.classList.add('btn');
+      editUserButton.classList.add('btn-secondary');
 
       const deleteUserButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-users-button']")
@@ -95,8 +99,10 @@ class ListUserController {
       deleteUserButton.setAttribute("data-id", userData[i].id);
 
       deleteUserButton.addEventListener("click", this.onClickDeleteButton);
+      deleteUserButton.classList.add('btn');
+      deleteUserButton.classList.add('btn-secondary');
 
-      usersTableElement.append(copyRowTemplate);
+      usersTableBodyElement.append(copyRowTemplate);
     }
   }
   private removeWaitingMessageRow() {

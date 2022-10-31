@@ -14,25 +14,31 @@
     </header>
 
     <main>
-      <button id="create-button" type="button">Create</button>
+      <button id="create-button" type="button" class="btn btn-primary">
+        Create
+      </button>
 
-      <table id="books-table">
-        <tr>
-          <th>Name</th>
-          <th>Year</th>
-          <th>Authors</th>
-          <th>Editorial</th>
-          <th>Stock</th>
-          <th>Price</th>
-          <th>Categories</th>
-          <th>Actions</th>
-        </tr>
-        <tr class="hidden" id="no-books-available">
-          <td colspan="8">No books available</td>
-        </tr>
-        <tr id="waiting-message-row">
-          <td colspan="8">Espere por favor, cargando datos...</td>
-        </tr>
+      <table id="books-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Authors</th>
+            <th>Editorial</th>
+            <th>Stock</th>
+            <th>Price</th>
+            <th>Categories</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hidden" id="no-books-available">
+            <td colspan="8">No books available</td>
+          </tr>
+          <tr id="waiting-message-row">
+            <td colspan="8">Espere por favor, cargando datos...</td>
+          </tr>
+        </tbody>
       </table>
     </main>
 

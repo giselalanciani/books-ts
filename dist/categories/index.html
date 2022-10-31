@@ -13,20 +13,25 @@
       <h1>Categories</h1>
     </header>
     <main>
-      <button id="create-button" type="button">Create</button>
+      <button id="create-button" type="button" class="btn btn-primary">
+        Create
+      </button>
 
-      <table id="categories-table">
-        <tr>
-          <th>Name</th>
-          <th>Actions</th>
-        </tr>
-        <tr class="hidden" id="no-categories-available">
-          <td colspan="2">No categories available</td>
-        </tr>
-        <tr id="waiting-message-row">
-          <td colspan="2">Espere por favor, cargando datos...</td>
-        </tr>
-
+      <table id="categories-table" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hidden" id="no-categories-available">
+            <td colspan="2">No categories available</td>
+          </tr>
+          <tr id="waiting-message-row">
+            <td colspan="2">Espere por favor, cargando datos...</td>
+          </tr>
+        </tbody>
       </table>
     </main>
     <template id="categories-row-template">
@@ -36,8 +41,8 @@
           <button name="edit-categories-button" type="button">Edit</button>
           <button name="delete-categories-button" type="button">Delete</button>
         </td>
-      </tr>      
-    </template>    
+      </tr>
+    </template>
     <script src="/categoriesBundle.js"></script>
   </body>
 </html>

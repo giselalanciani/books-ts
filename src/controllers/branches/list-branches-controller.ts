@@ -45,8 +45,8 @@ class ListBranchesController {
   };
 
   private async renderBranch(branchData: IBranch[]) {
-    const branchTableElement = <HTMLTableElement>(
-      document.getElementById("branches-table")
+    const branchTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#branches-table tbody")
     );
     const branchRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("branches-row-template")
@@ -94,6 +94,8 @@ class ListBranchesController {
       );
       editBranchButton.setAttribute("data-id", branchData[i].id);
       editBranchButton.addEventListener("click", this.onClickEditButton);
+      editBranchButton.classList.add('btn');
+      editBranchButton.classList.add('btn-secondary');
 
       const deleteBranchButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-branches-button']")
@@ -101,8 +103,10 @@ class ListBranchesController {
       deleteBranchButton.setAttribute("data-id", branchData[i].id);
       deleteBranchButton.setAttribute("data-name", branchData[i].name);
       deleteBranchButton.addEventListener("click", this.onClickDeleteButton);
+      deleteBranchButton.classList.add('btn');
+      deleteBranchButton.classList.add('btn-secondary');
 
-      branchTableElement.append(copyRowTemplate);
+      branchTableBodyElement.append(copyRowTemplate);
     }
   }
 

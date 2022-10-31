@@ -22,8 +22,8 @@ class ListCountryController {
   }
 
   private renderCountries(countriesList: ICountry[]) {
-    const countryTableElement = <HTMLTableElement>(
-      document.getElementById("country-table")
+    const countryTableBobyElement = <HTMLTableElement>(
+      document.querySelector("#country-table tbody")
     );
     const countryRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-row-template")
@@ -46,6 +46,8 @@ class ListCountryController {
       );
       editCountryButton.setAttribute("data-id", countriesList[i].id);
       editCountryButton.addEventListener("click", this.onClickEditButton);
+      editCountryButton.classList.add('btn');
+      editCountryButton.classList.add('btn-secondary');
 
       const deleteCountryButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-country-button']")
@@ -53,6 +55,8 @@ class ListCountryController {
 
       deleteCountryButton.setAttribute("data-id", countriesList[i].id);
       deleteCountryButton.addEventListener("click", this.onClickDeleteButton);
+      deleteCountryButton.classList.add('btn');
+      deleteCountryButton.classList.add('btn-secondary');
 
       const statesButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='states-button']")
@@ -60,7 +64,10 @@ class ListCountryController {
 
       statesButton.setAttribute("data-country-id", countriesList[i].id);
       statesButton.addEventListener("click", this.onClickStatesButton);
-      countryTableElement.append(copyRowTemplate);
+      statesButton.classList.add('btn');
+      statesButton.classList.add('btn-secondary');
+      
+      countryTableBobyElement.append(copyRowTemplate);
     }
   }
 

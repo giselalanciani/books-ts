@@ -41,8 +41,8 @@ class ListCategoriesController {
   };
 
   private renderCategories(categoriesData: ICategory[]) {
-    const categoriesTableElement = <HTMLTableElement>(
-      document.getElementById("categories-table")
+    const categoriesTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#categories-table tbody")
     );
     const categoriesRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("categories-row-template")
@@ -63,19 +63,25 @@ class ListCategoriesController {
 
       editCategoriesButton.setAttribute("data-id", categoriesData[i].id);
       editCategoriesButton.addEventListener("click", this.onClickEditButton);
+      editCategoriesButton.classList.add('btn');
+      editCategoriesButton.classList.add('btn-secondary');
+
 
       const deleteCategoriesButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-categories-button']")
       );
       deleteCategoriesButton.setAttribute("data-id", categoriesData[i].id);
       deleteCategoriesButton.setAttribute("data-name", categoriesData[i].name);
+      deleteCategoriesButton.classList.add('btn');
+      deleteCategoriesButton.classList.add('btn-secondary');
+      
 
       deleteCategoriesButton.addEventListener(
         "click",
         this.onClickDeleteButton
       );
 
-      categoriesTableElement.append(copyRowTemplate);
+      categoriesTableBodyElement.append(copyRowTemplate);
     }
   }
 

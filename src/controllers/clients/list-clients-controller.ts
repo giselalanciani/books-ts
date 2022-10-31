@@ -46,8 +46,8 @@ class clientListController {
   };
 
   private async renderClients(clientsData: IClient[]) {
-    const clientsTableElement = <HTMLTableElement>(
-      document.getElementById("clients-table")
+    const clientsTableBodyElement = <HTMLTableElement>(
+      document.querySelector("#clients-table tbody")
     );
     const clientsRowTemplateElement = <HTMLTemplateElement>(
       document.getElementById("client-row-template")
@@ -118,12 +118,14 @@ class clientListController {
         }
       }
       likedCategoriesElement.textContent = likedCategories;
-      
+
       const editClientButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-client-button']")
       );
       editClientButton.setAttribute("data-id", clientsData[i].id);
       editClientButton.addEventListener("click", this.onClickEditButton);
+      editClientButton.classList.add("btn");
+      editClientButton.classList.add("btn-secondary");
 
       const deleteClientButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-client-button']")
@@ -131,8 +133,10 @@ class clientListController {
       deleteClientButton.setAttribute("data-id", clientsData[i].id);
 
       deleteClientButton.addEventListener("click", this.onClickDeleteButton);
+      deleteClientButton.classList.add("btn");
+      deleteClientButton.classList.add("btn-secondary");
 
-      clientsTableElement.append(copyRowTemplate);
+      clientsTableBodyElement.append(copyRowTemplate);
     }
   }
 
