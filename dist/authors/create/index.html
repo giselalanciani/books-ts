@@ -14,30 +14,31 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-author-form">
+      <form autocomplete="off" name="create-author-form" novalidate>        
+
         <div class="field-container">
-          <label for="authorname">Author name</label>
-          <input type="text" name="authorname" />
-          <div class="error hidden" name="authorname-required">
+          <label for="authorname"  class="form-label">Author name</label>
+          <input class="form-control" type="text" name="authorname" />
+          <div class="invalid-feedback hidden" name="authorname-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="Year">Year</label>
-          <select name="year" id="year">
+          <label for="Year" class="form-label">Year</label>
+          <select class="form-select" name="year" id="year">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="year-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="year-required">* Campo requerido</div>
         </div>
 
         <div class="field-container">
           <label for="Month">Month</label>
 
-          <select name="month" id="month">
+          <select class="form-select" name="month" id="month">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="month-required">
+          <div class="invalid-feedback hidden" name="month-required">
             * Campo requerido
           </div>
         </div>
@@ -45,13 +46,15 @@
         <div class="field-container">
           <label for="Day">Day</label>
 
-          <select name="day" id="day">
+          <select class="form-select" name="day" id="day">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="day-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="day-required">* Campo requerido</div>
         </div>
 
-        <button id="create-author-button" type="button">Create</button>
+        <button id="create-author-button" type="submit" class="btn btn-primary">
+          Create
+        </button>
       </form>
     </main>
 
