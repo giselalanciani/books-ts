@@ -13,81 +13,85 @@
       <h1>Create Book</h1>
     </header>
     <main>
-      <form autocomplete="off" name="create-user-form">
+      <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
-          <label for="bookname">Book name</label>
-          <input type="text" name="bookname" />
-          <div class="error hidden" name="bookname-required">
+          <label for="bookname" class="form-label">Book name</label>
+          <input class="form-control" type="text" name="bookname" />
+          <div class="invalid-feedback hidden" name="bookname-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="year">Year</label>
-          <input type="number" name="year" />
-          <div class="error hidden" name="year-required">* Campo requerido</div>
-          <div class="error hidden" name="year-numeric">
+          <label for="year" class="form-label">Year</label>
+          <input class="form-control" type="text" name="year" />
+          <div class="invalid-feedback" name="year-required">
+            * Campo requerido
+          </div>
+          <div class="invalid-feedback" name="year-numeric">
             * El campo debe ser numérico
           </div>
         </div>
 
         <div class="field-container">
-          <label for="editorial">Editorial</label>
-          <select name="editorial" id="editorial">
+          <label for="editorial" class="form-label">Editorial</label>
+          <select class="form-select" name="editorial" id="editorial">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="editorial-required">
+          <div class="invalid-feedback hidden" name="editorial-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="authors">Authors</label>
-          <select name="authors" id="authors">
+          <label for="authors" class="form-label">Authors</label>
+          <select class="form-select" name="authors" id="authors">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="authors-required">
+          <div class="invalid-feedback hidden" name="authors-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="stock">Stock</label>
-          <input type="number" name="stock" />
-          <div class="error hidden" name="stock-required">
+          <label for="stock" class="form-label">Stock</label>
+          <input class="form-control" type="number" name="stock" />
+          <div class="invalid-feedback hidden" name="stock-required">
             * Campo requerido
           </div>
-          <div class="error hidden" name="stock-numeric">
+          <div class="invalid-feedback hidden" name="stock-numeric">
             * El campo debe ser numérico
           </div>
         </div>
 
         <div class="field-container">
-          <label for="price">Price</label>
-          <input type="number" name="price" />
-          <div class="error hidden" name="price-required">
+          <label for="price" class="form-label">Price</label>
+          <input class="form-control" type="number" name="price" />
+          <div class="invalid-feedback hidden" name="price-required">
             * Campo requerido
           </div>
-          <div class="error hidden" name="price-numeric">
+          <div class="invalid-feedback hidden" name="price-numeric">
             * El campo debe ser numérico
           </div>
         </div>
 
         <div class="field-container">
-          <label for="categories">Categories</label>
+          <label for="categories" class="form-label">Categories</label>
           <select
+            class="form-select"
             multiple
             name="categories"
             id="categories"
             class="multiple"
-          >            
-          </select>
-          <div class="error hidden" name="categories-required">
+          ></select>
+          <div class="invalid-feedback hidden" name="categories-required">
             * Campo requerido
           </div>
         </div>
 
-        <button id="create-book-button" type="button">Create</button>
+        <button id="create-book-button" type="submit" class="btn btn-primary">
+          Create
+        </button>
       </form>
     </main>
     <script src="/createBookBundle.js"></script>
