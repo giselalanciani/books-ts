@@ -14,50 +14,50 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-user-form">
+      <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
-          <label for="branchname">Branch name</label>
-          <input type="text" name="branchname" />
-          <div class="error hidden" name="branchname-required">
+          <label for="branchname" class="form-label">Branch name</label>
+          <input class="form-control"type="text" name="branchname" />
+          <div class="invalid-feedback hidden"name="branchname-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="country">Country</label>
-          <select name="country" id="country">
+          <label for="country" class="form-label">Country</label>
+          <select class="form-select"name="country" id="country">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="country-required">
+          <div class="invalid-feedback hidden" name="country-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="state">State</label>
-          <select name="state" id="state">
+          <label for="state"class="form-label">State</label>
+          <select class="form-select"name="state" id="state">
             <option id="select-state" value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="state-required">
+          <div class="invalid-feedback hidden" name="state-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="city">City</label>
-          <input type="text" name="city" />
-          <div class="error hidden" name="city-required">* Campo requerido</div>
+          <label for="city" class="form-label">City</label>
+          <input class="form-control"type="text" name="city" />
+          <div class="invalid-feedback hidden" name="city-required">* Campo requerido</div>
         </div>
 
         <div class="field-container">
-          <label for="street">Street</label>
-          <input type="text" name="street" />
-          <div class="error hidden" name="street-required">
+          <label for="street"class="form-label">Street</label>
+          <input class="form-control"type="text" name="street" />
+          <div class="invalid-feedback hidden" name="street-required">
             * Campo requerido
           </div>
         </div>
 
-        <button id="create-branch-button" type="button">Create</button>
+        <button id="create-branch-button" type="submit" class="btn btn-primary">Create</button>
       </form>
     </main>
     <script src="/createBranchesBundle.js"></script>
