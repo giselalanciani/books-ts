@@ -14,17 +14,17 @@
       <h1>Create categories</h1>
     </header>
     <main>
-      <form autocomplete="off" name="create-user-form">
+      <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
-          <label for="category-name">Category name</label>
-          <input type="text" name="category-name" />
-          <div class="error hidden" name="category-name-required">
+          <label for="category-name" class="form-label">Category name</label>
+          <input class="form-control"type="text" name="category-name" />
+          <div class="invalid-feedback hidden" name="category-name-required">
             * Campo requerido
           </div>
         </div>
         
 
-        <button id="create-category-button" type="button">Create</button>
+        <button id="create-category-button" type="submit" class="btn btn-primary">Create</button>
       </form>
     </main>        
 
