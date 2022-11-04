@@ -17,17 +17,17 @@
       <p id="Activity-indication-message">
         Espere por favor, cargando datos...
       </p>
-      <form name="edit-categories-form">
+      <form name="edit-categories-form"novalidate>
         <div class="field-container">
-          <label for="category-name">Categories name</label>
-          <input type="text" name="category-name" />
-          <div class="error hidden" name="category-name-required">
+          <label for="category-name"class="form-label">Categories name</label>
+          <input class="form-control"type="text" name="category-name" />
+          <div class="invalid-feedback hidden" name="category-name-required">
             * Campo requerido
           </div>
         </div>
         <template id="categories-template"></template>
 
-        <button id="save-category-button" type="button">Save</button>
+        <button id="save-category-button" type="button"class="btn btn-primary">Save</button>
       </form>
     </main>
 
