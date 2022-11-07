@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { IBranch } from "../../models/branch";
 import { BranchService } from "../../services/branch-service";
 import { CountryServices } from "../../services/country-service";
@@ -33,17 +33,35 @@ class ListBranchesController {
     const deleteButtonElement = <HTMLButtonElement>event.target;
     const name = deleteButtonElement.getAttribute("data-name");
 
-    if (confirm(`Quiere eliminar el branch creado: ${name} ?`) == true)
-      try {
-        const idToDelete = deleteButtonElement.getAttribute("data-id");
-        if (idToDelete !== null) {
-          await this.branchService.deleteBranch(idToDelete);
-        }
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
 
-        window.location.href = "http://localhost:8080/branches/";
-      } catch (error) {
-        errorHandler("No se pudo eliminar el branch", error);
-      }
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar el branch creado: ${name} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButtonElement.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.branchService.deleteBranch(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/branches/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el branch", error);
+        }
+      });
+
+      myDeleteModal.show();
+    }
   };
 
   private async renderBranch(branchData: IBranch[]) {
@@ -96,8 +114,8 @@ class ListBranchesController {
       );
       editBranchButton.setAttribute("data-id", branchData[i].id);
       editBranchButton.addEventListener("click", this.onClickEditButton);
-      editBranchButton.classList.add('btn');
-      editBranchButton.classList.add('btn-secondary');
+      editBranchButton.classList.add("btn");
+      editBranchButton.classList.add("btn-secondary");
 
       const deleteBranchButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-branches-button']")
@@ -105,8 +123,8 @@ class ListBranchesController {
       deleteBranchButton.setAttribute("data-id", branchData[i].id);
       deleteBranchButton.setAttribute("data-name", branchData[i].name);
       deleteBranchButton.addEventListener("click", this.onClickDeleteButton);
-      deleteBranchButton.classList.add('btn');
-      deleteBranchButton.classList.add('btn-secondary');
+      deleteBranchButton.classList.add("btn");
+      deleteBranchButton.classList.add("btn-secondary");
 
       branchTableBodyElement.append(copyRowTemplate);
     }
