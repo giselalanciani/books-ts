@@ -14,15 +14,15 @@
       <h1>Edit editorial</h1>
     </header>
 
-    <form autocomplete="off" name="edit-editorial-form">
+    <form autocomplete="off" name="edit-editorial-form"novalidate>
       <div class="field-container">
-        <label for="editorialname">Editorial name</label>
-        <input type="text" name="editorialname" />
-        <div class="error hidden" name="editorialname-required">* Campo requerido</div>
+        <label for="editorialname"class="form-label">Editorial name</label>
+        <input class="form-control"type="text" name="editorialname" />
+        <div class="invalid-feedback hidden"  name="editorialname-required">* Campo requerido</div>
       </div>
       <template id="editorial-template"></template>
 
-      <button id="save-editorial-button" type="button">Save</button>
+      <button id="save-editorial-button" type="button"class="btn btn-primary">Save</button>
     </form>
 
     <script src="/editEditorialsBundle.js"></script>

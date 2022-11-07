@@ -12,8 +12,7 @@ function isNumeric(str: any) {
   ); // ...and ensure strings of whitespace fail
 }
 
-const validateFieldNumeric = (fieldName:string) => {
-
+const validateFieldNumeric = (fieldName: string) => {
   const input = <HTMLInputElement>(
     document.querySelector(`[name='${fieldName}']`)
   );
@@ -22,12 +21,21 @@ const validateFieldNumeric = (fieldName:string) => {
   );
 
   if (input.value == "") {
+    if (input?.classList.contains("is-invalid") === true) {
+      // input.classList.remove("is-invalid");
+    }
     numericError.classList.add("hidden");
     return true;
   } else if (isNumeric(input.value) === false) {
+    if (input?.classList.contains("is-invalid") === false) {
+      input.classList.add("is-invalid");
+    }    
     numericError.classList.remove("hidden");
     return false;
   } else {
+    if (input?.classList.contains("is-invalid") === true) {
+      // input.classList.remove("is-invalid");
+    }
     numericError.classList.add("hidden");
     return true;
   }

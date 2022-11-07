@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IState } from "../../models/state";
 import { StateService } from "../../services/states-service";
 import { configureValidator } from "../../utils/configureValidator";

@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { Ibook } from "../../models/book";
 import { ICategory } from "../../models/category";
@@ -54,7 +56,8 @@ class CreateBooksController {
     configureValidator("categories");
   }
 
-  private onClickCreateBookButton = () => {
+  private onClickCreateBookButton = (event: Event) => {
+    event.preventDefault();
     if (this.validateCreateBookForm() === true) {
       this.sendData();
     }
@@ -138,6 +141,10 @@ class CreateBooksController {
       isFormValid = false;
     }
 
+    if (validateFieldRequired("categories") === false) {
+      isFormValid = false;
+    }
+
     return isFormValid;
   }
 
@@ -155,7 +162,9 @@ class CreateBooksController {
   }
 
   private renderAuthors(authorsDataList: IAuthor[]) {
-    const authorsSelectElement = <HTMLSelectElement>document.getElementById("authors");
+    const authorsSelectElement = <HTMLSelectElement>(
+      document.getElementById("authors")
+    );
 
     const authorOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("author-option-template")
@@ -223,7 +232,10 @@ class CreateBooksController {
       );
 
       newCategoryOptionElement.textContent = `${catergoriesDataList[i].name}`;
-      newCategoryOptionElement.setAttribute("value", `${catergoriesDataList[i].id}`);
+      newCategoryOptionElement.setAttribute(
+        "value",
+        `${catergoriesDataList[i].id}`
+      );
       categorySelectElement.append(newCategoryOptionElement);
     }
   }

@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { DateService } from "../../services/date-service";
@@ -28,6 +30,7 @@ class EditAuthorsController {
   }
 
   private onClickSaveButton = async (event: Event) => {
+    event.preventDefault();
     if (this.validateEditAuthorsForm() === true) {
       const authorInputElement = <HTMLInputElement>(
         document.querySelector("[name='authorname']")

@@ -14,14 +14,14 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-country-form">
+      <form autocomplete="off" name="create-country-form"novalidate>
         <div class="field-container">
-          <label for="countryname">Country name</label>
-          <input type="text" name="countryname" /> 
-          <div class="error hidden" name="countryname-required">* Campo requerido</div>         
+          <label for="countryname"  class="form-label">Country name</label>
+          <input  class="form-control"type="text" name="countryname" /> 
+          <div class="invalid-feedback hidden" name="countryname-required">* Campo requerido</div>         
         </div>
 
-        <button id="create-country-button" type="button">Create</button>
+        <button id="create-country-button" type="submit"class="btn btn-primary">Create</button>
       </form>
     </main>
 

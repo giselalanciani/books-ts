@@ -1,13 +1,23 @@
 const validateFieldRequired = (fieldName: string) => {
-  const bookNameInput = <HTMLInputElement>document.querySelector(`[name='${fieldName}']`);
-  const bookNameRequiredError = document.querySelector(
+  const inputElement = <HTMLInputElement>(
+    document.querySelector(`[name='${fieldName}']`)
+  );
+  const requiredErrorDivElement = document.querySelector(
     `[name='${fieldName}-required']`
   );
-  if (bookNameInput?.value == "") {
-    bookNameRequiredError?.classList.remove("hidden");
+
+  if (inputElement?.value == "") {    
+    if (inputElement?.classList.contains("is-invalid") === false) {
+      inputElement?.classList.add("is-invalid");
+    }
+    
+    requiredErrorDivElement?.classList.remove("hidden");
     return false;
   }
-  bookNameRequiredError?.classList.add("hidden");
+  if (inputElement?.classList.contains("is-invalid") === true) {
+    // inputElement?.classList.remove("is-invalid");
+  }
+  requiredErrorDivElement?.classList.add("hidden");
   return true;
 };
 

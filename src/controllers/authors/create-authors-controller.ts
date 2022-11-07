@@ -1,7 +1,11 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
+
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { DateService } from "../../services/date-service";
 import { errorHandler } from "../../utils/error-handler";
+import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class CreateAuthorsController {
   constructor(
@@ -73,41 +77,26 @@ class CreateAuthorsController {
     }
   };
 
-  private validateFieldRequired(fieldName: string) {
-    const authorNameInput = <HTMLInputElement>(
-      document.querySelector(`[name='${fieldName}']`)
-    );
-    const authorNameRequiredError = document.querySelector(
-      `[name='${fieldName}-required']`
-    );
-    if (authorNameInput.value == "") {
-      authorNameRequiredError?.classList.remove("hidden");
-      return false;
-    }
-    authorNameRequiredError?.classList.add("hidden");
-    return true;
-  }
-
   private validateCreateForm() {
     let isFormValid = true;
-
-    if (this.validateFieldRequired("authorname") === false) {
+    if (validateFieldRequired("authorname") === false) {
       isFormValid = false;
     }
-    if (this.validateFieldRequired("year") === false) {
+    if (validateFieldRequired("year") === false) {
       isFormValid = false;
     }
-    if (this.validateFieldRequired("month") === false) {
+    if (validateFieldRequired("month") === false) {
       isFormValid = false;
     }
-    if (this.validateFieldRequired("day") === false) {
+    if (validateFieldRequired("day") === false) {
       isFormValid = false;
     }
 
     return isFormValid;
   }
 
-  private onClickCreateAuthorButton = () => {
+  private onClickCreateAuthorButton = (event: Event) => {
+    event.preventDefault();
     if (this.validateCreateForm() === true) {
       this.sendAuthorsData();
     }

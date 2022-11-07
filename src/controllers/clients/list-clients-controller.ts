@@ -1,7 +1,6 @@
-import { ICategory } from "../../models/category";
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IClient } from "../../models/client";
-import { ICountry } from "../../models/country";
-import { IState } from "../../models/state";
 import { CategoriesServices } from "../../services/categories-service";
 import { ClientService } from "../../services/clients";
 import { CountryServices } from "../../services/country-service";

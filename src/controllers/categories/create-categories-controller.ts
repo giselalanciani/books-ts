@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -15,7 +17,8 @@ class CreateCategoryController {
     );
     configureValidator("category-name", [{ type: "required" }]);
   }
-  private onClickCreateCategoryButton = async () => {
+  private onClickCreateCategoryButton = async (event:Event) => {
+    event.preventDefault();
     if (this.validateCreateCategoryForm() === true) {
       await this.sendCategotyData();
     }

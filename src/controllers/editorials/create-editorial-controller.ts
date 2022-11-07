@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IEditorial } from "../../models/editorial";
 import { EditorialService } from "../../services/editorial-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -16,7 +18,8 @@ class CreateEditorialController {
 
     configureValidator("editorialname");
   }
-  private onClickCreateEditorialButton = async () => {
+  private onClickCreateEditorialButton = async (event: Event) => {
+    event.preventDefault();
     if (this.validateCreateEditorialForm() === true) {
       await this.sendEditorialData();
     }

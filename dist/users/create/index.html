@@ -13,42 +13,51 @@
       <h1>Create user</h1>
     </header>
     <main>
-      <form autocomplete="off" name="create-user-form">
+      <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
-          <label for="user-name">User name</label>
-          <input type="text" name="user-name" />
-          <div class="error hidden" name="user-name-required">
+          <label for="user-name" class="form-label">User name</label>
+          <input class="form-control" type="text" name="user-name" />
+          <div class="invalid-feedback hidden" name="user-name-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="email">Email</label>
-          <input type="email" name="email" />
-          <div class="error hidden" name="email-required">
+          <label for="email" class="form-label">Email</label>
+          <input class="form-control" type="email" name="email" />
+          <div class="invalid-feedback hidden" name="email-required">
             * Campo requerido
           </div>
-          <div class="error hidden" name="email-email">
+          <div class="invalid-feedback hidden" name="email-email">
             * Email no valido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="password">Password</label>
-          <input type="password" name="password" />
-          <div class="error hidden" name="password-required">
+          <label for="password" class="form-label">Password</label>
+          <input class="form-control" type="password" name="password" />
+          <div class="invalid-feedback hidden" name="password-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
-          <label for="password-verification">Confirme Password</label>
-          <input type="password" name="password-verification" />
-          <div class="error hidden" name="password-verification-required">
+          <label for="password-verification" class="form-label"
+            >Confirme Password</label
+          >
+          <input
+            class="form-control"
+            type="password"
+            name="password-verification"
+          />
+          <div
+            class="invalid-feedback hidden"
+            name="password-verification-required"
+          >
             * Campo requerido
           </div>
           <div
-            class="error hidden"
+            class="invalid-feedback hidden"
             name="password-verification-dependent-equal"
           >
             * Las contraseñas no son iguales
@@ -56,14 +65,18 @@
         </div>
 
         <div class="field-container">
-          <label for="role">Role</label>
-          <select name="role" id="role">
+          <label for="role" class="form-label">Role</label>
+          <select class="form-select" name="role" id="role">
             <option value="admin">Administrator</option>
             <option value="client">Client</option>
           </select>
-          <div class="error hidden" name="role-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="role-required">
+            * Campo requerido
+          </div>
         </div>
-        <button id="create-user-button" type="button">Create</button>
+        <button id="create-user-button" type="submit" class="btn btn-primary">
+          Create
+        </button>
       </form>
     </main>
     <script src="/createUsersBundle.js"></script>

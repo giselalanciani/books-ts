@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { EditorialService } from "../../services/editorial-service";
 import { BookService } from "../../services/book-service";
 import { errorHandler } from "../../utils/error-handler";

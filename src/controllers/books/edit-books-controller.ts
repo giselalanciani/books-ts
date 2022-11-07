@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { Ibook } from "../../models/book";
 import { ICategory } from "../../models/category";
@@ -43,6 +45,7 @@ class EditBooksController {
   }
 
   private onClickSaveButton = async (event: Event) => {
+    event.preventDefault();
     if (this.validateEditBookForm()) {
       try {
         const bookNameInputElement = <HTMLInputElement>(

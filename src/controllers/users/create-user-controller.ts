@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IUser } from "../../models/user";
 import { UserService } from "../../services/users-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -24,7 +26,7 @@ class CreateUserController {
   }
 
   private onClickCreateUserButton = async (event: Event) => {
-    // event.preventDefault();
+    event.preventDefault();
     if (this.validateCreateUserForm() === true) {
       await this.sendData();
     }

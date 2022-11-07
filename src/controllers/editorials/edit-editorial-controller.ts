@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IEditorial } from "../../models/editorial";
 import { EditorialService } from "../../services/editorial-service";
 import { configureValidator } from "../../utils/configureValidator";

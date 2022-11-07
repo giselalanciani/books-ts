@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
 import { CountryServices } from "../../services/country-service";
@@ -20,7 +22,8 @@ class createStateController {
     configureValidator("country");
   }
 
-  private onClickCreateStateButton = () => {
+  private onClickCreateStateButton = (event: Event) => {
+    event.preventDefault();
     if (this.validateCreateStateForm() === true) {
       this.sendData();
     }
@@ -71,7 +74,9 @@ class createStateController {
   }
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelectElement= <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>(
+      document.getElementById("country")
+    );
 
     const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("state-create-template")

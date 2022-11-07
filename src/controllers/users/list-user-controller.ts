@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IUser } from "../../models/user";
 import { UserService } from "../../services/users-service";
 import { errorHandler } from "../../utils/error-handler";

@@ -1,78 +1,12 @@
 // Import all of Bootstrap's CSS
 @import "~bootstrap/scss/bootstrap";
 
-
-/*******
-  Header
-********/
-// header {
-//   font-size: 20px;
-// }
-
-// header a {
-//   font-style: italic;
-// }
-/********
-  General
-*********/
-// html {
-//   font-size: 16px;
-// }
-.hidden {
-  display: none;
-}
-// button {
-//   border-radius: 8px;
-//   background-color: ghostwhite;
-//   min-width: 150px;
-//   min-height: 40px;
-//   font-size: 16px;
-// }
-
-// a:link,
-// a:visited {
-//   color: dodgerblue;
-// }
-
-// a:hover,
-// a:active {
-//   color: darkblue;
-// }
-
-/*******
-  Form
-********/
-form {
-  padding: 5px;
+.hidden {  
+  visibility: hidden;  
 }
 
-form .field-container {
-  display: flex;
-  flex-direction: column;
-}
-form .field-container label {
-  margin-bottom: 5px;
-  font-size: 20px;
-}
-form .field-container input {
-  height: 25px;
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-form .field-container select {
-  height: 35px;
-  margin-bottom: 5px;
-  font-size: 16px;
-}
-form .field-container select.multiple {
-  height: auto; 
-}
-form .field-container .error {
-  color: crimson;
-}
-form button {
-  margin-top: 10px;
-}
+
+
 
 /*******
   Table

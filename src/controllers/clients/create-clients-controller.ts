@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICategory } from "../../models/category";
 import { IClient } from "../../models/client";
 import { ICountry } from "../../models/country";
@@ -35,7 +37,8 @@ class CreateClientController {
     configureValidator("liked-categories", [{type: "required"}]);
   }
 
-  private onClickCreateClientButton = () => {
+  private onClickCreateClientButton = (event:Event) => {
+    event.preventDefault();
     if (this.validateCreateClientsForm() === true) {
       this.sendClientData();
     }

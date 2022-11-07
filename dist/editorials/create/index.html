@@ -15,14 +15,14 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-editorial-form">
+      <form autocomplete="off" name="create-editorial-form"novalidate>
         <div class="field-container">
-          <label for="editorialname">Editorial name</label>
-          <input type="text" name="editorialname" />
-          <div class="error hidden" name="editorialname-required">* Campo requerido</div>
+          <label for="editorialname"class="form-label">Editorial name</label>
+          <input class="form-control"type="text" name="editorialname" />
+          <div class="invalid-feedback hidden" name="editorialname-required">* Campo requerido</div>
         </div>
 
-        <button id="create-editorial-button" type="button">Create</button>
+        <button id="create-editorial-button" type="submit"class="btn btn-primary">Create</button>
       </form>
     </main>
 

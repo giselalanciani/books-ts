@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";

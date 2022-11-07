@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IBranch } from "../../models/branch";
 import { BranchService } from "../../services/branch-service";
 import { CountryServices } from "../../services/country-service";

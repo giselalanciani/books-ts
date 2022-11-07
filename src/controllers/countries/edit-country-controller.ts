@@ -1,6 +1,9 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICountry } from "../../models/country";
 import { CountryServices } from "../../services/country-service";
 import { errorHandler } from "../../utils/error-handler";
+import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class EditCountryController {
   constructor(private countryServices: CountryServices) {
@@ -15,22 +18,17 @@ class EditCountryController {
     const params = Object.fromEntries(urlSearchParams.entries());
     return params;
   }
-  private validateEditForm() {
-    const editNameInput = <HTMLInputElement>(
-      document.querySelector("[name='countryname']")
-    );
-    const nameRequiredError = <HTMLSelectElement>(
-      document.querySelector("[name='countryname-required']")
-    );
-    if (editNameInput.value == "") {
-      nameRequiredError.classList.remove("hidden");
-      return false;
+  private validateEditCountryForm() {
+    let isFormValid = true;
+
+    if (validateFieldRequired("countryname") === false) {
+      isFormValid = false;
     }
-    nameRequiredError.classList.add("hidden");
-    return true;
+
+    return isFormValid;
   }
   private onClickSaveButton = async (event: Event) => {
-    if (this.validateEditForm()) {
+    if (this.validateEditCountryForm()) {
       try {
         const countryNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='countryname']")

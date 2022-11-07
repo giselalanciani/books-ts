@@ -16,18 +16,20 @@
       <p id="Activity-indication-message">
         Espere por favor, cargando datos...
       </p>
-      <form name="edit-state-form">
+      <form name="edit-state-form" novalidate>
         <div class="field-container">
-          <label for="statename">State name</label>
-          <input type="text" name="statename" />
-          <div class="error hidden" name="statename-required">
+          <label for="statename" class="form-label">State name</label>
+          <input class="form-control" type="text" name="statename" />
+          <div class="invalid-feedback hidden" name="statename-required">
             * Campo requerido
           </div>
-        </div>
-        <template id="state-template"></template>
-        <button id="save-state-button" type="button">Save</button>
+        </div>        
+        <button id="save-state-button" type="button" class="btn btn-primary">
+          Save
+        </button>
       </form>
     </main>
+    <template id="state-template"></template>
     <script src="/editStatesBundle.js"></script>
   </body>
 </html>

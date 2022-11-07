@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
 import { CountryServices } from "../../services/country-service";

@@ -1,4 +1,5 @@
-import { ICountry } from "../../models/country";
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";import { ICountry } from "../../models/country";
 import { CountryServices } from "../../services/country-service";
 import { errorHandler } from "../../utils/error-handler";
 

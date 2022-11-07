@@ -1,6 +1,10 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { ICountry } from "../../models/country";
 import { CountryServices } from "../../services/country-service";
+import { configureValidator } from "../../utils/configureValidator";
 import { errorHandler } from "../../utils/error-handler";
+import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class CreateCountryController {
   constructor(private countryServices: CountryServices) {
@@ -11,25 +15,22 @@ class CreateCountryController {
       "click",
       this.onClickCreateCountryButton
     );
+    configureValidator("countryname");
   }
 
-  private validateCreateForm() {
-    const countryNameInput = <HTMLInputElement>(
-      document.querySelector("[name='countryname']")
-    );
-    const nameRequiredError = <HTMLSelectElement>(
-      document.querySelector("[name='countryname-required']")
-    );
-    if (countryNameInput.value == "") {
-      nameRequiredError.classList.remove("hidden");
-      return false;
+  private validateCreateCountryForm() {
+    let isFormValid = true;
+
+    if (validateFieldRequired("countryname") === false) {
+      isFormValid = false;
     }
-    nameRequiredError.classList.add("hidden");
-    return true;
+
+    return isFormValid;
   }
 
-  private onClickCreateCountryButton = () => {
-    if (this.validateCreateForm() === true) {
+  private onClickCreateCountryButton = (event: Event) => {
+    event.preventDefault();
+    if (this.validateCreateCountryForm() === true) {
       this.sendCountryData();
     }
   };

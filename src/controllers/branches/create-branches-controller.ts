@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IBranch } from "../../models/branch";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
@@ -32,7 +34,8 @@ class CreateBrunchesController {
     configureValidator("street");
   }
 
-  private onClickCreateBrunchButton = () => {
+  private onClickCreateBrunchButton = (event: Event) => {
+    event.preventDefault();
     if (this.validateCreateBranchesForm() === true) {
       this.sendBranchData();
     }

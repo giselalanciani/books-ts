@@ -1,3 +1,5 @@
+// Import all of Bootstrap's JS
+import * as bootstrap from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -96,6 +98,7 @@ class ListAuthorsController {
 
   private onClickDeleteButton = async (event: Event) => {
     const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
+    
     try {
       if (id !== null) {
         await this.authorsService.deleteAuthor(id);

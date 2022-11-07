@@ -18,13 +18,13 @@
         Create
       </button>
 
-      <form autocomplete="off" name="country-filter-form">
+      <form autocomplete="off" name="country-filter-form"novalidate>
         <div class="field-container">
-          <label for="country">Country</label>
-          <select name="country" id="country">
+          <label for="country"class="form-label">Country</label>
+          <select class="form-select" name="country" id="country">
             <option value="">seleccione..</option>
           </select>
-          <div class="error hidden" name="country-required">
+          <div class="invalid-feedback hidden"name="country-required">
             * Campo requerido
           </div>
         </div>
