@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -29,17 +29,52 @@ class ListCategoriesController {
     const deleteButtonElement = <HTMLButtonElement>event.target;
     const name = deleteButtonElement.getAttribute("data-name");    
 
-    if (confirm(`Quiere eliminar la categoria creada: ${name} ?`) == true)
-      try {
-        const idToDelete = deleteButtonElement.getAttribute("data-id");
-        if (idToDelete !== null) {
-          await this.categoryService.deleteCategory(idToDelete);
-        }
+    
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
 
-        window.location.href = "http://localhost:8080/categories/";
-      } catch (error) {
-        errorHandler("No se pudo eliminar el branch", error);
-      }
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar la categoria creada: ${name} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButtonElement.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.categoryService.deleteCategory(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/categories/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el branch", error);
+        }
+      });
+
+      myDeleteModal.show();
+    }
+    
+    
+    
+    
+    
+    // if (confirm(`Quiere eliminar la categoria creada: ${name} ?`) == true)
+    //   try {
+    //     const idToDelete = deleteButtonElement.getAttribute("data-id");
+    //     if (idToDelete !== null) {
+    //       await this.categoryService.deleteCategory(idToDelete);
+    //     }
+
+    //     window.location.href = "http://localhost:8080/categories/";
+    //   } catch (error) {
+    //     errorHandler("No se pudo eliminar el branch", error);
+    //   }
   };
 
   private renderCategories(categoriesData: ICategory[]) {

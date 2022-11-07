@@ -79,18 +79,6 @@ class ListBooksController {
 
       myDeleteModal.show();
     }
-
-    // if (confirm(`Quiere eliminar su libro: ${dataName} ?`) == true)
-    //   try {
-    //     const idToDelete = deleteButton.getAttribute("data-id");
-    //     if (idToDelete !== null) {
-    //       await this.bookService.deleteBook(idToDelete);
-    //     }
-
-    //     window.location.href = "http://localhost:8080/books/";
-    //   } catch (error) {
-    //     errorHandler("No se pudo eliminar su libro", error);
-    //   }
   };
 
   private onClickEditButton = async (event: Event) => {
