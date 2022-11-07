@@ -1,13 +1,11 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { EditorialService } from "../../services/editorial-service";
 import { BookService } from "../../services/book-service";
 import { errorHandler } from "../../utils/error-handler";
 import { Ibook } from "../../models/book";
 import { IEditorial } from "../../models/editorial";
 import { CategoriesServices } from "../../services/categories-service";
-import { ICategory } from "../../models/category";
-import { setSelectValues } from "../../utils/getSelectedOptions";
 
 /**
  * Que debe hacer:
@@ -52,17 +50,47 @@ class ListBooksController {
     const deleteButton = <HTMLButtonElement>event.target;
     const dataName = deleteButton.getAttribute("data-name");
 
-    if (confirm(`Quiere eliminar su libro: ${dataName} ?`) == true)
-      try {
-        const idToDelete = deleteButton.getAttribute("data-id");
-        if (idToDelete !== null) {
-          await this.bookService.deleteBook(idToDelete);
-        }
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
 
-        window.location.href = "http://localhost:8080/books/";
-      } catch (error) {
-        errorHandler("No se pudo eliminar su libro", error);
-      }
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar su libro: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButton.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.bookService.deleteBook(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/books/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar su libro", error);
+        }
+      });
+
+      myDeleteModal.show();
+    }
+
+    // if (confirm(`Quiere eliminar su libro: ${dataName} ?`) == true)
+    //   try {
+    //     const idToDelete = deleteButton.getAttribute("data-id");
+    //     if (idToDelete !== null) {
+    //       await this.bookService.deleteBook(idToDelete);
+    //     }
+
+    //     window.location.href = "http://localhost:8080/books/";
+    //   } catch (error) {
+    //     errorHandler("No se pudo eliminar su libro", error);
+    //   }
   };
 
   private onClickEditButton = async (event: Event) => {
@@ -153,15 +181,17 @@ class ListBooksController {
       );
 
       // categoryTdElement.textContent = booksData[i].categories.join(', ');
-      categoryTdElement.textContent = await this.getRenderCategories(booksData[i].categories);
+      categoryTdElement.textContent = await this.getRenderCategories(
+        booksData[i].categories
+      );
 
       const editBookButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-book-button']")
       );
       editBookButton.setAttribute("data-id", booksData[i].id);
       editBookButton.addEventListener("click", this.onClickEditButton);
-      editBookButton.classList.add('btn');
-      editBookButton.classList.add('btn-secondary');
+      editBookButton.classList.add("btn");
+      editBookButton.classList.add("btn-secondary");
 
       const deleteBookButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-book-button']")
@@ -169,8 +199,8 @@ class ListBooksController {
       deleteBookButton.setAttribute("data-id", booksData[i].id);
       deleteBookButton.setAttribute("data-name", booksData[i].name);
       deleteBookButton.addEventListener("click", this.onClickDeleteButton);
-      deleteBookButton.classList.add('btn');
-      deleteBookButton.classList.add('btn-secondary');
+      deleteBookButton.classList.add("btn");
+      deleteBookButton.classList.add("btn-secondary");
 
       bookTableBodyElement.append(copyRowTemplate);
     }
