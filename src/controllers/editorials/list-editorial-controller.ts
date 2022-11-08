@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { IEditorial } from "../../models/editorial";
 import { EditorialService } from "../../services/editorial-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -34,7 +34,7 @@ class ListEditorialController {
     );
     waitingMessageRow.remove();
   }
-  private renderEditorials(editorialsList: IEditorial[]) {  
+  private renderEditorials(editorialsList: IEditorial[]) {
     const editorialTableBodyElement = <HTMLTableElement>(
       document.querySelector("#editorial-table tbody")
     );
@@ -59,17 +59,18 @@ class ListEditorialController {
       );
       editEditorialButton.setAttribute("data-id", editorialsList[i].id);
       editEditorialButton.addEventListener("click", this.onClickEditButton);
-      editEditorialButton.classList.add('btn');
-      editEditorialButton.classList.add('btn-secondary');
+      editEditorialButton.classList.add("btn");
+      editEditorialButton.classList.add("btn-secondary");
 
       const deleteEditorialButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-editorial-button']")
       );
 
       deleteEditorialButton.setAttribute("data-id", editorialsList[i].id);
+      deleteEditorialButton.setAttribute("data-name", editorialsList[i].name);
       deleteEditorialButton.addEventListener("click", this.onClickDeleteButton);
-      deleteEditorialButton.classList.add('btn');
-      deleteEditorialButton.classList.add('btn-secondary');
+      deleteEditorialButton.classList.add("btn");
+      deleteEditorialButton.classList.add("btn-secondary");
 
       editorialTableBodyElement.append(copyRowTemplate);
     }
@@ -87,20 +88,38 @@ class ListEditorialController {
   };
 
   private onClickDeleteButton = async (event: Event) => {
-    const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
+    const deleteButton = <HTMLButtonElement>event.target;
 
-    try {
-      if (id !== null) {
-        await this.editorialService.deleteEditorial(id);
-      }
+    const dataName = deleteButton.getAttribute("data-name");
 
-      alert("Editorial eliminada");
-      window.location.href = "/editorials";
-    } catch (error) {
-      errorHandler(
-        "No se pudo eliminar su editorial, intente mas tarde.",
-        error
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
       );
+      modalBodyElement.textContent = `Quiere eliminar la editorial: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButton.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.editorialService.deleteEditorial(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/editorials/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar la editorial", error);
+        }
+      });
+
+      myDeleteModal.show();
     }
   };
 }
