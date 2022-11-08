@@ -1,5 +1,6 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
+
 import { IClient } from "../../models/client";
 import { CategoriesServices } from "../../services/categories-service";
 import { ClientService } from "../../services/clients";
@@ -32,16 +33,49 @@ class clientListController {
   };
 
   private onClickDeleteButton = async (event: Event) => {
-    const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
-    try {
-      if (id !== null) {
-        await this.clientService.deleteClient(id);
-      }
-      alert("Cliente eliminado");
-      window.location.href = "/clients";
-    } catch (error) {
-      errorHandler("No se pudo eliminar el cliente, intente mas tarde.", error);
+    const deleteButton = <HTMLButtonElement>event.target;
+    const dataName = deleteButton.getAttribute("data-name");
+
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar el cliente: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const id = deleteButton.getAttribute("data-id");
+          if (id !== null) {
+            await this.clientService.deleteClient(id);
+          }
+          window.location.href = "http://localhost:8080/clients/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el cliente", error);
+        }
+      });
+
+      myDeleteModal.show();
     }
+
+
+    // try {
+    //   if (id !== null) {
+    //     await this.clientService.deleteClient(id);
+    //   }
+    //   alert("Cliente eliminado");
+    //   window.location.href = "/clients";
+    // } catch (error) {
+    //   errorHandler("No se pudo eliminar el cliente, intente mas tarde.", error);
+    // }
   };
 
   private async renderClients(clientsData: IClient[]) {
@@ -130,6 +164,7 @@ class clientListController {
         copyRowTemplate.querySelector("[name='delete-client-button']")
       );
       deleteClientButton.setAttribute("data-id", clientsData[i].id);
+      deleteClientButton.setAttribute("data-name", clientsData[i].name);
 
       deleteClientButton.addEventListener("click", this.onClickDeleteButton);
       deleteClientButton.classList.add("btn");
