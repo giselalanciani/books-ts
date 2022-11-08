@@ -1,5 +1,6 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";import { ICountry } from "../../models/country";
+import { Modal } from "bootstrap";
+import { ICountry } from "../../models/country";
 import { CountryServices } from "../../services/country-service";
 import { errorHandler } from "../../utils/error-handler";
 
@@ -47,17 +48,18 @@ class ListCountryController {
       );
       editCountryButton.setAttribute("data-id", countriesList[i].id);
       editCountryButton.addEventListener("click", this.onClickEditButton);
-      editCountryButton.classList.add('btn');
-      editCountryButton.classList.add('btn-secondary');
+      editCountryButton.classList.add("btn");
+      editCountryButton.classList.add("btn-secondary");
 
       const deleteCountryButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-country-button']")
       );
 
       deleteCountryButton.setAttribute("data-id", countriesList[i].id);
+      deleteCountryButton.setAttribute("data-name", countriesList[i].name);
       deleteCountryButton.addEventListener("click", this.onClickDeleteButton);
-      deleteCountryButton.classList.add('btn');
-      deleteCountryButton.classList.add('btn-secondary');
+      deleteCountryButton.classList.add("btn");
+      deleteCountryButton.classList.add("btn-secondary");
 
       const statesButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='states-button']")
@@ -65,9 +67,9 @@ class ListCountryController {
 
       statesButton.setAttribute("data-country-id", countriesList[i].id);
       statesButton.addEventListener("click", this.onClickStatesButton);
-      statesButton.classList.add('btn');
-      statesButton.classList.add('btn-secondary');
-      
+      statesButton.classList.add("btn");
+      statesButton.classList.add("btn-secondary");
+
       countryTableBobyElement.append(copyRowTemplate);
     }
   }
@@ -78,15 +80,37 @@ class ListCountryController {
   };
 
   private onClickDeleteButton = async (event: Event) => {
-    const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
-    try {
-      if (id !== null) {
-        await this.countryService.deleteCountry(id);
-      }
-      alert("Country deleted");
-      window.location.href = "/countries";
-    } catch (error) {
-      errorHandler("No se pudo eliminar el país, intente mas tarde.", error);
+    const deleteButton = <HTMLButtonElement>event.target;
+    const dataName = deleteButton.getAttribute("data-name");
+
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar el país: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButton.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.countryService.deleteCountry(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/countries/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el país", error);
+        }
+      });
+
+      myDeleteModal.show();
     }
   };
 
