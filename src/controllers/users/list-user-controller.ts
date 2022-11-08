@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { IUser } from "../../models/user";
 import { UserService } from "../../services/users-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -24,15 +24,38 @@ class ListUserController {
   };
 
   private onClickDeleteButton = async (event: Event) => {
-    const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
-    try {
-      if (id !== null) {
-        await this.userService.deleteUser(id);
-      }
-      alert("Usuario eliminado");
-      window.location.href = "/users";
-    } catch (error) {
-      errorHandler("No se pudo eliminar el usuario, intente mas tarde.", error);
+    const deleteButton = <HTMLButtonElement>event.target;
+
+    const dataName = deleteButton.getAttribute("data-name");
+
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar el usuario: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButton.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.userService.deleteUser(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/users/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el usuario", error);
+        }
+      });
+
+      myDeleteModal.show();
     }
   };
   public async init() {
@@ -47,7 +70,7 @@ class ListUserController {
         }
       }
 
-        this.renderUsers(userDataList);
+      this.renderUsers(userDataList);
       this.removeWaitingMessageRow();
     } catch (error) {
       errorHandler("No podemos encontrar los datos, intente nuevamente", error);
@@ -85,24 +108,24 @@ class ListUserController {
       );
       roleTdElement.textContent = userData[i].role;
 
-
       const editUserButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='edit-users-button']")
       );
-     
+
       editUserButton.setAttribute("data-id", userData[i].id);
       editUserButton.addEventListener("click", this.onClickEditButton);
-      editUserButton.classList.add('btn');
-      editUserButton.classList.add('btn-secondary');
+      editUserButton.classList.add("btn");
+      editUserButton.classList.add("btn-secondary");
 
       const deleteUserButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-users-button']")
       );
       deleteUserButton.setAttribute("data-id", userData[i].id);
+      deleteUserButton.setAttribute("data-name", userData[i].name);
 
       deleteUserButton.addEventListener("click", this.onClickDeleteButton);
-      deleteUserButton.classList.add('btn');
-      deleteUserButton.classList.add('btn-secondary');
+      deleteUserButton.classList.add("btn");
+      deleteUserButton.classList.add("btn-secondary");
 
       usersTableBodyElement.append(copyRowTemplate);
     }
