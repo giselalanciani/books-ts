@@ -65,17 +65,6 @@ class clientListController {
 
       myDeleteModal.show();
     }
-
-
-    // try {
-    //   if (id !== null) {
-    //     await this.clientService.deleteClient(id);
-    //   }
-    //   alert("Cliente eliminado");
-    //   window.location.href = "/clients";
-    // } catch (error) {
-    //   errorHandler("No se pudo eliminar el cliente, intente mas tarde.", error);
-    // }
   };
 
   private async renderClients(clientsData: IClient[]) {

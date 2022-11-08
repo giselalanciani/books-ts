@@ -11,8 +11,6 @@ class ListCategoriesController {
       document.getElementById("create-button")
     );
     createButton.addEventListener("click", this.onClickCreateButton);
-
-   
   }
   private onClickCreateButton = () => {
     console.log("hizo click");
@@ -27,9 +25,8 @@ class ListCategoriesController {
   };
   private onClickDeleteButton = async (event: Event) => {
     const deleteButtonElement = <HTMLButtonElement>event.target;
-    const name = deleteButtonElement.getAttribute("data-name");    
+    const name = deleteButtonElement.getAttribute("data-name");
 
-    
     const myModalDeleteElement = <HTMLDivElement>(
       document.getElementById("delete-modal")
     );
@@ -59,22 +56,6 @@ class ListCategoriesController {
 
       myDeleteModal.show();
     }
-    
-    
-    
-    
-    
-    // if (confirm(`Quiere eliminar la categoria creada: ${name} ?`) == true)
-    //   try {
-    //     const idToDelete = deleteButtonElement.getAttribute("data-id");
-    //     if (idToDelete !== null) {
-    //       await this.categoryService.deleteCategory(idToDelete);
-    //     }
-
-    //     window.location.href = "http://localhost:8080/categories/";
-    //   } catch (error) {
-    //     errorHandler("No se pudo eliminar el branch", error);
-    //   }
   };
 
   private renderCategories(categoriesData: ICategory[]) {
@@ -100,18 +81,16 @@ class ListCategoriesController {
 
       editCategoriesButton.setAttribute("data-id", categoriesData[i].id);
       editCategoriesButton.addEventListener("click", this.onClickEditButton);
-      editCategoriesButton.classList.add('btn');
-      editCategoriesButton.classList.add('btn-secondary');
-
+      editCategoriesButton.classList.add("btn");
+      editCategoriesButton.classList.add("btn-secondary");
 
       const deleteCategoriesButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-categories-button']")
       );
       deleteCategoriesButton.setAttribute("data-id", categoriesData[i].id);
       deleteCategoriesButton.setAttribute("data-name", categoriesData[i].name);
-      deleteCategoriesButton.classList.add('btn');
-      deleteCategoriesButton.classList.add('btn-secondary');
-      
+      deleteCategoriesButton.classList.add("btn");
+      deleteCategoriesButton.classList.add("btn-secondary");
 
       deleteCategoriesButton.addEventListener(
         "click",
