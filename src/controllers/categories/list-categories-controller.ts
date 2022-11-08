@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -11,8 +11,6 @@ class ListCategoriesController {
       document.getElementById("create-button")
     );
     createButton.addEventListener("click", this.onClickCreateButton);
-
-   
   }
   private onClickCreateButton = () => {
     console.log("hizo click");
@@ -27,19 +25,37 @@ class ListCategoriesController {
   };
   private onClickDeleteButton = async (event: Event) => {
     const deleteButtonElement = <HTMLButtonElement>event.target;
-    const name = deleteButtonElement.getAttribute("data-name");    
+    const name = deleteButtonElement.getAttribute("data-name");
 
-    if (confirm(`Quiere eliminar la categoria creada: ${name} ?`) == true)
-      try {
-        const idToDelete = deleteButtonElement.getAttribute("data-id");
-        if (idToDelete !== null) {
-          await this.categoryService.deleteCategory(idToDelete);
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar la categoria creada: ${name} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButtonElement.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.categoryService.deleteCategory(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/categories/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el branch", error);
         }
+      });
 
-        window.location.href = "http://localhost:8080/categories/";
-      } catch (error) {
-        errorHandler("No se pudo eliminar el branch", error);
-      }
+      myDeleteModal.show();
+    }
   };
 
   private renderCategories(categoriesData: ICategory[]) {
@@ -65,18 +81,16 @@ class ListCategoriesController {
 
       editCategoriesButton.setAttribute("data-id", categoriesData[i].id);
       editCategoriesButton.addEventListener("click", this.onClickEditButton);
-      editCategoriesButton.classList.add('btn');
-      editCategoriesButton.classList.add('btn-secondary');
-
+      editCategoriesButton.classList.add("btn");
+      editCategoriesButton.classList.add("btn-secondary");
 
       const deleteCategoriesButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-categories-button']")
       );
       deleteCategoriesButton.setAttribute("data-id", categoriesData[i].id);
       deleteCategoriesButton.setAttribute("data-name", categoriesData[i].name);
-      deleteCategoriesButton.classList.add('btn');
-      deleteCategoriesButton.classList.add('btn-secondary');
-      
+      deleteCategoriesButton.classList.add("btn");
+      deleteCategoriesButton.classList.add("btn-secondary");
 
       deleteCategoriesButton.addEventListener(
         "click",

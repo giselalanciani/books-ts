@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -64,24 +64,23 @@ class ListAuthorsController {
         authorBirthateTd.textContent = birthdate.toLocaleString();
       }
 
-      const editAuthorButton = <HTMLButtonElement>copyRowTemplate.querySelector(
-        "[name='edit-author-button']"
+      const editAuthorButton = <HTMLButtonElement>(
+        copyRowTemplate.querySelector("[name='edit-author-button']")
       );
 
       editAuthorButton.setAttribute("data-id", authorsList[i].id);
       editAuthorButton.addEventListener("click", this.onClickEditButton);
-      editAuthorButton.classList.add('btn');
-      editAuthorButton.classList.add('btn-secondary');
+      editAuthorButton.classList.add("btn");
+      editAuthorButton.classList.add("btn-secondary");
 
-      const deleteAuthorButton =<HTMLButtonElement>
-        copyRowTemplate.querySelector(
-          "[name='delete-author-button']"
-        );
+      const deleteAuthorButton = <HTMLButtonElement>(
+        copyRowTemplate.querySelector("[name='delete-author-button']")
+      );
       deleteAuthorButton.setAttribute("data-id", authorsList[i].id);
+      deleteAuthorButton.setAttribute("data-name", authorsList[i].name);
       deleteAuthorButton.addEventListener("click", this.onClickDeleteButton);
-      deleteAuthorButton.classList.add('btn');
-      deleteAuthorButton.classList.add('btn-secondary');
-
+      deleteAuthorButton.classList.add("btn");
+      deleteAuthorButton.classList.add("btn-secondary");
 
       authorTableBodyElement.append(copyRowTemplate);
     }
@@ -97,16 +96,38 @@ class ListAuthorsController {
   };
 
   private onClickDeleteButton = async (event: Event) => {
-    const id = (<HTMLButtonElement>event.target).getAttribute("data-id");
-    
-    try {
-      if (id !== null) {
-        await this.authorsService.deleteAuthor(id);
-      }
-      alert("Autor eliminado");
-      window.location.href = "/authors";
-    } catch (error) {
-      errorHandler("No se pudo eliminar el autor, intente mas tarde.", error);
+    const deleteButton = <HTMLButtonElement>event.target;
+
+    const dataName = deleteButton.getAttribute("data-name");
+
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar el autor: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        try {
+          const idToDelete = deleteButton.getAttribute("data-id");
+          if (idToDelete !== null) {
+            await this.authorsService.deleteAuthor(idToDelete);
+          }
+          window.location.href = "http://localhost:8080/authors/";
+        } catch (error) {
+          errorHandler("No se pudo eliminar el autor", error);
+        }
+      });
+
+      myDeleteModal.show();
     }
   };
 }

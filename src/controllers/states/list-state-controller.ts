@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Modal } from "bootstrap";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
 import { CountryServices } from "../../services/country-service";
@@ -35,22 +35,44 @@ class ListStatesController {
   };
 
   private onClickDeleteButton = async (event: Event) => {
-    if (confirm(`Desea eliminar el estado?`) == true)
-      try {
-        const stateId = (<HTMLButtonElement>event.target).getAttribute(
-          "data-id"
-        );
-        const countryId = (<HTMLButtonElement>event.target).getAttribute(
-          "data-country-id"
-        );
-        if (countryId !== null && stateId !== null) {
-          await this.stateService.deleteState(countryId, stateId);
-        }
+    const deleteButton = <HTMLButtonElement>event.target;
+    const dataName = deleteButton.getAttribute("data-name");
 
-        window.location.href = "http://localhost:8080/states/";
-      } catch (error) {
-        errorHandler("No se pudo eliminar el estado", error);
-      }
+    const myModalDeleteElement = <HTMLDivElement>(
+      document.getElementById("delete-modal")
+    );
+
+    if (myModalDeleteElement !== null) {
+      const myDeleteModal = new Modal(myModalDeleteElement);
+
+      const modalBodyElement = <HTMLDivElement>(
+        myModalDeleteElement.querySelector("div.modal-body")
+      );
+      modalBodyElement.textContent = `Quiere eliminar el estado: ${dataName} ?`;
+
+      const modalButtonYesElement = <HTMLButtonElement>(
+        myModalDeleteElement.querySelector("#button-yes")
+      );
+      modalButtonYesElement.addEventListener("click", async () => {
+        if (confirm(`Desea eliminar el estado?`) == true)
+          try {
+            const stateId = (<HTMLButtonElement>event.target).getAttribute(
+              "data-id"
+            );
+            const countryId = (<HTMLButtonElement>event.target).getAttribute(
+              "data-country-id"
+            );
+            if (countryId !== null && stateId !== null) {
+              await this.stateService.deleteState(countryId, stateId);
+            }
+            window.location.href = "http://localhost:8080/states/";
+          } catch (error) {
+            errorHandler("No se pudo eliminar el estado", error);
+          }
+      });
+
+      myDeleteModal.show();
+    }
   };
 
   private validateListStateForm() {
@@ -143,27 +165,30 @@ class ListStatesController {
       editStateButton.setAttribute("data-id", statesList[i].id);
       editStateButton.setAttribute("data-country-id", statesList[i].countryId);
       editStateButton.addEventListener("click", this.onClickEditButton);
-      editStateButton.classList.add('btn');
-      editStateButton.classList.add('btn-secondary');
+      editStateButton.classList.add("btn");
+      editStateButton.classList.add("btn-secondary");
 
       const deleteStateButton = <HTMLButtonElement>(
         copyRowTemplate.querySelector("[name='delete-state-button']")
       );
 
       deleteStateButton.setAttribute("data-id", statesList[i].id);
+      deleteStateButton.setAttribute("data-name", statesList[i].name);
       deleteStateButton.setAttribute(
         "data-country-id",
         statesList[i].countryId
       );
       deleteStateButton.addEventListener("click", this.onClickDeleteButton);
-      deleteStateButton.classList.add('btn');
-      deleteStateButton.classList.add('btn-secondary');
+      deleteStateButton.classList.add("btn");
+      deleteStateButton.classList.add("btn-secondary");
 
       stateTableBodyElement.append(copyRowTemplate);
     }
   }
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>(
+      document.getElementById("country")
+    );
 
     const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("state-create-template")

@@ -47,6 +47,41 @@
         </td>
       </tr>
     </template>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="delete-modal"
+      tabindex="-1"
+      aria-labelledby="delete-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="delete-modal-label">Delete.</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="button-yes" type="button" class="btn btn-warning">
+              Yes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="/usersBundle.js"></script>
   </body>
 </html>
