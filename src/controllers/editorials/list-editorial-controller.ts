@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import { IEditorial } from "../../models/editorial";
 import { EditorialService } from "../../services/editorial-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -107,15 +107,26 @@ class ListEditorialController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
         try {
           const idToDelete = deleteButton.getAttribute("data-id");
           if (idToDelete !== null) {
             await this.editorialService.deleteEditorial(idToDelete);
           }
-          window.location.href = "http://localhost:8080/editorials/";
         } catch (error) {
           errorHandler("No se pudo eliminar la editorial", error);
+        } finally {
+          if (toastModalElement !== null) {
+            toast.show();
+          }
+          setTimeout(() => {
+            window.location.href = "http://localhost:8080/editorials/";
+          }, 1000);
         }
       });
 

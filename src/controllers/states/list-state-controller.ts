@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
 import { CountryServices } from "../../services/country-service";
@@ -53,7 +53,12 @@ class ListStatesController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
         if (confirm(`Desea eliminar el estado?`) == true)
           try {
             const stateId = (<HTMLButtonElement>event.target).getAttribute(
@@ -65,9 +70,15 @@ class ListStatesController {
             if (countryId !== null && stateId !== null) {
               await this.stateService.deleteState(countryId, stateId);
             }
-            window.location.href = "http://localhost:8080/states/";
           } catch (error) {
             errorHandler("No se pudo eliminar el estado", error);
+          } finally {
+            if (toastModalElement !== null) {
+              toast.show();
+            }
+            setTimeout(() => {
+              window.location.href = "http://localhost:8080/states/";
+            }, 1000);
           }
       });
 
