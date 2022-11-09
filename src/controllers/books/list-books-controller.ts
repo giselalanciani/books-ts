@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import { EditorialService } from "../../services/editorial-service";
 import { BookService } from "../../services/book-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -65,15 +65,27 @@ class ListBooksController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
+
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
         try {
           const idToDelete = deleteButton.getAttribute("data-id");
           if (idToDelete !== null) {
             await this.bookService.deleteBook(idToDelete);
           }
-          window.location.href = "http://localhost:8080/books/";
         } catch (error) {
           errorHandler("No se pudo eliminar su libro", error);
+        } finally {
+          if (toastModalElement !== null) {
+            toast.show();
+          }
+          setTimeout(() => {
+            window.location.href = "http://localhost:8080/books/";
+          }, 1000);
         }
       });
 

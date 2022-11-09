@@ -1,6 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
-
+import { Modal, Toast } from "bootstrap";
 import { IClient } from "../../models/client";
 import { CategoriesServices } from "../../services/categories-service";
 import { ClientService } from "../../services/clients";
@@ -51,15 +50,26 @@ class clientListController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
         try {
           const id = deleteButton.getAttribute("data-id");
           if (id !== null) {
             await this.clientService.deleteClient(id);
           }
-          window.location.href = "http://localhost:8080/clients/";
         } catch (error) {
           errorHandler("No se pudo eliminar el cliente", error);
+        } finally {
+          if (toastModalElement !== null) {
+            toast.show();
+          }
+          setTimeout(() => {
+            window.location.href = "http://localhost:8080/clients/";
+          }, 1000);
         }
       });
 

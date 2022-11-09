@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { errorHandler } from "../../utils/error-handler";
@@ -115,15 +115,27 @@ class ListAuthorsController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
+
         try {
           const idToDelete = deleteButton.getAttribute("data-id");
           if (idToDelete !== null) {
             await this.authorsService.deleteAuthor(idToDelete);
           }
-          window.location.href = "http://localhost:8080/authors/";
         } catch (error) {
           errorHandler("No se pudo eliminar el autor", error);
+        } finally {
+          if (toastModalElement !== null) {
+            toast.show();
+          }
+          setTimeout(() => {
+            window.location.href = "http://localhost:8080/authors/";
+          }, 1000);
         }
       });
 

@@ -25,14 +25,15 @@
             <th>State</th>
             <th>City</th>
             <th>Street</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr class="hidden" id="no-branches-available">
-            <td colspan="5">No branches available</td>
+            <td colspan="6">No branches available</td>
           </tr>
           <tr id="waiting-message-row">
-            <td colspan="5">Espere por favor, cargando datos...</td>
+            <td colspan="6">Espere por favor, cargando datos...</td>
           </tr>
         </tbody>
       </table>
@@ -86,6 +87,28 @@
         </div>
       </div>
     </div>
+
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="delete-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">          
+          <strong class="me-auto">Delete</strong>          
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data deleted succesfully.</div>
+      </div>
+    </div>
+
     <script src="/branchesBundle.js"></script>
   </body>
 </html>

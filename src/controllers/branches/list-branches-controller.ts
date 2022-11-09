@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import { IBranch } from "../../models/branch";
 import { BranchService } from "../../services/branch-service";
 import { CountryServices } from "../../services/country-service";
@@ -48,15 +48,27 @@ class ListBranchesController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
         try {
           const idToDelete = deleteButtonElement.getAttribute("data-id");
           if (idToDelete !== null) {
             await this.branchService.deleteBranch(idToDelete);
           }
-          window.location.href = "http://localhost:8080/branches/";
         } catch (error) {
           errorHandler("No se pudo eliminar el branch", error);
+        } finally {
+          if (toastModalElement !== null) {
+            toast.show();
+          }
+          setTimeout(() => {
+            window.location.href = "http://localhost:8080/branches/";
+          }, 1000);
         }
       });
 
