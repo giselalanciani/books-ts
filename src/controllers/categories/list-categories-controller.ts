@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import { Modal } from "bootstrap";
+import { Modal, Toast } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -42,15 +42,26 @@ class ListCategoriesController {
       const modalButtonYesElement = <HTMLButtonElement>(
         myModalDeleteElement.querySelector("#button-yes")
       );
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#delete-toast")
+      );
+      const toast = new Toast(toastModalElement);
       modalButtonYesElement.addEventListener("click", async () => {
+        myDeleteModal.hide();
         try {
           const idToDelete = deleteButtonElement.getAttribute("data-id");
           if (idToDelete !== null) {
             await this.categoryService.deleteCategory(idToDelete);
           }
-          window.location.href = "http://localhost:8080/categories/";
         } catch (error) {
           errorHandler("No se pudo eliminar el branch", error);
+        } finally {
+          if (toastModalElement !== null) {
+            toast.show();
+          }
+          setTimeout(() => {
+            window.location.href = "http://localhost:8080/categories/";
+          }, 1000);
         }
       });
 
