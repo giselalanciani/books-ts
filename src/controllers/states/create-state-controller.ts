@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
 import { CountryServices } from "../../services/country-service";
@@ -42,6 +41,10 @@ class createStateController {
   }
 
   private sendData = async () => {
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#create-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       const stateNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='statename']")
@@ -57,10 +60,15 @@ class createStateController {
       };
 
       await this.stateService.createState(state);
-      alert("Los datos fueron guardados");
-      window.location.href = "/states";
     } catch (error) {
       errorHandler("No se pudo craer su stado", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/states/";
+      }, 1000);
     }
   };
 

@@ -1,6 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
-
+import { Toast } from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { DateService } from "../../services/date-service";
@@ -128,14 +126,21 @@ class CreateAuthorsController {
       name: authorNameInputElement.value,
       birthdate: birthdate.toISOString(),
     };
-
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#create-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       await this.authorsService.createAuthor(author);
-
-      alert("Autor creado");
-      window.location.href = "/authors";
     } catch (error) {
       errorHandler("No se pudo crear el autor, intente mas tarde.", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/authors/";
+      }, 1000);
     }
   };
 

@@ -17,16 +17,41 @@
       <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
           <label for="category-name" class="form-label">Category name</label>
-          <input class="form-control"type="text" name="category-name" />
+          <input class="form-control" type="text" name="category-name" />
           <div class="invalid-feedback hidden" name="category-name-required">
             * Campo requerido
           </div>
         </div>
-        
 
-        <button id="create-category-button" type="submit" class="btn btn-primary">Create</button>
+        <button
+          id="create-category-button"
+          type="submit"
+          class="btn btn-primary"
+        >
+          Create
+        </button>
       </form>
-    </main>        
+    </main>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="create-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Create</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data created succesfully.</div>
+      </div>
+    </div>
 
     <script src="/createCategoriesBundle.js"></script>
   </body>

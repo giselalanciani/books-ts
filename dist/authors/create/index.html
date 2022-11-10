@@ -14,10 +14,9 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-author-form" novalidate>        
-
+      <form autocomplete="off" name="create-author-form" novalidate>
         <div class="field-container">
-          <label for="authorname"  class="form-label">Author name</label>
+          <label for="authorname" class="form-label">Author name</label>
           <input class="form-control" type="text" name="authorname" />
           <div class="invalid-feedback hidden" name="authorname-required">
             * Campo requerido
@@ -29,7 +28,9 @@
           <select class="form-select" name="year" id="year">
             <option value="">seleccione..</option>
           </select>
-          <div class="invalid-feedback hidden" name="year-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="year-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
@@ -49,7 +50,9 @@
           <select class="form-select" name="day" id="day">
             <option value="">seleccione..</option>
           </select>
-          <div class="invalid-feedback hidden" name="day-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="day-required">
+            * Campo requerido
+          </div>
         </div>
 
         <button id="create-author-button" type="submit" class="btn btn-primary">
@@ -69,7 +72,26 @@
     <template id="month-template">
       <option value="seleccione">seleccione..</option>
     </template>
-
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="create-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Create</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data created succesfully.</div>
+      </div>
+    </div>
     <script src="/createAuthorsBundle.js"></script>
   </body>
 </html>

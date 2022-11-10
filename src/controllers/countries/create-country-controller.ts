@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { ICountry } from "../../models/country";
 import { CountryServices } from "../../services/country-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -43,17 +42,25 @@ class CreateCountryController {
       id: "",
       name: countryNameInputElement.value,
     };
-
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#create-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       await this.countryServices.createCountry(country);
-      alert("Country created");
-      window.location.href = "/countries";
     } catch (error) {
       errorHandler(
         "Your country couldn't be created, please try later.",
         error
       );
     } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/countries/";
+      }, 1000);
+
       this.removeActivityIndicationMessage();
     }
   };

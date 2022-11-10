@@ -1,5 +1,5 @@
 // Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IUser } from "../../models/user";
 import { UserService } from "../../services/users-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -33,6 +33,10 @@ class CreateUserController {
   };
 
   private sendData = async () => {
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#create-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       const userNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='user-name']")
@@ -63,10 +67,15 @@ class CreateUserController {
       };
 
       await this.userService.createUser(user);
-      alert("Los datos fueron guardados");
-      window.location.href = "/users";
     } catch (error) {
       errorHandler("No se pudo craer el usuario", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/users/";
+      }, 1000);
     }
   };
 
