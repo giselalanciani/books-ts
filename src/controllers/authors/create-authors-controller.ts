@@ -127,7 +127,7 @@ class CreateAuthorsController {
       birthdate: birthdate.toISOString(),
     };
     const toastModalElement = <HTMLDivElement>(
-      document.querySelector("#delete-toast")
+      document.querySelector("#create-toast")
     );
     const toast = new Toast(toastModalElement);
     try {
