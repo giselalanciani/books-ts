@@ -1,6 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
-import { ICountry } from "../../models/country";
+import { Toast } from "bootstrap";
 import { CountryServices } from "../../services/country-service";
 import { errorHandler } from "../../utils/error-handler";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
@@ -29,6 +27,11 @@ class EditCountryController {
   }
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditCountryForm()) {
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
+
       try {
         const countryNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='countryname']")
@@ -41,22 +44,27 @@ class EditCountryController {
         };
 
         await this.countryServices.updateCountry(country);
-        alert("Los datos fueron guardados");
-        window.location.href = "/countries";
       } catch (error) {
         errorHandler(
           "El país no puede ser guardado en este momento, por favor intente nuevamente",
           error
         );
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/countries/";
+        }, 1000);
       }
     }
   };
-  
+
   public async init() {
     const params = this.getQueryParams();
     const id = params.id;
     try {
-      const countryData = await this.countryServices.getCountry(params.id);      
+      const countryData = await this.countryServices.getCountry(params.id);
 
       const countryInputElement = <HTMLInputElement>(
         document.querySelector("[name='countryname']")

@@ -14,24 +14,24 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-user-form"novalidate>
+      <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
-          <label class="form-label"for="client-name">Client name</label>
-          <input class="form-control"type="text" name="client-name" />
+          <label class="form-label" for="client-name">Client name</label>
+          <input class="form-control" type="text" name="client-name" />
           <div class="invalid-feedback hidden" name="client-name-required">
             * Campo requerido
           </div>
         </div>
         <div class="field-container">
-          <label class="form-label"for="email">Email</label>
-          <input class="form-control"type="email" name="email" />
-          <div class="invalid-feedback hidden"name="email-required">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-control" type="email" name="email" />
+          <div class="invalid-feedback hidden" name="email-required">
             * Campo requerido
           </div>
         </div>
         <div class="field-container">
-          <label class="form-label"for="country">Country</label>
-          <select class="form-select"name="country" id="country">
+          <label class="form-label" for="country">Country</label>
+          <select class="form-select" name="country" id="country">
             <option value="">seleccione..</option>
           </select>
           <div class="invalid-feedback hidden" name="country-required">
@@ -39,8 +39,8 @@
           </div>
         </div>
         <div class="field-container">
-          <label class="form-label"for="state">State</label>
-          <select class="form-select"name="state" id="state">
+          <label class="form-label" for="state">State</label>
+          <select class="form-select" name="state" id="state">
             <option value="">seleccione..</option>
           </select>
           <div class="invalid-feedback hidden" name="state-required">
@@ -48,20 +48,25 @@
           </div>
         </div>
         <div class="field-container">
-          <label class="form-label"for="city">City</label>
-          <input class="form-control"type="text" name="city" />
-          <div class="invalid-feedback hidden" name="city-required">* Campo requerido</div>
+          <label class="form-label" for="city">City</label>
+          <input class="form-control" type="text" name="city" />
+          <div class="invalid-feedback hidden" name="city-required">
+            * Campo requerido
+          </div>
         </div>
         <div class="field-container">
-          <label class="form-label"for="street">Street</label>
-          <input class="form-control"type="text" name="street" />
+          <label class="form-label" for="street">Street</label>
+          <input class="form-control" type="text" name="street" />
           <div class="invalid-feedback hidden" name="street-required">
             * Campo requerido
           </div>
         </div>
         <div class="field-container">
-          <label class="form-label"for="liked-categories">Liked categories</label>
-          <select class="form-select"
+          <label class="form-label" for="liked-categories"
+            >Liked categories</label
+          >
+          <select
+            class="form-select"
             multiple
             name="liked-categories"
             id="liked-categories"
@@ -71,7 +76,9 @@
             * Campo requerido
           </div>
         </div>
-        <button id="save-client-button" type="button" class="btn btn-primary">Save</button>
+        <button id="save-client-button" type="button" class="btn btn-primary">
+          Save
+        </button>
       </form>
     </main>
 
@@ -85,7 +92,26 @@
     <template id="category-option-template">
       <option value=""></option>
     </template>
-
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="edit-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Save</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data saved succesfully.</div>
+      </div>
+    </div>
     <script src="/editClientsBundle.js"></script>
   </body>
 </html>

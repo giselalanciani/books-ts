@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { AuthorsService } from "../../services/authors-service";
 import { DateService } from "../../services/date-service";
@@ -56,16 +55,24 @@ class EditAuthorsController {
       };
 
       const id = this.getQueryParams().id;
-
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const updateAuthorResponseData = await this.authorService.updateAuthor(
           id,
           author
         );
-        alert("Su autor fue guardado correctamente");
-        window.location.href = "/authors";
       } catch (error) {
         errorHandler("No se pudo guardar autor", error);
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/authors/";
+        }, 1000);
       }
     }
   };
@@ -135,13 +142,18 @@ class EditAuthorsController {
   }
 
   private renderDays = (daysDataList: number[]) => {
-    const authorDaySelectElement = <HTMLSelectElement>document.getElementById("day");
+    const authorDaySelectElement = <HTMLSelectElement>(
+      document.getElementById("day")
+    );
     const dayTemplateElement = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
     );
 
     for (let i = 0; i < daysDataList.length; i++) {
-      const copyDayTemplate = document.importNode(dayTemplateElement.content, true);
+      const copyDayTemplate = document.importNode(
+        dayTemplateElement.content,
+        true
+      );
 
       const daysOption = <HTMLOptionElement>(
         copyDayTemplate.querySelector("option")
@@ -155,13 +167,18 @@ class EditAuthorsController {
   };
 
   private renderYears = (yearsDataList: number[]) => {
-    const authorYearSelectElement = <HTMLSelectElement>document.getElementById("year");
+    const authorYearSelectElement = <HTMLSelectElement>(
+      document.getElementById("year")
+    );
     const yearTemplateElement = <HTMLTemplateElement>(
       document.getElementById("date-option-template")
     );
 
     for (let i = 0; i < yearsDataList.length; i++) {
-      const copyYearTemplate = document.importNode(yearTemplateElement.content, true);
+      const copyYearTemplate = document.importNode(
+        yearTemplateElement.content,
+        true
+      );
 
       const yearsOption = <HTMLOptionElement>(
         copyYearTemplate.querySelector("option")

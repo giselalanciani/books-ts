@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { IClient } from "../../models/client";
 import { ICountry } from "../../models/country";
@@ -28,13 +27,13 @@ class EditClientController {
     );
     saveButton.addEventListener("click", this.onClickSaveButton);
 
-    configureValidator("client-name", [{type: "required"}]);
-    configureValidator("email", [{type: "required"}]);
-    configureValidator("country", [{type: "required"}]);
-    configureValidator("state", [{type: "required"}]);
-    configureValidator("city", [{type: "required"}]);
-    configureValidator("street", [{type: "required"}]);
-    configureValidator("liked-categories", [{type: "required"}]);
+    configureValidator("client-name", [{ type: "required" }]);
+    configureValidator("email", [{ type: "required" }]);
+    configureValidator("country", [{ type: "required" }]);
+    configureValidator("state", [{ type: "required" }]);
+    configureValidator("city", [{ type: "required" }]);
+    configureValidator("street", [{ type: "required" }]);
+    configureValidator("liked-categories", [{ type: "required" }]);
   }
 
   private getQueryParams() {
@@ -44,6 +43,10 @@ class EditClientController {
   }
   private onClickSaveButton = async () => {
     if (this.validateEditClientsForm()) {
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const clientNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='client-name']")
@@ -67,7 +70,9 @@ class EditClientController {
           document.querySelector("[name='liked-categories']")
         );
 
-        const likedCategoriesList = getSelectValues(likedCategoriesSelectorElement);
+        const likedCategoriesList = getSelectValues(
+          likedCategoriesSelectorElement
+        );
 
         const client: IClient = {
           id: "",
@@ -83,13 +88,18 @@ class EditClientController {
         const id = this.getQueryParams().id;
 
         await this.clientService.updateClient(id, client);
-        alert("Los datos fueron guardados");
-        window.location.href = "/clients";
       } catch (error) {
         errorHandler(
           "El cliente no pudo ser guardado correctamente, por favor intente nuevamente",
           error
         );
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/clients/";
+        }, 1000);
       }
     }
   };
@@ -186,7 +196,9 @@ class EditClientController {
   }
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>(
+      document.getElementById("country")
+    );
 
     const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-create-template")
@@ -208,7 +220,9 @@ class EditClientController {
     }
   }
   private renderStates(statesDataList: IState[]) {
-    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>(
+      document.getElementById("state")
+    );
 
     const statesOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("states-option-template")

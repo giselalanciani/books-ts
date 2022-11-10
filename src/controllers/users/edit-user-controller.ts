@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IUser } from "../../models/user";
 import { UserService } from "../../services/users-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -47,16 +46,24 @@ class EditUserController {
       };
 
       const id = this.getQueryParams().id;
-
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const updateUserResponseData = await this.userService.updateUser(
           id,
           user
         );
-        alert("El usuario fue guardado correctamente");
-        window.location.href = "/users";
       } catch (error) {
         errorHandler("No se pudo guardar el usuario", error);
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/users/";
+        }, 1000);
       }
     }
   };
