@@ -17,17 +17,41 @@
       <p id="Activity-indication-message">
         Espere por favor, cargando datos...
       </p>
-      <form name="edit-country-form"novalidate>
+      <form name="edit-country-form" novalidate>
         <div class="field-container">
-          <label for="countryname"class="form-label">Country name</label>
-          <input class="form-control"type="text" name="countryname" />
-          <div class="invalid-feedback hidden" name="countryname-required">* Campo requerido</div>
+          <label for="countryname" class="form-label">Country name</label>
+          <input class="form-control" type="text" name="countryname" />
+          <div class="invalid-feedback hidden" name="countryname-required">
+            * Campo requerido
+          </div>
         </div>
         <template id="country-template"></template>
 
-        <button id="save-country-button" type="button"class="btn btn-primary">Save</button>
+        <button id="save-country-button" type="button" class="btn btn-primary">
+          Save
+        </button>
       </form>
     </main>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="edit-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Save</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data saved succesfully.</div>
+      </div>
+    </div>
 
     <script src="/editCountryBundle.js"></script>
   </body>

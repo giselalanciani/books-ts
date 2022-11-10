@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IEditorial } from "../../models/editorial";
 import { EditorialService } from "../../services/editorial-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -34,14 +33,23 @@ class EditEditorialController {
       };
 
       const id = this.getQueryParams().id;
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
 
       try {
         const updateEditorialResponseData =
           await this.editorialService.updateEditorial(id, editorial);
-        alert("Su libro fue guardado correctamente");
-        window.location.href = "/editorials";
       } catch (error) {
         errorHandler("No se pudo guardar su libro", error);
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/editorials/";
+        }, 1000);
       }
     }
   };
@@ -59,7 +67,7 @@ class EditEditorialController {
   public async init() {
     const params = this.getQueryParams();
     try {
-      const editorialData = await this.editorialService.getEditorial(params.id);      
+      const editorialData = await this.editorialService.getEditorial(params.id);
 
       const editorialInputElement = <HTMLInputElement>(
         document.querySelector("[name='editorialname']")

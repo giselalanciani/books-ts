@@ -17,19 +17,41 @@
       <p id="Activity-indication-message">
         Espere por favor, cargando datos...
       </p>
-      <form name="edit-categories-form"novalidate>
+      <form name="edit-categories-form" novalidate>
         <div class="field-container">
-          <label for="category-name"class="form-label">Categories name</label>
-          <input class="form-control"type="text" name="category-name" />
+          <label for="category-name" class="form-label">Categories name</label>
+          <input class="form-control" type="text" name="category-name" />
           <div class="invalid-feedback hidden" name="category-name-required">
             * Campo requerido
           </div>
         </div>
         <template id="categories-template"></template>
 
-        <button id="save-category-button" type="button"class="btn btn-primary">Save</button>
+        <button id="save-category-button" type="button" class="btn btn-primary">
+          Save
+        </button>
       </form>
     </main>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="edit-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Save</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data saved succesfully.</div>
+      </div>
+    </div>
 
     <script src="/editCategoriesBundle.js"></script>
   </body>

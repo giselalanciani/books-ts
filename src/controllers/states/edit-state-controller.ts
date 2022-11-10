@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IState } from "../../models/state";
 import { StateService } from "../../services/states-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -23,6 +22,10 @@ class EditStateController {
   }
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditStateForm()) {
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const stateNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='statename']")
@@ -38,13 +41,18 @@ class EditStateController {
         };
 
         await this.stateService.updateState(countryId, state);
-        alert("Los datos fueron guardados");
-        window.location.href = "/states";
       } catch (error) {
         errorHandler(
           "El estado no puede ser guardado en este momento, por favor intente nuevamente",
           error
         );
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/states/";
+        }, 1000);
       }
     }
   };

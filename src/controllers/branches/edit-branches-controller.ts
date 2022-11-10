@@ -1,13 +1,10 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IBranch } from "../../models/branch";
 import { ICountry } from "../../models/country";
-
 import { IState } from "../../models/state";
 import { BranchService } from "../../services/branch-service";
 import { CountryServices } from "../../services/country-service";
 import { StateService } from "../../services/states-service";
-
 import { configureValidator } from "../../utils/configureValidator";
 import { errorHandler } from "../../utils/error-handler";
 import { validateFieldRequired } from "../../utils/validateFieldRequired";
@@ -35,6 +32,10 @@ class EditBranchController {
 
   private onClickSaveButton = async (event: Event) => {
     if (this.validateEditBranchForm()) {
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const branchNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='branchname']")
@@ -64,13 +65,18 @@ class EditBranchController {
         const id = this.getQueryParams().id;
 
         await this.branchService.updateBranch(id, branch);
-        alert("Los datos fueron guardados");
-        window.location.href = "/branches";
       } catch (error) {
         errorHandler(
           "No pudo ser guardado correctamente, por favor intente nuevamente",
           error
         );
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/branches/";
+        }, 1000);
       }
     }
   };
@@ -84,10 +90,12 @@ class EditBranchController {
         option.remove();
       }
     });
-  }  
+  }
 
   private renderStates(statesDataList: IState[]) {
-    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>(
+      document.getElementById("state")
+    );
 
     const statesOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("states-option-template")
@@ -109,7 +117,9 @@ class EditBranchController {
   }
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>(
+      document.getElementById("country")
+    );
 
     const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-create-template")
@@ -190,9 +200,11 @@ class EditBranchController {
     try {
       const branchData = await this.branchService.getBranch(branchId);
       const countriesData = await this.countryService.getCountries();
-      const statesData = await this.stateService.getStates(branchData.countryId);
+      const statesData = await this.stateService.getStates(
+        branchData.countryId
+      );
 
-      this.renderCountries(countriesData);      
+      this.renderCountries(countriesData);
       this.renderStates(statesData);
 
       const branchInputElement = <HTMLInputElement>(

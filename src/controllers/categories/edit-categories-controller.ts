@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -12,11 +11,15 @@ class EditCategoriesController {
     );
     saveButton.addEventListener("click", this.onClickSaveButton);
 
-    configureValidator("category-name", [{type: "required"}]);
+    configureValidator("category-name", [{ type: "required" }]);
   }
   private onClickSaveButton = async (event: Event) => {
     event.preventDefault();
     if (this.validateEditForm()) {
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const categoriesNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='category-name']")
@@ -29,13 +32,18 @@ class EditCategoriesController {
         };
 
         await this.categorieService.updateCategory(id, categoryId);
-        alert("Los datos fueron guardados");
-        window.location.href = "/categories";
       } catch (error) {
         errorHandler(
           "La categoría no puede ser guardada en este momento, por favor intente nuevamente",
           error
         );
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/categories/";
+        }, 1000);
       }
     }
   };

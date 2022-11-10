@@ -20,60 +20,80 @@
         <div class="field-container">
           <label for="bookname" class="form-label">Book name</label>
           <input class="form-control" type="text" name="bookname" />
-          <div class="invalid-feedback hidden" name="bookname-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="bookname-required">
+            * Campo requerido
+          </div>
 
           <label for="year" class="form-label">Year</label>
-          <input class="form-control"type="number" name="year" />
-          <div class="invalid-feedback hidden" name="year-required">* Campo requerido</div>
-          <div class="invalid-feedback hidden" name="year-numeric">* El campo debe ser numérico</div>
+          <input class="form-control" type="number" name="year" />
+          <div class="invalid-feedback hidden" name="year-required">
+            * Campo requerido
+          </div>
+          <div class="invalid-feedback hidden" name="year-numeric">
+            * El campo debe ser numérico
+          </div>
         </div>
 
         <div class="field-container">
           <label for="editorial" class="form-label">editorial</label>
-          <select class="form-select"name="editorial" id="editorial">
+          <select class="form-select" name="editorial" id="editorial">
             <option value="">seleccione..</option>
           </select>
-          <div class="invalid-feedback hidden" name="editorial-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="editorial-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
           <label for="authors" class="form-label">authors</label>
 
-          <select class="form-select"name="authors" id="authors">
+          <select class="form-select" name="authors" id="authors">
             <option value="">seleccione..</option>
           </select>
-          <div class="invalid-feedback hidden" name="authors-required">* Campo requerido</div>
+          <div class="invalid-feedback hidden" name="authors-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
           <label for="stock" class="form-label">Stock</label>
-          <input class="form-control"type="number" name="stock" />
-          <div class="invalid-feedback hidden"name="stock-required">* Campo requerido</div>
-          <div class="invalid-feedback hidden"name="stock-numeric">* El campo debe ser numérico</div>
+          <input class="form-control" type="number" name="stock" />
+          <div class="invalid-feedback hidden" name="stock-required">
+            * Campo requerido
+          </div>
+          <div class="invalid-feedback hidden" name="stock-numeric">
+            * El campo debe ser numérico
+          </div>
         </div>
 
         <div class="field-container">
           <label for="price" class="form-label">Price</label>
-          <input class="form-control"type="number" name="price" />
-          <div class="invalid-feedback hidden" name="price-required">* Campo requerido</div>
-          <div class="invalid-feedback hidden"name="price-numeric">* El campo debe ser numérico</div>
+          <input class="form-control" type="number" name="price" />
+          <div class="invalid-feedback hidden" name="price-required">
+            * Campo requerido
+          </div>
+          <div class="invalid-feedback hidden" name="price-numeric">
+            * El campo debe ser numérico
+          </div>
         </div>
 
         <div class="field-container">
           <label for="categories" class="form-label">Categories</label>
-          <select class="form-select"
+          <select
+            class="form-select"
             multiple
             name="categories"
             id="categories"
             class="multiple"
-          >            
-          </select>
+          ></select>
           <div class="invalid-feedback hidden" name="categories-required">
             * Campo requerido
           </div>
         </div>
 
-        <button id="save-book-button" type="button" class="btn btn-primary">Save</button>
+        <button id="save-book-button" type="button" class="btn btn-primary">
+          Save
+        </button>
       </form>
     </main>
 
@@ -88,6 +108,26 @@
     <template id="categories-option-template">
       <option value="seleccione">seleccione..</option>
     </template>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="edit-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Save</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data saved succesfully.</div>
+      </div>
+    </div>
 
     <script src="/editBookBundle.js"></script>
   </body>

@@ -24,10 +24,12 @@
 
       <div class="field-container">
         <label for="year" class="form-label">Year</label>
-        <select class="form-select"name="year" id="year">
+        <select class="form-select" name="year" id="year">
           <option value="">seleccione..</option>
         </select>
-        <div class="invalid-feedback hidden" name="year-required">* Campo requerido</div>
+        <div class="invalid-feedback hidden" name="year-required">
+          * Campo requerido
+        </div>
       </div>
 
       <div class="field-container">
@@ -35,23 +37,49 @@
         <select class="form-select" name="month" id="month">
           <option value="">seleccione..</option>
         </select>
-        <div class="invalid-feedback hidden" name="month-required">* Campo requerido</div>
+        <div class="invalid-feedback hidden" name="month-required">
+          * Campo requerido
+        </div>
       </div>
 
       <div class="field-container">
         <label for="day" class="form-label">Day</label>
-        <select class="form-select"name="day" id="day">
+        <select class="form-select" name="day" id="day">
           <option value="">seleccione..</option>
         </select>
-        <div class="invalid-feedback hidden" name="day-required">* Campo requerido</div>
+        <div class="invalid-feedback hidden" name="day-required">
+          * Campo requerido
+        </div>
       </div>
 
-      <button id="save-author-button" type="button" class="btn btn-primary">Save</button>
+      <button id="save-author-button" type="button" class="btn btn-primary">
+        Save
+      </button>
     </form>
 
     <template id="date-option-template">
       <option value="seleccione">seleccione..</option>
     </template>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="edit-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Save</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data saved succesfully.</div>
+      </div>
+    </div>
 
     <script src="/editAuthorsBundle.js"></script>
   </body>

@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { Ibook } from "../../models/book";
 import { ICategory } from "../../models/category";
@@ -47,6 +46,10 @@ class EditBooksController {
   private onClickSaveButton = async (event: Event) => {
     event.preventDefault();
     if (this.validateEditBookForm()) {
+      const toastModalElement = <HTMLDivElement>(
+        document.querySelector("#edit-toast")
+      );
+      const toast = new Toast(toastModalElement);
       try {
         const bookNameInputElement = <HTMLInputElement>(
           document.querySelector("[name='bookname']")
@@ -87,13 +90,18 @@ class EditBooksController {
         const id = this.getQueryParams().id;
 
         await this.bookService.updateBook(id, book);
-        alert("Los datos fueron guardados");
-        window.location.href = "/books";
       } catch (error) {
         errorHandler(
           "Su libro no pudo ser guardado correctamente, por favor intente nuevamente",
           error
         );
+      } finally {
+        if (toastModalElement !== null) {
+          toast.show();
+        }
+        setTimeout(() => {
+          window.location.href = "http://localhost:8080/books/";
+        }, 1000);
       }
     }
   };
@@ -137,7 +145,9 @@ class EditBooksController {
   }
 
   private renderAuthors(authorsDataList: IAuthor[]) {
-    const authorsSelectElement = <HTMLSelectElement>document.getElementById("authors");
+    const authorsSelectElement = <HTMLSelectElement>(
+      document.getElementById("authors")
+    );
 
     const authorOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("author-option-template")
@@ -206,7 +216,10 @@ class EditBooksController {
       );
 
       newCategoryOptionElement.textContent = `${catergoriesDataList[i].name}`;
-      newCategoryOptionElement.setAttribute("value", `${catergoriesDataList[i].id}`);
+      newCategoryOptionElement.setAttribute(
+        "value",
+        `${catergoriesDataList[i].id}`
+      );
       categorySelectElement.append(newCategoryOptionElement);
     }
   }
