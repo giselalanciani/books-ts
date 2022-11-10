@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IEditorial } from "../../models/editorial";
 import { EditorialService } from "../../services/editorial-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -44,13 +43,21 @@ class CreateEditorialController {
       id: "",
       name: editorialNameInputElement.value,
     };
-
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#delete-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       await this.editorialService.createEditorial(editorial);
-      alert("Editorial creada");
-      window.location.href = "/editorials";
     } catch (error) {
       errorHandler("No se pudo crear su editorial, intente mas tarde.", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/editorials/";
+      }, 1000);
     }
   };
 }

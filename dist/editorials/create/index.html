@@ -15,19 +15,47 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-editorial-form"novalidate>
+      <form autocomplete="off" name="create-editorial-form" novalidate>
         <div class="field-container">
-          <label for="editorialname"class="form-label">Editorial name</label>
-          <input class="form-control"type="text" name="editorialname" />
-          <div class="invalid-feedback hidden" name="editorialname-required">* Campo requerido</div>
+          <label for="editorialname" class="form-label">Editorial name</label>
+          <input class="form-control" type="text" name="editorialname" />
+          <div class="invalid-feedback hidden" name="editorialname-required">
+            * Campo requerido
+          </div>
         </div>
 
-        <button id="create-editorial-button" type="submit"class="btn btn-primary">Create</button>
+        <button
+          id="create-editorial-button"
+          type="submit"
+          class="btn btn-primary"
+        >
+          Create
+        </button>
       </form>
     </main>
 
     <script src="/createEditorialsBundle.js"></script>
 
     <template id="editorial-create-template"></template>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="delete-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Create</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data created succesfully.</div>
+      </div>
+    </div>
   </body>
 </html>

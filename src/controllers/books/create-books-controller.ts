@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IAuthor } from "../../models/author";
 import { Ibook } from "../../models/book";
 import { ICategory } from "../../models/category";
@@ -64,6 +63,10 @@ class CreateBooksController {
   };
 
   private sendData = async () => {
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#delete-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       const bookNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='bookname']")
@@ -100,10 +103,15 @@ class CreateBooksController {
       };
 
       await this.bookService.createBook(book);
-      alert("Los datos fueron guardados");
-      window.location.href = "/books";
     } catch (error) {
       errorHandler("No se pudo craer su libro", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/books/";
+      }, 1000);
     }
   };
 

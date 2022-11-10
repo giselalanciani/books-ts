@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { CategoriesServices } from "../../services/categories-service";
 import { configureValidator } from "../../utils/configureValidator";
@@ -17,7 +16,7 @@ class CreateCategoryController {
     );
     configureValidator("category-name", [{ type: "required" }]);
   }
-  private onClickCreateCategoryButton = async (event:Event) => {
+  private onClickCreateCategoryButton = async (event: Event) => {
     event.preventDefault();
     if (this.validateCreateCategoryForm() === true) {
       await this.sendCategotyData();
@@ -42,13 +41,21 @@ class CreateCategoryController {
       id: "",
       name: categoryNameInputElement.value,
     };
-
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#delete-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       await this.categoryServices.createCategory(category);
-      alert("Categoria creada");
-      window.location.href = "/categories";
     } catch (error) {
       errorHandler("No se pudo crear su categoria, intente mas tarde.", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/categories/";
+      }, 1000);
     }
     this.removeWaitingMessageRow();
   };

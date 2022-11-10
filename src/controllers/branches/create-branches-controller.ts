@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { IBranch } from "../../models/branch";
 import { ICountry } from "../../models/country";
 import { IState } from "../../models/state";
@@ -66,6 +65,10 @@ class CreateBrunchesController {
   }
 
   private sendBranchData = async () => {
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#delete-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       const branchNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='branchname']")
@@ -93,10 +96,15 @@ class CreateBrunchesController {
       };
 
       await this.branchService.createBranch(branch);
-      alert("Los datos fueron guardados");
-      window.location.href = "/branches";
     } catch (error) {
       errorHandler("No se pudieron cargar los datos", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/branches/";
+      }, 1000);
     }
   };
 
@@ -112,8 +120,8 @@ class CreateBrunchesController {
     }
   };
 
-private  deleteStateSelectOptions() {
-    const stateSelect = <HTMLSelectElement> document.getElementById("state");
+  private deleteStateSelectOptions() {
+    const stateSelect = <HTMLSelectElement>document.getElementById("state");
     const selectOptions = stateSelect.querySelectorAll("option");
     selectOptions.forEach((option) => {
       if (option.id === "select-state") {
@@ -124,7 +132,7 @@ private  deleteStateSelectOptions() {
     });
   }
 
-public  async init() {
+  public async init() {
     try {
       const countryData = await this.countryService.getCountries();
       this.renderCountries(countryData);
@@ -133,10 +141,14 @@ public  async init() {
     }
   }
 
-private  renderCountries(countryDataList:ICountry[]) {
-    const countrySelectElement = <HTMLSelectElement> document.getElementById("country");
+  private renderCountries(countryDataList: ICountry[]) {
+    const countrySelectElement = <HTMLSelectElement>(
+      document.getElementById("country")
+    );
 
-    const countryTemplateElement = <HTMLTemplateElement>document.getElementById("country-create-template");
+    const countryTemplateElement = <HTMLTemplateElement>(
+      document.getElementById("country-create-template")
+    );
 
     for (let i = 0; i < countryDataList.length; i++) {
       const copyCountryTemplate = document.importNode(
@@ -144,7 +156,9 @@ private  renderCountries(countryDataList:ICountry[]) {
         true
       );
 
-      const newCountryOptionElement = <HTMLOptionElement>copyCountryTemplate.querySelector("option");
+      const newCountryOptionElement = <HTMLOptionElement>(
+        copyCountryTemplate.querySelector("option")
+      );
 
       newCountryOptionElement.textContent = `${countryDataList[i].name}`;
       newCountryOptionElement.setAttribute("value", `${countryDataList[i].id}`);
@@ -152,11 +166,13 @@ private  renderCountries(countryDataList:ICountry[]) {
     }
   }
 
-private  renderStates(statesDataList: IState[]) {
-    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
+  private renderStates(statesDataList: IState[]) {
+    const statesSelectElement = <HTMLSelectElement>(
+      document.getElementById("state")
+    );
 
-    const statesOptionTemplateElement = <HTMLTemplateElement>document.getElementById(
-      "states-option-template"
+    const statesOptionTemplateElement = <HTMLTemplateElement>(
+      document.getElementById("states-option-template")
     );
 
     for (let i = 0; i < statesDataList.length; i++) {
@@ -164,7 +180,9 @@ private  renderStates(statesDataList: IState[]) {
         statesOptionTemplateElement.content,
         true
       );
-      const newStateOptionElement = <HTMLOptionElement> copyStatesOptionTemplate.querySelector("option");
+      const newStateOptionElement = <HTMLOptionElement>(
+        copyStatesOptionTemplate.querySelector("option")
+      );
 
       newStateOptionElement.textContent = `${statesDataList[i].name}`;
       newStateOptionElement.setAttribute("value", `${statesDataList[i].id}`);

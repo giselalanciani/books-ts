@@ -1,5 +1,4 @@
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
+import { Toast } from "bootstrap";
 import { ICategory } from "../../models/category";
 import { IClient } from "../../models/client";
 import { ICountry } from "../../models/country";
@@ -28,16 +27,16 @@ class CreateClientController {
       this.onClickCreateClientButton
     );
 
-    configureValidator("client-name", [{type: "required"}]);
-    configureValidator("email", [{type: "required"}]);
-    configureValidator("country", [{type: "required"}]);
-    configureValidator("state", [{type: "required"}]);
-    configureValidator("city", [{type: "required"}]);
-    configureValidator("street", [{type: "required"}]);
-    configureValidator("liked-categories", [{type: "required"}]);
+    configureValidator("client-name", [{ type: "required" }]);
+    configureValidator("email", [{ type: "required" }]);
+    configureValidator("country", [{ type: "required" }]);
+    configureValidator("state", [{ type: "required" }]);
+    configureValidator("city", [{ type: "required" }]);
+    configureValidator("street", [{ type: "required" }]);
+    configureValidator("liked-categories", [{ type: "required" }]);
   }
 
-  private onClickCreateClientButton = (event:Event) => {
+  private onClickCreateClientButton = (event: Event) => {
     event.preventDefault();
     if (this.validateCreateClientsForm() === true) {
       this.sendClientData();
@@ -51,7 +50,9 @@ class CreateClientController {
     this.renderStates(statesList);
   };
   private deleteStateSelectOptions() {
-    const stateSelectElement = <HTMLSelectElement>document.getElementById("state");
+    const stateSelectElement = <HTMLSelectElement>(
+      document.getElementById("state")
+    );
     const selectOptions = stateSelectElement.querySelectorAll("option");
     selectOptions.forEach((option) => {
       if (option.id === "select-state") {
@@ -81,6 +82,10 @@ class CreateClientController {
   }
 
   private sendClientData = async () => {
+    const toastModalElement = <HTMLDivElement>(
+      document.querySelector("#delete-toast")
+    );
+    const toast = new Toast(toastModalElement);
     try {
       const clientNameInputElement = <HTMLInputElement>(
         document.querySelector("[name='client-name']")
@@ -104,7 +109,9 @@ class CreateClientController {
         document.querySelector("[name='liked-categories']")
       );
 
-      const likedCategoriesList = getSelectValues(likedCategoriesSelectorElement);      
+      const likedCategoriesList = getSelectValues(
+        likedCategoriesSelectorElement
+      );
 
       const client: IClient = {
         id: "",
@@ -118,15 +125,22 @@ class CreateClientController {
       };
 
       await this.clientService.createClient(client);
-      alert("Los datos fueron guardados");
-      window.location.href = "/clients";
     } catch (error) {
       errorHandler("No se pudieron cargar los datos", error);
+    } finally {
+      if (toastModalElement !== null) {
+        toast.show();
+      }
+      setTimeout(() => {
+        window.location.href = "http://localhost:8080/clients/";
+      }, 1000);
     }
   };
 
   private renderCountries(countryDataList: ICountry[]) {
-    const countrySelectElement = <HTMLSelectElement>document.getElementById("country");
+    const countrySelectElement = <HTMLSelectElement>(
+      document.getElementById("country")
+    );
 
     const countryTemplateElement = <HTMLTemplateElement>(
       document.getElementById("country-create-template")
@@ -148,7 +162,9 @@ class CreateClientController {
     }
   }
   private renderStates(statesDataList: IState[]) {
-    const statesSelectElement = <HTMLSelectElement>document.getElementById("state");
+    const statesSelectElement = <HTMLSelectElement>(
+      document.getElementById("state")
+    );
 
     const statesOptionTemplateElement = <HTMLTemplateElement>(
       document.getElementById("states-option-template")
@@ -188,7 +204,10 @@ class CreateClientController {
       );
 
       newCategoryOptionElement.textContent = `${catergoriesDataList[i].name}`;
-      newCategoryOptionElement.setAttribute("value", `${catergoriesDataList[i].id}`);
+      newCategoryOptionElement.setAttribute(
+        "value",
+        `${catergoriesDataList[i].id}`
+      );
       categorySelectElement.append(newCategoryOptionElement);
     }
   }

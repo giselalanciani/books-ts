@@ -14,18 +14,46 @@
     </header>
 
     <main>
-      <form autocomplete="off" name="create-country-form"novalidate>
+      <form autocomplete="off" name="create-country-form" novalidate>
         <div class="field-container">
-          <label for="countryname"  class="form-label">Country name</label>
-          <input  class="form-control"type="text" name="countryname" /> 
-          <div class="invalid-feedback hidden" name="countryname-required">* Campo requerido</div>         
+          <label for="countryname" class="form-label">Country name</label>
+          <input class="form-control" type="text" name="countryname" />
+          <div class="invalid-feedback hidden" name="countryname-required">
+            * Campo requerido
+          </div>
         </div>
 
-        <button id="create-country-button" type="submit"class="btn btn-primary">Create</button>
+        <button
+          id="create-country-button"
+          type="submit"
+          class="btn btn-primary"
+        >
+          Create
+        </button>
       </form>
     </main>
 
     <template id="country-create-template"></template>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="delete-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Create</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data created succesfully.</div>
+      </div>
+    </div>
     <script src="/createCountryBundle.js"></script>
   </body>
 </html>

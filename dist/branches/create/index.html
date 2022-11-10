@@ -17,15 +17,15 @@
       <form autocomplete="off" name="create-user-form" novalidate>
         <div class="field-container">
           <label for="branchname" class="form-label">Branch name</label>
-          <input class="form-control"type="text" name="branchname" />
-          <div class="invalid-feedback hidden"name="branchname-required">
+          <input class="form-control" type="text" name="branchname" />
+          <div class="invalid-feedback hidden" name="branchname-required">
             * Campo requerido
           </div>
         </div>
 
         <div class="field-container">
           <label for="country" class="form-label">Country</label>
-          <select class="form-select"name="country" id="country">
+          <select class="form-select" name="country" id="country">
             <option value="">seleccione..</option>
           </select>
           <div class="invalid-feedback hidden" name="country-required">
@@ -34,8 +34,8 @@
         </div>
 
         <div class="field-container">
-          <label for="state"class="form-label">State</label>
-          <select class="form-select"name="state" id="state">
+          <label for="state" class="form-label">State</label>
+          <select class="form-select" name="state" id="state">
             <option id="select-state" value="">seleccione..</option>
           </select>
           <div class="invalid-feedback hidden" name="state-required">
@@ -45,19 +45,23 @@
 
         <div class="field-container">
           <label for="city" class="form-label">City</label>
-          <input class="form-control"type="text" name="city" />
-          <div class="invalid-feedback hidden" name="city-required">* Campo requerido</div>
+          <input class="form-control" type="text" name="city" />
+          <div class="invalid-feedback hidden" name="city-required">
+            * Campo requerido
+          </div>
         </div>
 
         <div class="field-container">
-          <label for="street"class="form-label">Street</label>
-          <input class="form-control"type="text" name="street" />
+          <label for="street" class="form-label">Street</label>
+          <input class="form-control" type="text" name="street" />
           <div class="invalid-feedback hidden" name="street-required">
             * Campo requerido
           </div>
         </div>
 
-        <button id="create-branch-button" type="submit" class="btn btn-primary">Create</button>
+        <button id="create-branch-button" type="submit" class="btn btn-primary">
+          Create
+        </button>
       </form>
     </main>
     <script src="/createBranchesBundle.js"></script>
@@ -68,5 +72,25 @@
     <template id="states-option-template">
       <option></option>
     </template>
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div
+        id="delete-toast"
+        class="toast hide text-white bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong class="me-auto">Create</strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="toast-body">Data created succesfully.</div>
+      </div>
+    </div>
   </body>
 </html>
