@@ -17,19 +17,31 @@ class UserService {
   }
 
   async logIn(credential: ICredential) {
-    const response = await fetch(`http://localhost:3000/api/user/sign-in`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(credential),
-    });
-    const userResponse: IToken = await response.json();
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/sign-in`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credential),
+      });
 
-    this.saveUserToken(userResponse);
-
-    return userResponse;
+      if (response.status === 200) {
+        const userResponse = await response.json();
+        this.saveUserToken(userResponse);
+        return userResponse;
+      } else {
+        const errorMessageObject = await response.json();
+        const error = new Error();
+        error.message = errorMessageObject;
+        error.name = "BACKEND_ERROR";
+        throw error;
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+    }
   }
 
   saveUserToken(token: IToken) {
