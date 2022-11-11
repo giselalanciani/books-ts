@@ -42,7 +42,6 @@ class LogInController {
           password: passwordInputElement.value,
         };
         const token = await this.userService.logIn(credentials);
-        console.log("IToken", token);
       } catch (error) {
         errorHandler("No se pudo hacer login", error);
       }
