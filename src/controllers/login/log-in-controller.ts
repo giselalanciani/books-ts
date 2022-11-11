@@ -7,11 +7,6 @@ import { validateFieldRequired } from "../../utils/validateFieldRequired";
 
 class LogInController {
   constructor(private userService: UserService) {
-    // const signInButton = <HTMLButtonElement>(
-    //   document.getElementById("sign-In-button")
-    // );
-    // signInButton.addEventListener("click", this.onClicksignInButton);
-
     const signInFormElememnt = <HTMLFormElement>(
       document.querySelector("[name='log-in-form']")
     );
@@ -48,10 +43,10 @@ class LogInController {
         };
         const token = await this.userService.logIn(credentials);
         console.log("IToken", token);
-      } catch (error) {        
+      } catch (error) {
         errorHandler("No se pudo hacer login", error);
       }
-    }    
+    }
   };
 
   private validateLogInForm() {
