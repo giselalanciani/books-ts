@@ -95,7 +95,7 @@
       var toastElList = [].slice.call(document.querySelectorAll(".toast"));
       var toastList = toastElList.map(function (toastEl) {
         return new bootstrap.Toast(toastEl);
-      });    
+      });
 
       const toastButtonElement = document.querySelector("#liveToastBtn");
       toastButtonElement.addEventListener("click", () => {
