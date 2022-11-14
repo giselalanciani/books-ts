@@ -1,4 +1,4 @@
-import { ICredential, IToken } from "../../models/login";
+import { ICredential } from "../../models/login";
 import { UserService } from "../../services/users-service";
 import { configureValidator } from "../../utils/configureValidator";
 import { errorHandler } from "../../utils/error-handler";
@@ -41,7 +41,9 @@ class LogInController {
           email: emailInputElement.value,
           password: passwordInputElement.value,
         };
+       
         const token = await this.userService.logIn(credentials);
+        window.location.href = "http://localhost:8080/";
       } catch (error) {
         errorHandler("No se pudo hacer login", error);
       }
